@@ -8,8 +8,11 @@ long hour = minute * 60;
 long lastReadingTime = 0;
 
 //long readingInterval = 1 * hour;
+//long readingInterval = 1 * minute;
 //long readingInterval = 5 * minute;
+//long readingInterval = 1 * second;
 long readingInterval = 3 * second;
+//long readingInterval = 15 * second;
 
 #define moisturePin 0
 #define sensorPowerPin 12
