@@ -18,8 +18,8 @@ int moistureLevel = 0;
 int moistureLevelRaw = 0;
 
 bool reverseSoilMoistureSensor = false;
-int wetReading = (reverseSoilMoistureSensor ? 0 : 1024);
-int dryReading = (reverseSoilMoistureSensor ? 1024 : 0);
+int dryReading = (reverseSoilMoistureSensor ? 0 : 1024);
+int wetReading = (reverseSoilMoistureSensor ? 1024 : 0);
 
 int flagAddress = 0;
 int dryReadingAddress = 2;
@@ -39,7 +39,7 @@ bool isDebug = false;
 #define SERIAL_MODE_CSV 3
 #define SERIAL_MODE_QUERYSTRING 4
 
-int serialMode = SERIAL_MODE_CALIBRATED;
+int serialMode = SERIAL_MODE_CSV;
 
 void setup()
 {
