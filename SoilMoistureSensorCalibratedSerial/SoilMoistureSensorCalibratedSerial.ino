@@ -45,8 +45,8 @@ int serialMode = SERIAL_MODE_CSV;
 
 void setup()
 {
-  //Serial.begin(9600);
-  Serial.begin(115200);
+  Serial.begin(9600);
+  //Serial.begin(115200);
 
   if (isDebug)
     Serial.println("Starting soil moisture sensor");
