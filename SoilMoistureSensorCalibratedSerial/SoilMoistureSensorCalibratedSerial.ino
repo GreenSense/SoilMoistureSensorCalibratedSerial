@@ -12,7 +12,6 @@ long lastReadingTime = 0;
 //long readingInterval = 5 * minute;
 //long readingInterval = 1 * second;
 long readingInterval = 3 * second;
-//long readingInterval = 15 * second;
 
 #define moisturePin 0
 #define sensorPowerPin 12
@@ -46,7 +45,8 @@ int serialMode = SERIAL_MODE_CSV;
 
 void setup()
 {
-  Serial.begin(9600);
+  //Serial.begin(9600);
+  Serial.begin(115200);
 
   if (isDebug)
     Serial.println("Starting soil moisture sensor");
@@ -77,7 +77,6 @@ void loop()
 /* Commands */
 void checkCommand()
 {
-  // TODO: Is this function still required now that calibration is completed using buttons?
   while (Serial.available() > 0)
   {
     char command = Serial.read();
@@ -107,15 +106,38 @@ void checkCommand()
 /* Readings */
 void takeReading()
 {
-  if (lastReadingTime + readingInterval < millis()
-      || lastReadingTime == 0)
+  bool sensorReadingIsDue = lastReadingTime + readingInterval < millis() || lastReadingTime == 0;
+
+  if (sensorReadingIsDue)
   {
-    if (!sensorIsOn && readingInterval > delayAfterTurningSensorOn)
+      if (isDebug)
+        Serial.println("Sensor reading is due");
+
+	bool sensorGetsTurnedOff = readingInterval > delayAfterTurningSensorOn;
+
+	bool sensorIsOffAndNeedsToBeTurnedOn = !sensorIsOn && sensorGetsTurnedOff;
+
+	bool postSensorOnDelayHasPast = lastSensorOnTime + delayAfterTurningSensorOn < millis();
+
+	bool sensorIsOnAndReady = sensorIsOn && (postSensorOnDelayHasPast || !sensorGetsTurnedOff);
+
+    if (isDebug)
+    {
+        Serial.print("Sensor gets turned off: ");
+        Serial.println(sensorGetsTurnedOff);
+        Serial.print("Sensor is off and needs to be turned on: ");
+        Serial.println(sensorIsOffAndNeedsToBeTurnedOn);
+        Serial.print("Post sensor on delay has past: ");
+        Serial.println(postSensorOnDelayHasPast);
+        Serial.print("Sensor is on and ready: ");
+        Serial.println(sensorIsOnAndReady);
+    }
+
+    if (sensorIsOffAndNeedsToBeTurnedOn)
     {
       sensorOn();
     }
-    else if (sensorIsOn && lastSensorOnTime + delayAfterTurningSensorOn < millis()
-             || readingInterval < delayAfterTurningSensorOn)
+    else if (sensorIsOnAndReady)
     {
       if (isDebug)
         Serial.println("Preparing to take reading");
@@ -169,25 +191,33 @@ void serialPrintData()
   if (lastSerialOutputTime + serialOutputInterval < millis()
       || lastSerialOutputTime == 0)
   {
+	long numberOfSecondsOnline = millis()/1000;
+
     if (serialMode == SERIAL_MODE_CSV)
     {
       Serial.print("D;"); // This prefix indicates that the line contains data.
-      Serial.print("Raw:");
+      Serial.print("T:");
+      Serial.print(numberOfSecondsOnline);
+      Serial.print(";");
+      Serial.print("R:");
       Serial.print(moistureLevelRaw);
       Serial.print(";");
-      Serial.print("Calibrated:");
+      Serial.print("C:");
       Serial.print(moistureLevel);
       Serial.print(";");
-      Serial.print("Dry:");
+      Serial.print("D:");
       Serial.print(dryReading);
       Serial.print(";");
-      Serial.print("Wet:");
+      Serial.print("W:");
       Serial.print(wetReading);
       Serial.print(";");
       Serial.println();
     }
     else if (serialMode == SERIAL_MODE_QUERYSTRING)
     {
+      Serial.print("time=");
+      Serial.print(numberOfSecondsOnline);
+      Serial.print("&");
       Serial.print("raw=");
       Serial.print(moistureLevelRaw);
       Serial.print("&");
