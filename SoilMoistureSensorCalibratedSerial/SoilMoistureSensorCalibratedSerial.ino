@@ -1,20 +1,17 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
-extern bool isDebugMode = false;
-
-
 long lastSerialOutputTime = 0;
 long serialOutputInterval = 3 * 1000;//soilMoistureSensorReadingInterval;
 
-/*#define SERIAL_MODE_CALIBRATED 1
+#define SERIAL_MODE_CALIBRATED 1
 #define SERIAL_MODE_RAW 2
 #define SERIAL_MODE_CSV 3
 #define SERIAL_MODE_QUERYSTRING 4
 
-int serialMode = SERIAL_MODE_CSV;*/
+int serialMode = SERIAL_MODE_CSV;
 
-
+#include "Common.h"
 #include "SoilMoistureSensor.h"
 
 void setup()
@@ -23,8 +20,8 @@ void setup()
   Serial.begin(9600);
   //Serial.begin(115200);
 
-  //if (isDebug)
-  //  Serial.println("Starting soil moisture sensor");
+  if (isDebugMode)
+    Serial.println("Starting soil moisture sensor");
 
   setupSoilMoistureSensor();
 }
@@ -73,7 +70,7 @@ void checkCommand()
 /* Serial Output */
 void serialPrintData()
 {
-  /*if (lastSerialOutputTime + serialOutputInterval < millis()
+  if (lastSerialOutputTime + serialOutputInterval < millis()
       || lastSerialOutputTime == 0)
   {
 	long numberOfSecondsOnline = millis()/1000;
@@ -126,5 +123,5 @@ void serialPrintData()
 	}
 
     lastSerialOutputTime = millis();
-  }*/
+  }
 }
