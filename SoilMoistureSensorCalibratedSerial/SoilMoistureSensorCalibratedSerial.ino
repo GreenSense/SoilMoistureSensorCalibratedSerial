@@ -14,6 +14,8 @@ int serialMode = SERIAL_MODE_CSV;
 #include "Common.h"
 #include "SoilMoistureSensor.h"
 
+int loopNumber = 0;
+
 void setup()
 {
   
@@ -28,11 +30,31 @@ void setup()
 
 void loop()
 {
+  loopNumber++;
+
+	if (isDebugMode)
+  {
+    Serial.println("==============================");
+    Serial.print("===== Start Loop: ");
+    Serial.println(loopNumber);
+    Serial.println("==============================");
+  }
+
   checkCommand();
 
   takeSoilMoistureSensorReading();
 
   serialPrintData();
+
+	if (isDebugMode)
+  {
+    Serial.println("==============================");
+    Serial.print("===== End Loop: ");
+    Serial.println(loopNumber);
+    Serial.println("==============================");
+    Serial.println("");
+    Serial.println("");
+  }
 
   delay(1);
 }
@@ -49,23 +71,29 @@ void checkCommand()
     switch (command)
     {
       case 'D':
-       // lastSoilMoistureSensorReadingTime = 0;
-     //   takeSoilMoistureSensorReading();
-    //    setDrySoilMoistureCalibrationValue(soilMoistureLevelRaw);
+        setDrySoilMoistureCalibrationValueToCurrent();
         break;
-    /*  case 'W':
-        lastSoilMoistureSensorReadingTime = 0;
-        takeSoilMoistureSensorReading();
-        setWetSoilMoistureCalibrationValue(soilMoistureLevelRaw);
+      case 'W':
+        setWetSoilMoistureCalibrationValueToCurrent();
+        break;
+      case 'X':
+        restoreDefaultSettings();
         break;
       case 'Z':
         Serial.println("Toggling IsDebug");
         isDebugMode = !isDebugMode;
-        break;*/
+        break;
     }
   }
 }
 
+/* Settings */
+void restoreDefaultSettings()
+{
+  Serial.println("Restoring default settings");
+
+  restoreDefaultCalibrationSettings();
+}
 
 /* Serial Output */
 void serialPrintData()

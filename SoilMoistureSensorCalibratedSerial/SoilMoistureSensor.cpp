@@ -12,20 +12,21 @@ bool soilMoistureSensorIsOn = true;
 long lastSensorOnTime = 0;
 int delayAfterTurningSensorOn = 3 * 1000;
 
-int soilMoistureSensorIsCalibratedFlagAddress = 0;
-int drySoilMoistureCalibrationValueAddress = 2;
-int wetSoilMoistureCalibrationValueAddress = 3;
-
-bool reverseSoilMoistureSensor = false;
-
-long lastSoilMoistureSensorReadingTime;
+long lastSoilMoistureSensorReadingTime = 0;
 long soilMoistureSensorReadingInterval = 3 * 1000;
 
 int soilMoistureLevelCalibrated = 0;
 int soilMoistureLevelRaw = 0;
 
-int drySoilMoistureCalibrationValue = 0;
-int wetSoilMoistureCalibrationValue = 0;
+bool reverseSoilMoistureSensor = false;
+//int drySoilMoistureCalibrationValue = 1024;
+int drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1024);
+//int wetSoilMoistureCalibrationValue = 0;
+int wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1024 : 0);
+
+int soilMoistureSensorIsCalibratedFlagAddress = 0;
+int drySoilMoistureCalibrationValueAddress = 2;
+int wetSoilMoistureCalibrationValueAddress = 3;
 
 /* Setup */
 void setupSoilMoistureSensor()
@@ -161,34 +162,62 @@ double calculateSoilMoistureLevel(int soilMoistureSensorReading)
 /* Calibration */
 void setupCalibrationValues()
 {
-  drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1024);
-  wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1024 : 0);
+  bool eepromIsSet = EEPROM.read(soilMoistureSensorIsCalibratedFlagAddress) == 99;
+
+  if (eepromIsSet)
+  {
+    if (isDebugMode)
+    	Serial.println("EEPROM calibration values have been set. Loading.");
+
+    drySoilMoistureCalibrationValue = getDrySoilMoistureCalibrationValue();
+    wetSoilMoistureCalibrationValue = getWetSoilMoistureCalibrationValue();
+  }
+  else
+  {
+    if (isDebugMode)
+      Serial.println("EEPROM calibration values have not been set. Using defaults.");
+    
+    setDrySoilMoistureCalibrationValue(drySoilMoistureCalibrationValue);
+    setWetSoilMoistureCalibrationValue(wetSoilMoistureCalibrationValue);
+  }
 }
 
-void setDrySoilMoistureCalibrationValue(int drySoilMoistureCalibrationValue)
+void setDrySoilMoistureCalibrationValueToCurrent()
 {
-  if (isDebugMode)
-  {
-    Serial.print("Setting dry calibration value to EEPROM: ");
-    Serial.println(drySoilMoistureCalibrationValue);
-  }
+  lastSoilMoistureSensorReadingTime = 0;
+  takeSoilMoistureSensorReading();
+  setDrySoilMoistureCalibrationValue(soilMoistureLevelRaw);
+}
+
+void setDrySoilMoistureCalibrationValue(int newValue)
+{
+  Serial.print("Setting dry soil moisture sensor calibration value: ");
+  Serial.println(newValue);
+
+  drySoilMoistureCalibrationValue = newValue;
   
-  int compactValue = drySoilMoistureCalibrationValue / 4;
+  int compactValue = newValue / 4;
 
   EEPROM.write(drySoilMoistureCalibrationValueAddress, compactValue); // Must divide by 4 to make it fit in eeprom
 
   setEEPROMIsCalibratedFlag();
 }
 
-void setWetSoilMoistureCalibrationValue(int wetSoilMoistureCalibrationValue)
+void setWetSoilMoistureCalibrationValueToCurrent()
 {
-  if (isDebugMode)
-  {
-    Serial.print("Setting wet calibration value to EEPROM: ");
-    Serial.println(wetSoilMoistureCalibrationValue);
-  }
+  lastSoilMoistureSensorReadingTime = 0;
+  takeSoilMoistureSensorReading();
+  setWetSoilMoistureCalibrationValue(soilMoistureLevelRaw);
+}
 
-  int compactValue = wetSoilMoistureCalibrationValue / 4;
+void setWetSoilMoistureCalibrationValue(int newValue)
+{
+  Serial.print("Setting wet soil moisture sensor calibration value: ");
+  Serial.println(newValue);
+
+  wetSoilMoistureCalibrationValue = newValue;
+
+  int compactValue = newValue / 4;
 
   EEPROM.write(wetSoilMoistureCalibrationValueAddress, compactValue); // Must divide by 4 to make it fit in eeprom
   
@@ -235,4 +264,20 @@ void setEEPROMIsCalibratedFlag()
 {
   if (EEPROM.read(soilMoistureSensorIsCalibratedFlagAddress) != 99)
     EEPROM.write(soilMoistureSensorIsCalibratedFlagAddress, 99);
+}
+
+void removeEEPROMIsCalibratedFlag()
+{
+    EEPROM.write(soilMoistureSensorIsCalibratedFlagAddress, 0);
+}
+
+void restoreDefaultCalibrationSettings()
+{
+  removeEEPROMIsCalibratedFlag();
+
+  drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1024);
+  wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1024 : 0);
+
+  setDrySoilMoistureCalibrationValue(drySoilMoistureCalibrationValue);
+  setWetSoilMoistureCalibrationValue(wetSoilMoistureCalibrationValue);
 }

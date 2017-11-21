@@ -26,8 +26,22 @@ double calculateSoilMoistureLevel(int soilMoistureSensorReading);
 
 void setEEPROMIsCalibratedFlag();
 
+void setDrySoilMoistureCalibrationValueToCurrent();
+
 void setDrySoilMoistureCalibrationValue(int drySoilMoistureCalibrationValue);
 
+void setWetSoilMoistureCalibrationValueToCurrent();
+
 void setWetSoilMoistureCalibrationValue(int wetSoilMoistureCalibrationValue);
+
+int getDrySoilMoistureCalibrationValue();
+
+int getWetSoilMoistureCalibrationValue();
+
+void setEEPROMIsCalibratedFlag();
+
+void removeEEPROMIsCalibratedFlag();
+
+void restoreDefaultCalibrationSettings();
 #endif
 /* SOILMOISTURESENSOR_H_ */
