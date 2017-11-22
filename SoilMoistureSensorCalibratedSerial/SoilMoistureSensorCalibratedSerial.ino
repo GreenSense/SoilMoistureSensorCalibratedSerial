@@ -1,8 +1,12 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
+#include "Common.h"
+#include "SoilMoistureSensor.h"
+
 long lastSerialOutputTime = 0;
-long serialOutputInterval = 3 * 1000;//soilMoistureSensorReadingInterval;
+long serialOutputInterval = soilMoistureSensorReadingInterval;
+//long serialOutputInterval = 1;
 
 #define SERIAL_MODE_CALIBRATED 1
 #define SERIAL_MODE_RAW 2
@@ -11,8 +15,6 @@ long serialOutputInterval = 3 * 1000;//soilMoistureSensorReadingInterval;
 
 int serialMode = SERIAL_MODE_CSV;
 
-#include "Common.h"
-#include "SoilMoistureSensor.h"
 
 int loopNumber = 0;
 
@@ -79,8 +81,11 @@ void checkCommand()
       case 'X':
         restoreDefaultSettings();
         break;
+      case 'R':
+        reverseSoilMoistureCalibrationValues();
+        break;
       case 'Z':
-        Serial.println("Toggling IsDebug");
+        Serial.println("Toggling isDebugMode");
         isDebugMode = !isDebugMode;
         break;
     }
@@ -98,10 +103,14 @@ void restoreDefaultSettings()
 /* Serial Output */
 void serialPrintData()
 {
-  if (lastSerialOutputTime + serialOutputInterval < millis()
-      || lastSerialOutputTime == 0)
+  bool isTimeToPrintData = lastSerialOutputTime + serialOutputInterval < millis()
+      || lastSerialOutputTime == 0;
+
+  bool isReadyToPrintData = isTimeToPrintData && soilMoistureSensorReadingHasBeenTaken;
+
+  if (isReadyToPrintData)
   {
-	long numberOfSecondsOnline = millis()/1000;
+	  long numberOfSecondsOnline = millis()/1000;
 
     if (serialMode == SERIAL_MODE_CSV)
     {
