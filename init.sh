@@ -1,2 +1,4 @@
-# LiquidCrystal
-pio lib install LiquidCrystal_I2C
+DIR=$PWD
+cd tests/lib
+sh get-libs.sh
+cd $DIR
