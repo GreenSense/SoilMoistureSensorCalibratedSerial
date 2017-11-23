@@ -95,5 +95,10 @@ else
 fi
 
 
-echo "Test completed successfully!"
-echo "----------------------------------------"
+if [ $? -eq 0 ]; then
+  echo "Test completed successfully!"
+  echo "----------------------------------------"
+else
+  echo "Test failed"
+  exit 1
+fi
