@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh 'sudo sh prepare.sh'
+                sh '# Skip prepare # sudo sh prepare.sh'
             }
         }
         stage('Build') {
             steps {
-                sh 'build.sh'
+                sh 'sh build.sh'
             }
         }
         stage('Test') {
