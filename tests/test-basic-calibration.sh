@@ -78,7 +78,7 @@ do
   then
       echo "Raw: $var2"
 
-      if [ "$var2" -gt 4 ];then
+      if [ "$var2" -gt 6 ];then
         echo "Invalid result";
         exit 1;
       fi
