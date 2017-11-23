@@ -22,5 +22,10 @@ pipeline {
                 sh 'sh upload.sh'
             }
         }
+        stage('Test') {
+            steps {
+                sh 'sh test.sh'
+            }
+        }
     }
 }

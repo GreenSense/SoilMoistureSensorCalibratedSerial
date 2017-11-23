@@ -5,13 +5,11 @@ echo "Starting basic calibration test"
 
 echo "Sending 255"
 
-./lib/arduino-serial/arduino-serial --baud=9600 --port=/dev/ttyUSB1 --sendline="255"
+./lib/arduino-serial/arduino-serial --baud=9600 --port=/dev/ttyUSB1 --sendline="255" &&
 
-#sleep 2
+OUT=$(./lib/arduino-serial/arduino-serial --baud=9600 --port=/dev/ttyUSB0 -q -r) &&
 
-OUT=$(./lib/arduino-serial/arduino-serial --baud=9600 --port=/dev/ttyUSB0 -q -r)
-
-echo $OUT
+echo $OUT &&
 
 for pair in $(echo $OUT | sed "s/;/ /g")
 do
@@ -43,16 +41,19 @@ do
 
 done
 
-echo "Test section completed!"
-echo ""
+if [ $? -eq 0 ]; then
+  echo "Test section completed!"
+  echo ""
+else
+  echo "Test section failed"
+  exit 1
+fi
 
 echo "Sending 0"
 
-./lib/arduino-serial/arduino-serial --baud=9600 --port=/dev/ttyUSB1 --sendline="0"
+./lib/arduino-serial/arduino-serial --baud=9600 --port=/dev/ttyUSB1 --sendline="0" &&
 
-#sleep 1
-
-OUT=$(./lib/arduino-serial/arduino-serial --baud=9600 --port=/dev/ttyUSB0 -q -r)
+OUT=$(./lib/arduino-serial/arduino-serial --baud=9600 --port=/dev/ttyUSB0 -q -r) &&
 
 echo $OUT
 
@@ -85,8 +86,14 @@ do
 
 done
 
-echo "Test section completed!"
-echo ""
+if [ $? -eq 0 ]; then
+  echo "Test section completed!"
+  echo ""
+else
+  echo "Test section failed"
+  exit 1
+fi
+
 
 echo "Test completed successfully!"
 echo "----------------------------------------"
