@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh './prepare.sh'
+                sudo sh './prepare.sh'
             }
         }
         stage('Build') {
