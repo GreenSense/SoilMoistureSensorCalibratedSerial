@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh('prepare.sh')
+                sh 'prepare.sh'
             }
         }
         stage('Build') {
             steps {
-                sh('build.sh')
+                sh 'build.sh'
             }
         }
         stage('Test') {
