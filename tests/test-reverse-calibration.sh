@@ -36,7 +36,7 @@ do
       echo "Raw: $var2"
 
 
-      if [ "$var2" -gt 2 ];then
+      if [ "$var2" -gt 5 ];then
         echo "Invalid result";
         exit 1;
       fi
@@ -95,12 +95,17 @@ done
 
 if [ $? -eq 0 ]; then
   echo "Test section completed!"
-  echo ""
 else
   echo "Test section failed"
   exit 1
 fi
 
+echo ""
 
-echo "Test completed successfully!"
-echo "----------------------------------------"
+if [ $? -eq 0 ]; then
+  echo "Test completed successfully!"
+  echo "----------------------------------------"
+else
+  echo "Test failed"
+  exit 1
+fi

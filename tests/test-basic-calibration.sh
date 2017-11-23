@@ -88,12 +88,12 @@ done
 
 if [ $? -eq 0 ]; then
   echo "Test section completed!"
-  echo ""
 else
   echo "Test section failed"
   exit 1
 fi
 
+echo ""
 
 if [ $? -eq 0 ]; then
   echo "Test completed successfully!"
