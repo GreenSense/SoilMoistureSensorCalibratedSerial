@@ -17,14 +17,9 @@ pipeline {
                 sh 'sh build.sh'
             }
         }
-        stage('Test') {
+        stage('Upload') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'sh upload.sh'
             }
         }
     }
