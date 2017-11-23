@@ -7,6 +7,11 @@ pipeline {
                 sh '# Skip prepare # sudo sh prepare.sh'
             }
         }
+        stage('Init') {
+            steps {
+                sh 'sh init.sh'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'sh build.sh'
