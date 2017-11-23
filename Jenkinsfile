@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh '#sh prepare.sh'
+                sh 'sh prepare.sh'
             }
         }
         stage('Init') {
