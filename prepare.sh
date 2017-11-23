@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Note: You may need to run this script with sudo
 
 sudo apt update &&
