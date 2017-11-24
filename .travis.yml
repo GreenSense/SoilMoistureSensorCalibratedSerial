@@ -3,7 +3,7 @@ sudo: required
 language: python
 
 install:
-  - sh prepare.sh
+  - sudo sh prepare.sh
 
 script:
   - sh build.sh
