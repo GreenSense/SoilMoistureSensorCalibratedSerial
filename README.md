@@ -77,3 +77,11 @@ sh monitor-serial.sh
 ```
 
 Press CTRL+C to close the serial monitor.
+
+## Run Automated Tests
+With the automated test hardware connected run the test script:
+
+```
+sudo sh test.sh
+```
+
