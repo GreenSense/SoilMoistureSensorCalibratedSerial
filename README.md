@@ -1,7 +1,7 @@
 # SoilMoistureSensorCalibratedSerial
 A sketch for a calibrated arduino soil moisture sensor which outputs data via serial.
 
-![Build Status](http://greensense.ddns.net:5080/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/master/badge/icon)
+[![Build Status](http://greensense.ddns.net:5080/job/GreenSense/SoilMoistureSensorCalibratedSerial/master/badge/icon)](http://greensense.ddns.net:5080/job/GreenSense/SoilMoistureSensorCalibratedSerial/master)
 
 
 Choose one of the following ways to clone the repository...
