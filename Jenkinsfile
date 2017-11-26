@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh 'sh prepare.sh'
+                sh 'echo "Skipping prepare.sh script call to speed up tests. Prerequisites should already be installed. # sh prepare.sh'
             }
         }
         stage('Init') {
