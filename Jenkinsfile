@@ -24,6 +24,11 @@ pipeline {
                 sh 'sh upload.sh'
             }
         }
+        stage('Upload simulator') {
+            steps {
+                sh 'sh upload-simulator.sh'
+            }
+        }
         stage('Test') {
             steps {
                 sh 'sh test.sh'
