@@ -33,7 +33,7 @@
       <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="duinocom">
-      <HintPath>..\..\lib\ArduinoSerialControllerClient\lib\duinocom\bin\Release\duinocom.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoSerialControllerClient\lib\duinocom.core\bin\Release\duinocom.core.dll</HintPath>
     </Reference>
     <Reference Include="duinocom">
       <HintPath>..\..\lib\ArduinoSerialControllerClient\bin\Release\ArduinoSerialControllerClient.dll</HintPath>

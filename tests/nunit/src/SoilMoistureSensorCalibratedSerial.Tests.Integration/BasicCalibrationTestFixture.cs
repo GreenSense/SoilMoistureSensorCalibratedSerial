@@ -3,7 +3,7 @@ using NUnit.Framework;
 using duinocom;
 using System.Threading;
 using ArduinoSerialControllerClient;
-using System.Collections.Generic  ;
+using System.Collections.Generic;
 
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
@@ -35,14 +35,14 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
       Console.WriteLine("Starting calibration test");
       Console.WriteLine("");
       
-      DuinoCommunicator soilMoistureMonitor = null;
+      SerialClient soilMoistureMonitor = null;
       ArduinoSerialDevice soilMoistureSimulator = null;
       
       int percentageValue = soilMoisturePercentage;
       
       try
       {
-        soilMoistureMonitor = new DuinoCommunicator("/dev/ttyUSB0", 9600);
+        soilMoistureMonitor = new SerialClient("/dev/ttyUSB0", 9600);
         soilMoistureSimulator = new ArduinoSerialDevice("/dev/ttyUSB1", 9600);
       
         soilMoistureMonitor.Open();
