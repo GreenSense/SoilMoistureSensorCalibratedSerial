@@ -3,6 +3,6 @@ cd tests/lib
 sh get-libs.sh &&
 cd $DIR
 
-cd tests/nunit/ArduinoSerialControllerClient
+cd tests/nunit
 sh init.sh &&
 cd $DIR

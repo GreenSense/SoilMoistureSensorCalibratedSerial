@@ -1,1 +1,0 @@
-sh get-libs.sh
