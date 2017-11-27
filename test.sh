@@ -1,6 +1,6 @@
 DIR=$PWD
 
-cd tests
+cd tests/nunit/
 sh test-all.sh &&
 
 cd $DIR
