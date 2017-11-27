@@ -6,7 +6,7 @@ DIR=$PWD
 
 # Note: You may need to run this script with sudo
 
-git submodule update --init
+git submodule update --init --recursive
 
 sudo apt-get update
 
