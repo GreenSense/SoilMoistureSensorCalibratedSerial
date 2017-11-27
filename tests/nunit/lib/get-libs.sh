@@ -16,5 +16,4 @@ mono nuget.exe install nunit.runners -version 2.6.4
 git clone http://github.com/CompulsiveCoder/ArduinoSerialControllerClient.git
 cd ArduinoSerialControllerClient
 sh init.sh &&
-sh build.sh &&
-
+sh build.sh
