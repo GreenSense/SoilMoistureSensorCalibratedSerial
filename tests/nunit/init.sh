@@ -1,8 +1,5 @@
 DIR=$PWD
 
-git clone http://github.com/CompulsiveCoder/duinocom.git lib/duinocom
-cd lib/duinocom
-sh init.sh &&
-sh build.sh &&
-
+cd lib
+sh get-libs.sh &&
 cd $DIR
