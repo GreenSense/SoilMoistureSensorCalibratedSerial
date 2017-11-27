@@ -11,9 +11,9 @@ mkdir -p $SIMULATOR_TMP_DIR
 cd $SIMULATOR_TMP_DIR
 
 # Clone the latest version
-git clone https://github.com/CompulsiveCoder/SerialToPWM.git
+git clone https://github.com/CompulsiveCoder/ArduinoSerialController.git
 
-cd SerialToPWM
+cd ArduinoSerialController
 
 # Upload to USB1
 sudo sh upload-to-port.sh "/dev/ttyUSB1"
