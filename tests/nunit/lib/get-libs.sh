@@ -13,7 +13,7 @@ fi
 mono nuget.exe install nunit -version 2.6.4
 mono nuget.exe install nunit.runners -version 2.6.4
 
-git clone http://gitub.com/CompulsiveCoder/duinocom.git
+git clone http://github.com/CompulsiveCoder/duinocom.git
 cd duinocom
 sh init.sh &&
 sh build.sh
