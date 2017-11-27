@@ -7,7 +7,7 @@ NUGET_FILE="nuget.exe"
 
 if [ ! -f "$NUGET_FILE" ];
 then
-    curl -0 http://nuget.org/nuget.exe
+    curl -0 http://www.nuget.org/nuget.exe
 fi
 
 mono nuget.exe install nunit -version 2.6.4
