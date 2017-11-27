@@ -3,6 +3,7 @@ pipeline {
     triggers {
         pollSCM 'H/30 * * * *'
     }
+    deleteDir()
     stages {
         stage('Prepare') {
             steps {
