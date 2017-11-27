@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Preparing for SoilMoistureSensorCalibratedSerial project"
+
 DIR=$PWD
 
 # Note: You may need to run this script with sudo
