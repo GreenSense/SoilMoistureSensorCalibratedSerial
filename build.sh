@@ -1,6 +1,11 @@
 #!/bin/bash
 
+DIR=$PWD
+
+pio run && \
+
 cd tests/nunit && \
 sh build.sh && \
 
-pio run
+cd $DIR
+
