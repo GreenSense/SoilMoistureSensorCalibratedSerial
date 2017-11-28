@@ -65,13 +65,16 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
         Console.WriteLine("");
         Console.WriteLine("Reading data from soil moisture monitor");
         
-        var outputLine = soilMoistureMonitor.Read();
+        var output = soilMoistureMonitor.Read();
         
-        Console.WriteLine(outputLine);
+        Console.WriteLine(output);
         Console.WriteLine("");
-        
+
+        var outputLine = FindLastDataLine(output);
+
+        Assert.IsNotNullOrEmpty(outputLine, "No output data detected");        
+
         var data = ParseOutputLine(outputLine);
-        
         
         Console.WriteLine("");
         Console.WriteLine("Checking calibrated value");
@@ -148,5 +151,17 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		  
 		  return outputLine.StartsWith(dataPrefix);
 		}
+
+    public string FindLastDataLine(string output)
+    {
+      var lastDataLine = String.Empty;
+      foreach (var line in output.Split('\n'))
+      {
+        if (IsValidOutputLine(line))
+          lastDataLine = line;
+      }
+
+      return lastDataLine;
+    }
 	}
 }
