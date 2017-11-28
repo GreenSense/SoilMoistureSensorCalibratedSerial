@@ -51,7 +51,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
         Thread.Sleep(2000);
 
         // Reset defaults on the board
-        soilMoistureMonitor.WriteLine("R");
+        soilMoistureMonitor.WriteLine("X");
+
+        Thread.Sleep(1000);
         
         Console.WriteLine("");
         Console.WriteLine("Sending percentage to simulator: " + percentageValue);
