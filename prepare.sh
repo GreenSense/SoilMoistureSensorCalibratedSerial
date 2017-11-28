@@ -21,6 +21,6 @@ if ! type "pio" > /dev/null; then
   sudo python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/develop/scripts/get-platformio.py)"
 fi
 
-cd tests/nunit/lib/ArduinoSerialControllerClient
-sudo sh prepare.sh
+cd tests/nunit && \
+sudo sh prepare.sh && \
 cd $DIR

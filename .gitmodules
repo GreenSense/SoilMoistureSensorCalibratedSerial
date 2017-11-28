@@ -1,3 +1,0 @@
-[submodule "tests/nunit/lib/ArduinoSerialControllerClient"]
-	path = tests/nunit/lib/ArduinoSerialControllerClient
-	url = https://github.com/CompulsiveCoder/ArduinoSerialControllerClient.git
