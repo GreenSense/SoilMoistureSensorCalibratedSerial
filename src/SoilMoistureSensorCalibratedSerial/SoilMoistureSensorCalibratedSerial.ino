@@ -15,7 +15,6 @@ long serialOutputInterval = soilMoistureSensorReadingInterval;
 
 int serialMode = SERIAL_MODE_CSV;
 
-
 int loopNumber = 0;
 
 void setup()
@@ -34,7 +33,7 @@ void loop()
 {
   loopNumber++;
 
-	if (isDebugMode)
+  if (isDebugMode)
   {
     Serial.println("==============================");
     Serial.print("===== Start Loop: ");
@@ -48,7 +47,7 @@ void loop()
 
   serialPrintData();
 
-	if (isDebugMode)
+  if (isDebugMode)
   {
     Serial.println("==============================");
     Serial.print("===== End Loop: ");

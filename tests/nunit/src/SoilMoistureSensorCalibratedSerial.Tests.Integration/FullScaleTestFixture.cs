@@ -9,29 +9,26 @@ using System.IO;
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
 	[TestFixture(Category="Integration")]
-	public class BasicCalibrationTestFixture : BaseTestFixture
+	public class FullScaleTestFixture : BaseTestFixture
 	{
 		[Test]
-		public void Test_CalibrationAt0Percent()
+		public void Test_Complete()
 		{
-		  RunCalibrationTest(0, CalibrationIsReversedByDefault);
-		}
-		
-		[Test]
-		public void Test_CalibrationAt50Percent()
-		{
-		  RunCalibrationTest(50, CalibrationIsReversedByDefault);
-		}
-		
-		[Test]
-		public void Test_CalibrationAt100Percent()
-		{
-		  RunCalibrationTest(100, CalibrationIsReversedByDefault);
+            for (int i = 100; i > 0; i-=10)
+            {
+                RunCalibrationTest(i, CalibrationIsReversedByDefault);
+            }
+            
+            for (int i = 0; i < 100 0; i+=10)
+            {
+                RunCalibrationTest(i, CalibrationIsReversedByDefault);
+            }
 		}
 		
 		public void RunCalibrationTest(int soilMoisturePercentage, bool calibrationIsReversed)
 		{
 		
+          Console.WriteLine("");
           Console.WriteLine("==============================");
           Console.WriteLine("Starting calibration test");
           Console.WriteLine("");
@@ -49,15 +46,14 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
             soilMoistureMonitor.Open();
             soilMoistureSimulator.Connect();
             
-            Thread.Sleep(2000);            
+            Thread.Sleep(2000);
+            
             Console.WriteLine("");
             Console.WriteLine("Sending percentage to simulator: " + percentageValue);
             
             soilMoistureSimulator.AnalogWritePercentage(9, percentageValue);
             
-            Console.WriteLine("Waiting for value to settle...");
-            
-            Thread.Sleep(5000);
+            Thread.Sleep(4000);
             
             Console.WriteLine("");
             Console.WriteLine("Reading data from soil moisture monitor");
@@ -77,7 +73,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
             if (calibrationIsReversed)
               expectedCalibratedValue = ArduinoConvert.ReversePercentage(percentageValue);
             
-            var calibratedValueIsWithinRange = IsWithinRange(expectedCalibratedValue, data["C"], 5);
+            var calibratedValueIsWithinRange = IsWithinRange(expectedCalibratedValue, data["C"], 6);
             
             Assert.IsTrue(calibratedValueIsWithinRange, "Invalid value for 'C' (calibrated value).");
             
@@ -86,7 +82,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
             
             var expectedRawValue = ArduinoConvert.PercentageToAnalog(percentageValue);
             
-            var rawValueIsWithinRange = IsWithinRange(expectedRawValue, data["R"], 50);
+            var rawValueIsWithinRange = IsWithinRange(expectedRawValue, data["R"], 60);
             
             Assert.IsTrue(rawValueIsWithinRange, "Invalid value for 'R' (raw value).");
           }
@@ -106,6 +102,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
           Console.WriteLine("");
           Console.WriteLine("Finished calibration test");
           Console.WriteLine("==============================");
+          Console.WriteLine("");
 		}
 		
 		public Dictionary<string, int> ParseOutputLine(string outputLine)
