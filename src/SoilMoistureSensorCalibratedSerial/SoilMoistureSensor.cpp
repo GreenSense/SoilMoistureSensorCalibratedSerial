@@ -22,9 +22,9 @@ int soilMoistureLevelRaw = 0;
 
 bool reverseSoilMoistureSensor = false;
 //int drySoilMoistureCalibrationValue = 1024;
-int drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1024);
+int drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1023);
 //int wetSoilMoistureCalibrationValue = 0;
-int wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1024 : 0);
+int wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1023 : 0);
 
 int soilMoistureSensorIsCalibratedFlagAddress = 0;
 int drySoilMoistureCalibrationValueAddress = 2;

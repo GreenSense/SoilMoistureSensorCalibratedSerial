@@ -79,7 +79,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
       
       soilMoistureSimulator.AnalogWritePercentage(9, percentageValue);
       
-      Thread.Sleep(6000);
+      Thread.Sleep(10000);
       
       Console.WriteLine("");
       Console.WriteLine("Reading data from soil moisture monitor");
@@ -99,7 +99,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
       if (calibrationIsReversed)
         expectedCalibratedValue = ArduinoConvert.ReversePercentage(percentageValue);
       
-      var calibratedValueIsWithinRange = IsWithinRange(expectedCalibratedValue, data["C"], 6);
+      var calibratedValueIsWithinRange = IsWithinRange(expectedCalibratedValue, data["C"], 8);
       
       Assert.IsTrue(calibratedValueIsWithinRange, "Invalid value for 'C' (calibrated value).");
       
@@ -108,7 +108,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
       
       var expectedRawValue = ArduinoConvert.PercentageToAnalog(percentageValue);
       
-      var rawValueIsWithinRange = IsWithinRange(expectedRawValue, data["R"], 60);
+      var rawValueIsWithinRange = IsWithinRange(expectedRawValue, data["R"], 80);
       
       Assert.IsTrue(rawValueIsWithinRange, "Invalid value for 'R' (raw value).");
       
