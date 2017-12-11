@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>SoilMoistureSensorCalibratedSerial.Tests.Integration</RootNamespace>
     <AssemblyName>SoilMoistureSensorCalibratedSerial.Tests.Integration</AssemblyName>
-    <TargetFrameworkVersion>v5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,10 +33,10 @@
       <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="duinocom">
-      <HintPath>..\..\lib\ArduinoSerialControllerClient\lib\duinocom\bin\Release\duinocom.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.0.6\lib\net40\duinocom.core.dll</HintPath>
     </Reference>
-    <Reference Include="duinocom">
-      <HintPath>..\..\lib\ArduinoSerialControllerClient\bin\Release\ArduinoSerialControllerClient.dll</HintPath>
+    <Reference Include="ArduinoSerialControllerClient">
+      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.0.6\lib\net40\ArduinoSerialControllerClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

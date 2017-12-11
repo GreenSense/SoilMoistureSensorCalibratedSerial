@@ -27,17 +27,18 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public bool IsWithinRange(int expectedValue, int actualValue, int allowableMarginOfError)
 		{
 			Console.WriteLine("Checking value is within range...");
-			Console.WriteLine("Expected value: " + expectedValue);
-			Console.WriteLine("Actual value: " + actualValue);
-			Console.WriteLine("Allowable margin of error: " + allowableMarginOfError);
+			Console.WriteLine("  Expected value: " + expectedValue);
+			Console.WriteLine("  Actual value: " + actualValue);
+			Console.WriteLine("");
+			Console.WriteLine("  Allowable margin of error: " + allowableMarginOfError);
 			
 			var minAllowableValue = expectedValue-allowableMarginOfError;
 			if (minAllowableValue < 0)
 				minAllowableValue = 0;
 			var maxAllowableValue = expectedValue+allowableMarginOfError;
 			
-			Console.WriteLine("Max allowable value: " + maxAllowableValue);
-			Console.WriteLine("Min allowable value: " + minAllowableValue);
+			Console.WriteLine("  Max allowable value: " + maxAllowableValue);
+			Console.WriteLine("  Min allowable value: " + minAllowableValue);
 			
 			var isWithinRange = actualValue <= maxAllowableValue &&
 				actualValue >= minAllowableValue;

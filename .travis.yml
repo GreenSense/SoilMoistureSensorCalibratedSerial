@@ -7,4 +7,4 @@ install:
   - sh init.sh
 
 script:
-  - sh build.sh
+  - sh build-all.sh

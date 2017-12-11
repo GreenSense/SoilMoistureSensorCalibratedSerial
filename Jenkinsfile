@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'sh build.sh'
+                sh 'sh build-all.sh'
             }
         }
         stage('Upload') {
