@@ -32,6 +32,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         Thread.Sleep(5000);
 
+	// Reset defaults
+	soilMoistureMonitor.WriteLine("X");
+
         for (int i = 100; i > 0; i-=10)
         {
             RunCalibrationTest(i, CalibrationIsReversedByDefault, soilMoistureMonitor, soilMoistureSimulator);
