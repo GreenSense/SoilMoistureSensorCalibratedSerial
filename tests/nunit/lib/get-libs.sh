@@ -9,7 +9,9 @@ cert-sync --quiet /etc/ssl/certs/ca-certificates.crt
 
 if [ ! -f "$NUGET_FILE" ];
 then
-    wget http://nuget.org/nuget.exe
+    echo "Getting nuget.exe..."
+    wget http://nuget.org/nuget.exe -q
+    echo "Updating nuget.exe..."
     mono nuget.exe update -self
 fi
 
