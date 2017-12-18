@@ -23,7 +23,7 @@ mkdir -p $TEMPORARY_DIR
 
 cd $TEMPORARY_DIR
 
-git clone http://github.com/GreenSense/SoilMoistureSensorCalibratedSerial && \
+git clone http://github.com/GreenSense/SoilMoistureSensorCalibratedSerial -b $BRANCH && \
 
 cd SoilMoistureSensorCalibratedSerial && \
 sh init.sh && \
@@ -35,5 +35,5 @@ sh test.sh
 rm $TEMPORARY_DIR -rf
 
 echo ""
-echo "Finised testing SoilMoistureSensorCalibratedSerial project from github"
+echo "Finished testing SoilMoistureSensorCalibratedSerial project from github"
 echo ""
