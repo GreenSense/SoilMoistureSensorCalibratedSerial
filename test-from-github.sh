@@ -13,7 +13,7 @@ then
 fi
 
 TIMESTAMP=$(date +"%Y_%m_%d_%I_%M_%p")
-TEMPORARY_DIR="/tmp/$TIMESTAMP"
+TEMPORARY_DIR="~/tmp/$TIMESTAMP"
 
 echo "Branch: $BRANCH"
 echo "Tmp project dir:"
