@@ -19,6 +19,26 @@ pipeline {
                 sh 'sh build-all.sh'
             }
         }
+        stage('Upload') {
+            steps {
+                sh 'sh upload.sh'
+            }
+        }
+        stage('Upload simulator') {
+            steps {
+                sh 'sh upload-simulator.sh'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'sh test.sh'
+            }
+        }
+        stage('Clean') {
+            steps {
+              cleanWs()
+            }
+        }
     }
     post {
         always {
