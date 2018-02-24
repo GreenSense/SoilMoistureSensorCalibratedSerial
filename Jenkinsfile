@@ -14,13 +14,9 @@ pipeline {
                 sh 'sh init.sh'
             }
         }
-        stage('Build') {
-            steps {
-                sh 'sh build-all.sh'
-            }
-        }
         stage('Publish') {
             steps {
+              sh 'mkdir -p report'
               publishHTML target: [
                   allowMissing: false,
                   alwaysLinkToLastBuild: false,
