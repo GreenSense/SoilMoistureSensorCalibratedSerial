@@ -19,6 +19,18 @@ pipeline {
                 sh 'sh build-all.sh'
             }
         }
+        stage('Publish') {
+            steps {
+              publishHTML target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'report',
+                  reportFiles: 'index.html',
+                  reportName: 'Test Report'
+                ]
+            }
+        }
     }
     post {
         always {
