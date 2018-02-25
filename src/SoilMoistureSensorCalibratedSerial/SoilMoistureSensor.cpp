@@ -21,7 +21,7 @@ int soilMoistureLevelCalibrated = 0;
 int soilMoistureLevelRaw = 0;
 
 bool reverseSoilMoistureSensor = false;
-//int drySoilMoistureCalibrationValue = 1024;
+//int drySoilMoistureCalibrationValue = 1023;
 int drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1023);
 //int wetSoilMoistureCalibrationValue = 0;
 int wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1023 : 0);
@@ -296,8 +296,8 @@ void restoreDefaultCalibrationSettings()
 {
   removeEEPROMIsCalibratedFlag();
 
-  drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1024);
-  wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1024 : 0);
+  drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1023);
+  wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1023 : 0);
 
   setDrySoilMoistureCalibrationValue(drySoilMoistureCalibrationValue);
   setWetSoilMoistureCalibrationValue(wetSoilMoistureCalibrationValue);
