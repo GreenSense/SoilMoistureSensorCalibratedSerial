@@ -3,6 +3,9 @@ pipeline {
     triggers {
         pollSCM 'H/10 * * * *'
     }
+    options {
+        skipDefaultCheckout()      // Don't checkout automatically
+    }
     stages {
         stage('Checkout') {
             steps {
