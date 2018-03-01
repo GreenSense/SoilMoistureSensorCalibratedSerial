@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout') {
             steps {
               echo 'Pulling...' + env.BRANCH_NAME
-              sh 'git clone ${env.GIT_URL} -b ${env.GIT_BRANCH}'
+              sh 'git clone ' + env.GIT_URL + ' -b ' + env.GIT_BRANCH}
             }
         }
     }
