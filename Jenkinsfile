@@ -3,10 +3,14 @@ pipeline {
     triggers {
         pollSCM 'H/10 * * * *'
     }
+    options {
+        skipDefaultCheckout()      // Don't checkout automatically
+    }
     stages {
         stage('Checkout') {
             steps {
               echo 'Pulling...' + env.BRANCH_NAME
+              checkout scm
               checkout env.BRANCH_NAME
               
             }
