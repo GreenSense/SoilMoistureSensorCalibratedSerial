@@ -8,6 +8,7 @@ then
   # Fetch other branches
   git fetch origin && \
 
+  # Pull the master branch into the dev branch
   git pull origin master && \
 
   # Checkout the master branch
