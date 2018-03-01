@@ -3,24 +3,12 @@ pipeline {
     triggers {
         pollSCM 'H/10 * * * *'
     }
+    options { skipDefaultCheckout() }
     stages {
         stage('Checkout') {
             steps {
               echo 'Pulling...' + env.BRANCH_NAME
-              sh 'git fetch'
-              sh 'git checkout ' + env.BRANCH_NAME            
-            }
-        }
-        stage('Prepare') {
-            steps {
-                sh 'echo "Skipping prepare.sh script call to speed up tests. Prerequisites should already be installed." # sh prepare.sh'
-            }
-        }
-        stage('Graduate') {
-            steps {
-                sh 'git fetch origin master'
-                sh 'git pull origin master'
-                sh 'sh graduate.sh'
+              sh 'git clone ' + env.GIT_URL + " -b " + env.GIT_BRANCH
             }
         }
     }
