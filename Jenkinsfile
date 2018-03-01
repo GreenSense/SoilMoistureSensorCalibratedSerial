@@ -8,7 +8,7 @@ pipeline {
             steps {
               echo 'Pulling...' + env.BRANCH_NAME
               sh 'git fetch'
-              sh 'git checkout' + env.BRANCH_NAME            
+              sh 'git checkout ' + env.BRANCH_NAME            
             }
         }
         stage('Prepare') {
