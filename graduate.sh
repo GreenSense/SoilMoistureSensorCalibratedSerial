@@ -3,12 +3,13 @@ BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ "$BRANCH" = "dev" ]
 then
-  echo "Graduating to master branch"
+  echo "Graduating dev branch to master branch"
 
-  git pull origin master && \
+  # Fetch other branches
+  git fetch origin && \
 
   # Checkout the master branch
-  git checkout master && \
+  git checkout origin/master && \
 
   # Ensure it's up to date
   git pull origin master && \
