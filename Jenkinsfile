@@ -4,7 +4,7 @@ pipeline {
         pollSCM 'H/10 * * * *'
     }
     stages {
-        stage('Build') {
+        stage('Checkout') {
                 echo 'Pulling...' + env.BRANCH_NAME
                 checkout scm
             }
