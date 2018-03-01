@@ -18,6 +18,8 @@ pipeline {
         }
         stage('Graduate') {
             steps {
+                sh 'git fetch origin master'
+                sh 'git pull origin master'
                 sh 'sh graduate.sh'
             }
         }
