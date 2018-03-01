@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout') {
             steps {
               echo 'Pulling...' + env.BRANCH_NAME
-              sh 'git clone https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial -b ' + env.BRANCH_NAME
+              sh 'git clone https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git -b ' + env.BRANCH_NAME
             }
         }
     }
