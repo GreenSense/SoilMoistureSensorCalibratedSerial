@@ -19,6 +19,11 @@ pipeline {
                 sh 'sh build-all.sh'
             }
         }
+        stage('Graduate') {
+            steps {
+                sh 'sh graduate.sh'
+            }
+        }
     }
     post {
         always {
