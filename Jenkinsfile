@@ -11,8 +11,7 @@ pipeline {
             steps {
               echo 'Pulling...' + env.BRANCH_NAME
               checkout scm
-              checkout env.BRANCH_NAME
-              
+              sh 'git checkout ' + env.BRANCH_NAME              
             }
         }
         stage('Prepare') {
