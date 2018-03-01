@@ -1,3 +1,14 @@
+def handleCheckout = {
+	checkout ([
+		$class: 'GitSCM',
+		branches: scm.branches,
+		extensions: [
+				[$class: 'PruneStaleBranch'],
+				[$class: 'CleanCheckout']
+		],
+		userRemoteConfigs: scm.userRemoteConfigs
+	])
+}
 pipeline {
     agent any
     triggers {
@@ -10,7 +21,7 @@ pipeline {
         stage('Checkout') {
             steps {
               echo 'Pulling...' + env.BRANCH_NAME
-              checkout scm
+              handleCheckout()
               sh 'git checkout ' + env.BRANCH_NAME              
             }
         }
@@ -21,7 +32,6 @@ pipeline {
         }
         stage('Graduate') {
             steps {
-                sh 'git fetch'
                 sh 'sh graduate.sh'
             }
         }
