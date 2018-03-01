@@ -5,8 +5,10 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-            echo 'Pulling...' + env.BRANCH_NAME
-            checkout scm
+            steps {
+              echo 'Pulling...' + env.BRANCH_NAME
+              checkout scm
+            }
         }
         stage('Prepare') {
             steps {
