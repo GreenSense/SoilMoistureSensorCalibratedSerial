@@ -3,23 +3,12 @@ pipeline {
     triggers {
         pollSCM 'H/10 * * * *'
     }
-    options {
-        skipDefaultCheckout()      // Don't checkout automatically
-    }
     stages {
         stage('Checkout') {
             steps {
               echo 'Pulling...' + env.BRANCH_NAME
-	            checkout ([
-		            $class: 'GitSCM',
-		            branches: scm.branches,
-		            extensions: [
-				            [$class: 'PruneStaleBranch'],
-				            [$class: 'CleanCheckout']
-		            ],
-		            userRemoteConfigs: scm.userRemoteConfigs
-	            ])
-              sh 'git checkout ' + env.BRANCH_NAME              
+              sh 'git fetch'
+              sh 'git checkout' + env.BRANCH_NAME            
             }
         }
         stage('Prepare') {
