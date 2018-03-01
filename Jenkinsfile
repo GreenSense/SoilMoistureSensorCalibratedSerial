@@ -5,9 +5,8 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-                echo 'Pulling...' + env.BRANCH_NAME
-                checkout scm
-            }
+            echo 'Pulling...' + env.BRANCH_NAME
+            checkout scm
         }
         stage('Prepare') {
             steps {
@@ -16,7 +15,12 @@ pipeline {
         }
         stage('Init') {
             steps {
-                sh 'sh init.sh'
+                sh '#sh init.sh'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '#sh build-all.sh'
             }
         }
         stage('Graduate') {
