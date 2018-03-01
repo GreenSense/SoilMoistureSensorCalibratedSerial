@@ -8,8 +8,10 @@ then
   # Fetch other branches
   git fetch origin && \
 
+  git pull origin master && \
+
   # Checkout the master branch
-  git checkout origin/master && \
+  git checkout master && \
 
   # Ensure it's up to date
   git pull origin master && \
