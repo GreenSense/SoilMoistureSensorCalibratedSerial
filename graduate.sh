@@ -5,6 +5,8 @@ if [ "$BRANCH" = "dev" ]
 then
   echo "Graduating to master branch"
 
+  git fetch origin master && \
+
   # Checkout the master branch
   git checkout master && \
 
