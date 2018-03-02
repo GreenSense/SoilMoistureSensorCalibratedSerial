@@ -4,6 +4,9 @@ pipeline {
         pollSCM 'H/10 * * * *'
     }
     options { skipDefaultCheckout() }
+    environment {
+      GITUSER = credentials('GitHub')
+    }
     stages {
         stage('Checkout') {
             steps {
