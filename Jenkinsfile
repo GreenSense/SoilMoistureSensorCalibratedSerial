@@ -11,6 +11,7 @@ pipeline {
                     $class: 'GitSCM', branches: [[name: '*']],
                     userRemoteConfigs: [[url: 'https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git',credentialsId:'GitHub']]
                 ])
+                sh 'git checkout ' + env.BRANCH_NAME
             }
         }
         stage('Graduate') {
