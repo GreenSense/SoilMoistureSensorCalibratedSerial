@@ -12,7 +12,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM', branches: [[name: '*']],
-                    userRemoteConfigs: [[url: 'https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git',credentialsId:'GitHub']]
+                    userRemoteConfigs: [[url: 'https://${GITUSER_USR}:${GITUSER_PSW}@github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git',credentialsId:'GitHub']]
                 ])
                 sh 'git checkout ' + env.BRANCH_NAME
             }
