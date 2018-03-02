@@ -1,25 +1,22 @@
 pipeline {
     agent any
     triggers {
-        pollSCM 'H/10 * * * *'
-    }
-    options { skipDefaultCheckout() }
-    environment {
-      GITUSER = credentials('GitHub')
+        pollSCM 'H/30 * * * *'
     }
     stages {
-        stage('Checkout') {
+        stage('Prepare') {
             steps {
-                checkout([
-                    $class: 'GitSCM', branches: [[name: '*']],
-                    userRemoteConfigs: [[url: 'https://${GITUSER_USR}:${GITUSER_PSW}@github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git',credentialsId:'GitHub']]
-                ])
-                sh 'git checkout ' + env.BRANCH_NAME
+                sh 'echo "Skipping prepare.sh script call to speed up tests. Prerequisites should already be installed." # sh prepare.sh'
             }
         }
-        stage('Graduate') {
+        stage('Init') {
             steps {
-                  sh 'sh graduate.sh'
+                sh 'sh init.sh'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'sh build.sh'
             }
         }
     }
