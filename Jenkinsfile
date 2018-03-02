@@ -11,16 +11,6 @@ pipeline {
               sh 'git clone https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git . -b ' + env.BRANCH_NAME
             }
         }
-        stage('Init') {
-            steps {
-                sh 'sh init.sh'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'sh build.sh'
-            }
-        }
         stage('Graduate') {
             steps {
                 sh 'sh graduate.sh'
