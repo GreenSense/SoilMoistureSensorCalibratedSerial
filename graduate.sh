@@ -18,7 +18,7 @@ then
   git pull origin master && \
 
   # Merge the dev branch
-  git merge dev && \
+  git merge -q dev && \
 
   # Push the updates
   git push origin master && \
