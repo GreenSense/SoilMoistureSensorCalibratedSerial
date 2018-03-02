@@ -7,15 +7,15 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-              echo 'Branch: ' + env.BRANCH_NAME
-              sh 'git clone https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git . -b ' + env.BRANCH_NAME
+                checkout([
+                    $class: 'GitSCM', branches: [[name: '*']],
+                    userRemoteConfigs: [[url: 'https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git',credentialsId:'GitHub']]
+                ])
             }
         }
         stage('Graduate') {
             steps {
-                sshagent(['GitHub']) {
                   sh 'sh graduate.sh'
-                }
             }
         }
     }
