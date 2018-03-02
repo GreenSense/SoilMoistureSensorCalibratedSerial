@@ -13,7 +13,9 @@ pipeline {
         }
         stage('Graduate') {
             steps {
-                sh 'sh graduate.sh'
+                sshagent(['GitHub']) {
+                  sh 'sh graduate.sh'
+                }
             }
         }
     }
