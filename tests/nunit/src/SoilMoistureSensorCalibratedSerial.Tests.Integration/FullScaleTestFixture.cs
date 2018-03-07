@@ -29,10 +29,22 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				soilMoistureMonitor.Open ();
 				soilMoistureSimulator.Connect ();
 
-				Thread.Sleep (5000);
+				Thread.Sleep (2000);
 
 				// Reset defaults
 				soilMoistureMonitor.WriteLine ("X");
+
+				Thread.Sleep (1000);
+
+				Console.WriteLine("");
+				Console.WriteLine("Reading the output from the monitor device...");
+				Console.WriteLine("");
+
+				// Read the output
+				var output = soilMoistureMonitor.Read ();
+
+				Console.WriteLine (output);
+				Console.WriteLine ("");
 
 				int step = 25;
 
@@ -77,7 +89,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
       
 			soilMoistureSimulator.AnalogWritePercentage (9, percentageValue);
       
-			Thread.Sleep (10000);
+			Thread.Sleep (5000);
       
 			Console.WriteLine ("");
 			Console.WriteLine ("Reading data from soil moisture monitor");
