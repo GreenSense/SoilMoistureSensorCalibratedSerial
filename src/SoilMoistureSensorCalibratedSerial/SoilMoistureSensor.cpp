@@ -1,6 +1,7 @@
 #include <Arduino.h>
-
 #include <EEPROM.h>
+
+#include <duinocom.h>
 
 #include "Common.h"
 #include "SoilMoistureSensor.h"
@@ -186,6 +187,23 @@ void setupCalibrationValues()
   }
 }
 
+void setDrySoilMoistureCalibrationValue(char* msg)
+{
+  int length = strlen(msg);
+
+  if (length == 1)
+    setDrySoilMoistureCalibrationValueToCurrent();
+  else
+  {
+    int value = readInt(msg, 1, length-1);
+
+//    Serial.println("Value:");
+//    Serial.println(value);
+
+    setDrySoilMoistureCalibrationValue(value);
+  }
+}
+
 void setDrySoilMoistureCalibrationValueToCurrent()
 {
   lastSoilMoistureSensorReadingTime = 0;
@@ -205,6 +223,23 @@ void setDrySoilMoistureCalibrationValue(int newValue)
   EEPROM.write(drySoilMoistureCalibrationValueAddress, compactValue); // Must divide by 4 to make it fit in eeprom
 
   setEEPROMIsCalibratedFlag();
+}
+
+void setWetSoilMoistureCalibrationValue(char* msg)
+{
+  int length = strlen(msg);
+
+  if (length == 1)
+    setWetSoilMoistureCalibrationValueToCurrent();
+  else
+  {
+    int value = readInt(msg, 1, length-1);
+
+//    Serial.println("Value:");
+//    Serial.println(value);
+
+    setWetSoilMoistureCalibrationValue(value);
+  }
 }
 
 void setWetSoilMoistureCalibrationValueToCurrent()

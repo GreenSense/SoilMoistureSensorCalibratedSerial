@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
+#include <duinocom.h>
+
 #include "Common.h"
 #include "SoilMoistureSensor.h"
 
@@ -63,19 +65,25 @@ void loop()
 /* Commands */
 void checkCommand()
 {
-  while (Serial.available() > 0)
+
+  if (checkMsgReady())
   {
-    char command = Serial.read();
+    char* msg = getMsg();
+        
+    char letter = msg[0];
 
-    Serial.println(command);
+    int length = strlen(msg);
 
-    switch (command)
+    Serial.print("Received message: ");
+    Serial.println(msg);
+
+    switch (letter)
     {
       case 'D':
-        setDrySoilMoistureCalibrationValueToCurrent();
+        setDrySoilMoistureCalibrationValue(msg);
         break;
       case 'W':
-        setWetSoilMoistureCalibrationValueToCurrent();
+        setWetSoilMoistureCalibrationValue(msg);
         break;
       case 'X':
         restoreDefaultSettings();
@@ -88,7 +96,35 @@ void checkCommand()
         isDebugMode = !isDebugMode;
         break;
     }
+
+/*    if (letter != '\0')
+    {
+      if (letter == byte('H'))
+      {
+        Serial.println("HIGH");
+        turn(HIGH, msg);
+      }
+      else if (letter == 'L')
+      {
+        Serial.println("LOW");
+        turn(LOW, msg);
+      }
+      else
+      {
+        Serial.println("Invalid command");
+      }
+    }*/
   }
+  delay(100);
+
+  /*while (Serial.available() > 0)
+  {
+    char command = Serial.read();
+
+    Serial.println(command);
+
+    
+  }*/
 }
 
 /* Settings */
