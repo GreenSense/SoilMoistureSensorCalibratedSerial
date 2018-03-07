@@ -31,6 +31,16 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 				Thread.Sleep (2000);
 
+				Console.WriteLine("");
+				Console.WriteLine("Reading the output from the monitor device...");
+				Console.WriteLine("");
+
+				// Read the output
+				var output = soilMoistureMonitor.Read ();
+
+				Console.WriteLine (output);
+				Console.WriteLine ("");
+
 				// Reset defaults
 				soilMoistureMonitor.WriteLine ("X");
 
@@ -41,7 +51,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine("");
 
 				// Read the output
-				var output = soilMoistureMonitor.Read ();
+				output = soilMoistureMonitor.Read ();
 
 				Console.WriteLine (output);
 				Console.WriteLine ("");
@@ -79,13 +89,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine ("Starting calibration test");
 			Console.WriteLine ("");
       
-      
-			int percentageValue = soilMoisturePercentage;
-      
-        
+			int percentageValue = soilMoisturePercentage;        
       
 			Console.WriteLine ("");
 			Console.WriteLine ("Sending percentage to simulator: " + percentageValue);
+			Console.WriteLine ("");
       
 			soilMoistureSimulator.AnalogWritePercentage (9, percentageValue);
       
@@ -93,6 +101,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
       
 			Console.WriteLine ("");
 			Console.WriteLine ("Reading data from soil moisture monitor");
+			Console.WriteLine ("");
       
 			var outputLine = soilMoistureMonitor.Read ();
       
@@ -101,9 +110,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
       
 			var data = ParseOutputLine (outputLine);
       
-      
 			Console.WriteLine ("");
 			Console.WriteLine ("Checking calibrated value");
+			Console.WriteLine ("");
 			var expectedCalibratedValue = percentageValue;
       
 			if (calibrationIsReversed)

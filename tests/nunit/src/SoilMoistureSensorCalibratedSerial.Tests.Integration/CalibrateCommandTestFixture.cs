@@ -163,7 +163,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					Console.WriteLine("");
 
 					// Ensure the raw value is in the valid range
-					Assert.IsTrue(rawValue >= expectedRaw-3 && rawValue <= expectedRaw+3, "Raw value is outside the valid range: " + rawValue);
+					Assert.IsTrue(rawValue >= expectedRaw-7 && rawValue <= expectedRaw+7, "Raw value is outside the valid range: " + rawValue);
 				}
 
 				Console.WriteLine("");
@@ -221,7 +221,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine("");
 
 				// Ensure the calibration value is in the valid range
-				Assert.IsTrue(calibrationValue >= expectedRaw-3 && calibrationValue <= expectedRaw+3, "Calibration value is outside the valid range: " + calibrationValue);
+				Assert.IsTrue(calibrationValue >= expectedRaw-7 && calibrationValue <= expectedRaw+7, "Calibration value is outside the valid range: " + calibrationValue);
 
 			} catch (IOException ex) {
 				Console.WriteLine (ex.ToString ());
@@ -234,109 +234,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					soilMoistureSimulator.Disconnect ();
 			}
 		}
-
-		/*[Test]
-		public void Test_CalibrateWetCommand()
-		{
-			Console.WriteLine ("");
-			Console.WriteLine ("==============================");
-			Console.WriteLine ("Starting calibrate wet command test");
-			Console.WriteLine ("");
-
-			SerialClient soilMoistureMonitor = null;
-			ArduinoSerialDevice soilMoistureSimulator = null;
-
-			try {
-				soilMoistureMonitor = new SerialClient ("/dev/ttyUSB0", 9600);
-				soilMoistureSimulator = new ArduinoSerialDevice ("/dev/ttyUSB1", 9600);
-
-				soilMoistureMonitor.Open ();
-				soilMoistureSimulator.Connect ();
-
-				Thread.Sleep (4000);
-
-				// Reset defaults
-				soilMoistureMonitor.WriteLine ("X");
-
-				// Set the simulated soil moisture to 20%
-				soilMoistureSimulator.AnalogWritePercentage (9, 80);
-
-				Thread.Sleep(1000);
-
-				// Read the output
-				var outputLine = soilMoistureMonitor.Read ();
-
-				Console.WriteLine (outputLine);
-				Console.WriteLine ("");
-
-				// Extract the data line
-				var dataLine = (from line in outputLine.Split('\n')
-					where line.StartsWith("D;")
-					select line).FirstOrDefault();
-
-				// Parse the values in the data line
-				var values = ParseOutputLine(dataLine);
-
-				// Get the raw soil moisture value
-				var rawValue = values["R"];
-
-				// Ensure the raw value is in the valid range
-				Assert.IsTrue(rawValue >= 218 && rawValue <= 222, "Raw value is outside the valid range.");
-
-				// Send the "D" (dry) command
-				soilMoistureMonitor.WriteLine ("W");
-
-				Thread.Sleep(1000);
-
-				// Read the output
-				outputLine = soilMoistureMonitor.Read ();
-
-				Console.WriteLine (outputLine);
-				Console.WriteLine ("");
-
-				// Check the output
-				var expected = "Setting dry soil moisture sensor calibration value:";
-				Assert.IsTrue(outputLine.Contains(expected), "Didn't find expected output");
-
-				var lastLine = "";
-
-				var lines = outputLine.Split('\n');
-
-				// Extract the line containing the calibration value
-				for (int i = lines.Length-1; i>=0; i--)
-				{
-					var line = lines[i];
-					if (line.StartsWith(expected))
-					{
-						lastLine = line;
-						break;
-					}
-				}
-
-				Console.WriteLine("Last line");
-				Console.WriteLine(lastLine);
-				Console.WriteLine("");
-
-				// Extraction the calibration value
-				var cvString = lastLine.Substring(lastLine.IndexOf(":")+2, 3);
-				var calibrationValue = Convert.ToInt32(cvString);
-
-				Console.WriteLine("Calibration value: " + calibrationValue);
-				Console.WriteLine("");
-
-				// Ensure the calibration value is in the valid range
-				Assert.IsTrue(calibrationValue >= 218 && calibrationValue <= 222, "Calibration value is outside the valid range.");
-
-			} catch (IOException ex) {
-				Console.WriteLine (ex.ToString ());
-			} finally {
-				if (soilMoistureMonitor != null)
-					soilMoistureMonitor.Close ();
-
-				if (soilMoistureSimulator != null)
-					soilMoistureSimulator.Disconnect ();
-			}
-		}*/
 
 		public Dictionary<string, int> ParseOutputLine(string outputLine)
 		{
