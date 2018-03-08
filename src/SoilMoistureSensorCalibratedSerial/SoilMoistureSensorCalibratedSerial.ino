@@ -7,7 +7,7 @@
 #include "SoilMoistureSensor.h"
 
 long lastSerialOutputTime = 0;
-long serialOutputInterval = soilMoistureSensorReadingInterval;
+long serialOutputInterval = 3 * 1000;
 //long serialOutputInterval = 1;
 
 #define SERIAL_MODE_CALIBRATED 1
@@ -85,6 +85,9 @@ void checkCommand()
       case 'W':
         setWetSoilMoistureCalibrationValue(msg);
         break;
+      case 'N':
+        setSoilMoistureSensorReadingInterval(msg);
+        break;
       case 'X':
         restoreDefaultSettings();
         break;
@@ -96,35 +99,8 @@ void checkCommand()
         isDebugMode = !isDebugMode;
         break;
     }
-
-/*    if (letter != '\0')
-    {
-      if (letter == byte('H'))
-      {
-        Serial.println("HIGH");
-        turn(HIGH, msg);
-      }
-      else if (letter == 'L')
-      {
-        Serial.println("LOW");
-        turn(LOW, msg);
-      }
-      else
-      {
-        Serial.println("Invalid command");
-      }
-    }*/
   }
-  delay(100);
-
-  /*while (Serial.available() > 0)
-  {
-    char command = Serial.read();
-
-    Serial.println(command);
-
-    
-  }*/
+  delay(10);
 }
 
 /* Settings */
@@ -132,7 +108,7 @@ void restoreDefaultSettings()
 {
   Serial.println("Restoring default settings");
 
-  restoreDefaultCalibrationSettings();
+  restoreDefaultSoilMoistureSensorSettings();
 }
 
 /* Serial Output */
@@ -159,6 +135,9 @@ void serialPrintData()
       Serial.print("C:");
       Serial.print(soilMoistureLevelCalibrated);
       Serial.print(";");
+      Serial.print("N:");
+      Serial.print(soilMoistureSensorReadingInterval/1000); // Convert to seconds
+      Serial.print(";");
       Serial.print("D:");
       Serial.print(drySoilMoistureCalibrationValue);
       Serial.print(";");
@@ -177,6 +156,9 @@ void serialPrintData()
       Serial.print("&");
       Serial.print("calibrated=");
       Serial.print(soilMoistureLevelCalibrated);
+      Serial.print("&");
+      Serial.print("readInterval=");
+      Serial.print(soilMoistureSensorReadingInterval/1000); // Convert to seconds
       Serial.print("&");
       Serial.print("dry=");
       Serial.print(drySoilMoistureCalibrationValue);

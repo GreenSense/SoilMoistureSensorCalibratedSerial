@@ -3,5 +3,8 @@
 
 extern bool isDebugMode;
 
+void EEPROMWriteLong(int address, long value);
+long EEPROMReadLong(int address);
+
 #endif
 /* SOILMOISTURESENSOR_H_ */
