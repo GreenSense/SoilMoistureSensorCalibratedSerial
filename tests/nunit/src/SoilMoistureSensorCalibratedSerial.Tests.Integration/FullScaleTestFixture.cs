@@ -23,9 +23,13 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			ArduinoSerialDevice soilMoistureSimulator = null;
 
 			try {
-				soilMoistureMonitor = new SerialClient ("/dev/ttyUSB0", 9600);
-				soilMoistureSimulator = new ArduinoSerialDevice ("/dev/ttyUSB1", 9600);
-      
+				soilMoistureMonitor = new SerialClient (GetDevicePort(), GetSerialBaudRate());
+				soilMoistureSimulator = new ArduinoSerialDevice (GetSimulatorPort(), GetSerialBaudRate());
+
+				Console.WriteLine("");
+				Console.WriteLine("Opening serial connections...");
+				Console.WriteLine("");
+
 				soilMoistureMonitor.Open ();
 				soilMoistureSimulator.Connect ();
 

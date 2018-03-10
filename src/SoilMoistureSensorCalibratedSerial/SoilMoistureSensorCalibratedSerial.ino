@@ -29,6 +29,8 @@ void setup()
     Serial.println("Starting soil moisture sensor");
 
   setupSoilMoistureSensor();
+
+  serialOutputInterval = soilMoistureSensorReadingInterval;
 }
 
 void loop()
@@ -85,7 +87,7 @@ void checkCommand()
       case 'W':
         setWetSoilMoistureCalibrationValue(msg);
         break;
-      case 'N':
+      case 'V':
         setSoilMoistureSensorReadingInterval(msg);
         break;
       case 'X':
@@ -100,7 +102,7 @@ void checkCommand()
         break;
     }
   }
-  delay(10);
+  delay(1);
 }
 
 /* Settings */
@@ -135,15 +137,15 @@ void serialPrintData()
       Serial.print("C:");
       Serial.print(soilMoistureLevelCalibrated);
       Serial.print(";");
-      Serial.print("N:");
-      Serial.print(soilMoistureSensorReadingInterval/1000); // Convert to seconds
+      Serial.print("V:");
+      Serial.print(soilMoistureSensorReadingInterval); // Convert to seconds
       Serial.print(";");
       Serial.print("D:");
       Serial.print(drySoilMoistureCalibrationValue);
       Serial.print(";");
       Serial.print("W:");
       Serial.print(wetSoilMoistureCalibrationValue);
-      Serial.print(";");
+      Serial.print(";;");
       Serial.println();
     }
     else if (serialMode == SERIAL_MODE_QUERYSTRING)
@@ -158,7 +160,7 @@ void serialPrintData()
       Serial.print(soilMoistureLevelCalibrated);
       Serial.print("&");
       Serial.print("readInterval=");
-      Serial.print(soilMoistureSensorReadingInterval/1000); // Convert to seconds
+      Serial.print(soilMoistureSensorReadingInterval); // Convert to seconds
       Serial.print("&");
       Serial.print("dry=");
       Serial.print(drySoilMoistureCalibrationValue);

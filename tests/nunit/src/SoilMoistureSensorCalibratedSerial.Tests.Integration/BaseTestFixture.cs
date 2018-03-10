@@ -1,5 +1,7 @@
 using System;
 using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
@@ -22,6 +24,21 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		[TearDown]
 		public void Finish()
 		{
+		}
+
+		public string GetDevicePort()
+		{
+			return "/dev/ttyUSB0";
+		}
+
+		public string GetSimulatorPort()
+		{
+			return "/dev/ttyUSB1";
+		}
+
+		public int GetSerialBaudRate()
+		{
+			return 9600;
 		}
 		
 		public bool IsWithinRange(int expectedValue, int actualValue, int allowableMarginOfError)
@@ -46,6 +63,51 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("Is within range: " + isWithinRange);
 		
 			return isWithinRange;
+		}
+
+		public Dictionary<string, int> ParseOutputLine(string outputLine)
+		{
+			var dictionary = new Dictionary<string, int> ();
+
+			if (IsValidOutputLine (outputLine)) {
+				foreach (var pair in outputLine.Split(';')) {
+					var parts = pair.Split (':');
+
+					if (parts.Length == 2) {
+						var key = parts [0];
+						var value = 0;
+						try {
+							value = Convert.ToInt32 (parts [1]);
+
+							dictionary [key] = value;
+						} catch {
+							Console.WriteLine ("Warning: Invalid key/value pair '" + pair + "'");
+						}
+					}
+				}
+			}
+
+			return dictionary;
+		}
+
+		public string GetLastDataLine(string output)
+		{
+			var lines = output.Split ('\n');
+
+			for (int i = lines.Length - 1; i >= 0; i--) {
+				var line = lines [i].Trim();
+				if (line.StartsWith ("D;"))
+					return line;
+			}
+
+			return String.Empty;
+		}
+
+		public bool IsValidOutputLine(string outputLine)
+		{
+			var dataPrefix = "D;";
+
+			return outputLine.StartsWith(dataPrefix);
 		}
 	}
 }

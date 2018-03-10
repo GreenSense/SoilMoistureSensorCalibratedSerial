@@ -19,22 +19,17 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine ("==============================");
 			Console.WriteLine ("Starting read interval command test");
 			Console.WriteLine ("");
-			//Console.WriteLine ("Percentage in: " + percentageIn);
-			//Console.WriteLine ("Expected raw: " + expectedRaw);
 
 			SerialClient soilMoistureMonitor = null;
-			//ArduinoSerialDevice soilMoistureSimulator = null;
 
 			try {
-				soilMoistureMonitor = new SerialClient ("/dev/ttyUSB0", 9600);
-				//soilMoistureSimulator = new ArduinoSerialDevice ("/dev/ttyUSB1", 9600);
+				soilMoistureMonitor = new SerialClient (GetDevicePort(), GetSerialBaudRate());
 
 				Console.WriteLine("");
 				Console.WriteLine("Connecting to serial devices...");
 				Console.WriteLine("");
 
 				soilMoistureMonitor.Open ();
-				//soilMoistureSimulator.Connect ();
 
 				Thread.Sleep (1000);
 
@@ -55,7 +50,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				// Reset defaults
 				soilMoistureMonitor.WriteLine ("X");
 
-				Thread.Sleep(1000);
+				Thread.Sleep(3000);
 
 				Console.WriteLine("");
 				Console.WriteLine("Reading the output from the monitor device...");
@@ -69,7 +64,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 				var readInterval = 100; // Seconds
 
-				var command = "N" + readInterval;
+				var command = "V" + readInterval;
 
 				Console.WriteLine("");
 				Console.WriteLine("Sending '" + command + "' command to monitor device...");
@@ -97,7 +92,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				var data = ParseOutputLine(GetLastDataLine(output));
 
 				// Ensure the calibration value is in the valid range
-				Assert.AreEqual(readInterval, data["N"], "Invalid read interval: " + data["N"]);
+				Assert.AreEqual(readInterval, data["V"], "Invalid read interval: " + data["V"]);
 
 			} catch (IOException ex) {
 				Console.WriteLine (ex.ToString ());
@@ -105,55 +100,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			} finally {
 				if (soilMoistureMonitor != null)
 					soilMoistureMonitor.Close ();
-
-				//if (soilMoistureSimulator != null)
-				//	soilMoistureSimulator.Disconnect ();
 			}
 		}
 
-		public Dictionary<string, int> ParseOutputLine(string outputLine)
-		{
-			var dictionary = new Dictionary<string, int> ();
-
-			if (IsValidOutputLine (outputLine)) {
-				foreach (var pair in outputLine.Split(';')) {
-					var parts = pair.Split (':');
-
-					if (parts.Length == 2) {
-						var key = parts [0];
-						var value = 0;
-						try {
-							value = Convert.ToInt32 (parts [1]);
-
-							dictionary [key] = value;
-						} catch {
-							Console.WriteLine ("Warning: Invalid key/value pair '" + pair + "'");
-						}
-					}
-				}
-			}
-
-			return dictionary;
-		}
-
-		public string GetLastDataLine(string output)
-		{
-			var lines = output.Split ('\n');
-
-			for (int i = lines.Length - 1; i >= 0; i--) {
-				var line = lines [i];
-				if (line.StartsWith ("D;"))
-					return line;
-			}
-
-			return String.Empty;
-		}
-
-		public bool IsValidOutputLine(string outputLine)
-		{
-			var dataPrefix = "D;";
-
-			return outputLine.StartsWith(dataPrefix);
-		}
 	}
 }

@@ -1,1 +1,1 @@
-pio device monitor
+pio device monitor --port=/dev/ttyUSB0

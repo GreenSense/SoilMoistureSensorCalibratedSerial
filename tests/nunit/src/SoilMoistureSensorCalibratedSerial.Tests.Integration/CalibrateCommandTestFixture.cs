@@ -17,7 +17,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		{
 			var percentage = 20;
 
-			var raw = 219;//(percentage * 1024 / 100)-1;
+			var raw = 219;
 
 			TestCalibrateToCurrentCommand ("dry", "D", percentage, raw);
 		}
@@ -25,8 +25,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		[Test]
 		public void Test_CalibrateDryToSpecifiedValueCommand()
 		{
-			var percentage = 20;
-
 			var raw = 220;
 
 			TestCalibrateToCurrentCommand ("dry", "D" + raw, -1, raw);
@@ -45,9 +43,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		[Test]
 		public void Test_CalibrateWetToSpecifiedValueCommand()
 		{
-			var percentage = 80;
-
-			var raw = 880;//(percentage * 1024 / 100)-1;
+			var raw = 880;
 
 			TestCalibrateToCurrentCommand ("wet", "W" + raw, -1, raw);
 		}
@@ -66,8 +62,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			ArduinoSerialDevice soilMoistureSimulator = null;
 
 			try {
-				soilMoistureMonitor = new SerialClient ("/dev/ttyUSB0", 9600);
-				soilMoistureSimulator = new ArduinoSerialDevice ("/dev/ttyUSB1", 9600);
+				soilMoistureMonitor = new SerialClient (GetDevicePort(), GetSerialBaudRate());
+				soilMoistureSimulator = new ArduinoSerialDevice (GetSimulatorPort(), GetSerialBaudRate());
 
 				Console.WriteLine("");
 				Console.WriteLine("Connecting to serial devices...");
@@ -233,38 +229,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				if (soilMoistureSimulator != null)
 					soilMoistureSimulator.Disconnect ();
 			}
-		}
-
-		public Dictionary<string, int> ParseOutputLine(string outputLine)
-		{
-			var dictionary = new Dictionary<string, int> ();
-
-			if (IsValidOutputLine (outputLine)) {
-				foreach (var pair in outputLine.Split(';')) {
-					var parts = pair.Split (':');
-
-					if (parts.Length == 2) {
-						var key = parts [0];
-						var value = 0;
-						try {
-							value = Convert.ToInt32 (parts [1]);
-
-							dictionary [key] = value;
-						} catch {
-							Console.WriteLine ("Warning: Invalid key/value pair '" + pair + "'");
-						}
-					}
-				}
-			}
-
-			return dictionary;
-		}
-
-		public bool IsValidOutputLine(string outputLine)
-		{
-			var dataPrefix = "D;";
-
-			return outputLine.StartsWith(dataPrefix);
 		}
 	}
 }
