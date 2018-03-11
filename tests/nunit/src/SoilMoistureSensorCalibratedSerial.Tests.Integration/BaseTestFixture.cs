@@ -96,7 +96,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			for (int i = lines.Length - 1; i >= 0; i--) {
 				var line = lines [i].Trim();
-				if (line.StartsWith ("D;"))
+				if (IsValidOutputLine(line))
 					return line;
 			}
 
@@ -107,7 +107,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		{
 			var dataPrefix = "D;";
 
-			return outputLine.StartsWith(dataPrefix);
+			var dataPostFix = ";;";
+
+			return outputLine.StartsWith(dataPrefix)
+				&& outputLine.EndsWith(dataPostFix);
 		}
 	}
 }

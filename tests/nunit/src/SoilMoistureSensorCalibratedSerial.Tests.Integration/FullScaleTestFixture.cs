@@ -107,12 +107,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine ("Reading data from soil moisture monitor");
 			Console.WriteLine ("");
       
-			var outputLine = soilMoistureMonitor.Read ();
+			var output = soilMoistureMonitor.Read ();
       
-			Console.WriteLine (outputLine);
+			Console.WriteLine (output);
 			Console.WriteLine ("");
       
-			var data = ParseOutputLine (outputLine);
+			var data = ParseOutputLine (GetLastDataLine(output));
       
 			Console.WriteLine ("");
 			Console.WriteLine ("Checking calibrated value");

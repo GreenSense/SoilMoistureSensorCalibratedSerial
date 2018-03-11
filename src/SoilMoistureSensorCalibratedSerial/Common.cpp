@@ -3,6 +3,9 @@
 
 #include "Common.h"
 
+long lastSerialOutputTime = 0;
+int serialOutputInterval = 1;
+
 bool isDebugMode = false;
 
 void EEPROMWriteLong(int address, long value)

@@ -129,26 +129,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					Console.WriteLine (output);
 					Console.WriteLine ("");
 
-					// Extract the data line
-					var dataLine = "";
-
-					var dataLines = output.Split('\n');
-
-					for (int i = dataLines.Length-1; i>=0; i--)
-					{
-						if (dataLines[i].StartsWith("D;"))
-						{
-							dataLine = dataLines[i];
-							break;
-						}
-					}
-
-					Console.WriteLine ("Data line:");
-					Console.WriteLine (dataLine);
-					Console.WriteLine ("");
-
 					// Parse the values in the data line
-					var values = ParseOutputLine(dataLine);
+					var values = ParseOutputLine(GetLastDataLine(output));
 
 					// Get the raw soil moisture value
 					var rawValue = values["R"];

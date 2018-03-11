@@ -14,7 +14,7 @@ long lastSensorOnTime = 0;
 int delayAfterTurningSensorOn = 3 * 1000;
 
 bool soilMoistureSensorReadingHasBeenTaken = false;
-long soilMoistureSensorReadingInterval = 3; // Seconds
+long soilMoistureSensorReadingInterval = 1; // Seconds
 long lastSoilMoistureSensorReadingTime = 0; // Milliseconds
 
 int soilMoistureLevelCalibrated = 0;
@@ -209,6 +209,8 @@ void setSoilMoistureSensorReadingInterval(long newValue)
   setEEPROMSoilMoistureSensorReadingIntervalIsSetFlag();
 
   soilMoistureSensorReadingInterval = newValue; 
+
+  serialOutputInterval = newValue;
 }
 
 long getSoilMoistureSensorReadingInterval()
@@ -414,7 +416,8 @@ void restoreDefaultSoilMoistureSensorReadingIntervalSettings()
 {
   removeEEPROMSoilMoistureSensorReadingIntervalIsSetFlag();
 
-  soilMoistureSensorReadingInterval = 3;
+  soilMoistureSensorReadingInterval = 1;
+  serialOutputInterval = 1;
 
   setSoilMoistureSensorReadingInterval(soilMoistureSensorReadingInterval);
 }

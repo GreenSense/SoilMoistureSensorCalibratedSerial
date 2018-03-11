@@ -62,7 +62,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine (output);
 				Console.WriteLine ("");
 
-				var readInterval = 100; // Seconds
+				var readInterval = 5; // Seconds
 
 				var command = "V" + readInterval;
 

@@ -6,9 +6,6 @@
 #include "Common.h"
 #include "SoilMoistureSensor.h"
 
-long lastSerialOutputTime = 0;
-long serialOutputInterval = 3 * 1000;
-//long serialOutputInterval = 1;
 
 #define SERIAL_MODE_CALIBRATED 1
 #define SERIAL_MODE_RAW 2
@@ -116,7 +113,7 @@ void restoreDefaultSettings()
 /* Serial Output */
 void serialPrintData()
 {
-  bool isTimeToPrintData = lastSerialOutputTime + serialOutputInterval < millis()
+  bool isTimeToPrintData = lastSerialOutputTime + secondsToMilliseconds(serialOutputInterval) < millis()
       || lastSerialOutputTime == 0;
 
   bool isReadyToPrintData = isTimeToPrintData && soilMoistureSensorReadingHasBeenTaken;
