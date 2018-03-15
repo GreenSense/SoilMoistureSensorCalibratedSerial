@@ -7,11 +7,11 @@ pipeline {
         
         stage('Checkout') {
             steps {
-checkout([$class: 'GitSCM', branches: [[name: '*/master']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']]])
 
                 sh 'git fetch'
                 sh 'git branch'
-                sh 'git checkout refs/heads/master'
+                sh 'git checkout master'
                 sh 'git checkout $BRANCH_NAME'
             }
         }
