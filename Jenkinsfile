@@ -11,7 +11,7 @@ pipeline {
 
                 sh 'git fetch'
                 sh 'git branch'
-                sh 'git checkout origin/master'
+                sh 'git checkout refs/heads/master'
                 sh 'git checkout $BRANCH_NAME'
             }
         }
