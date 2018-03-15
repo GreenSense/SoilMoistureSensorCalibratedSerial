@@ -7,11 +7,11 @@ pipeline {
         
         stage('Checkout') {
             steps {
-                checkout scm: [$class: 'GitSCM', branches: [[name: '*/$GIT_BRANCH']], userRemoteConfigs: [[url: 'GIT_URL']]]
+                checkout scm
 
                 sh 'git fetch'
                 sh 'git branch'
-                sh 'git checkout master'
+                sh 'git checkout origin/master'
                 sh 'git checkout $BRANCH_NAME'
             }
         }
