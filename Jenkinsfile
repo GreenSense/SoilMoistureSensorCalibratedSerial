@@ -4,14 +4,10 @@ pipeline {
         pollSCM 'H/30 * * * *'
     }
     stages {
-        stage('Prepare') {
-            steps {
-                sh 'echo "Skipping prepare.sh script call to speed up tests. Prerequisites should already be installed." # sh prepare.sh'
-            }
-        }
         
         stage('Graduate') {
             steps {
+                sh 'git checkout $BRANCH_NAME'
                 sh 'sh graduate.sh'
             }
         }
