@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 
-                checkout scm
+                checkout([$class: 'GitSCM', branches: [[name: '*/$BRANCH_NAME']]])
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']]])
 
                 sh 'git checkout $BRANCH_NAME'
