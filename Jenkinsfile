@@ -5,12 +5,17 @@ pipeline {
     }
     stages {
         
+        stage('Checkout') {
+            steps {
+               checkout scm
+                sh 'git fetch'
+                sh 'git branch'
+                sh 'git checkout master'
+                sh 'git checkout $BRANCH_NAME'
+            }
+        }
         stage('Graduate') {
             steps {
-                checkout scm
-                sh 'git branch'
-                sh 'git fetch'
-                sh 'git checkout $BRANCH_NAME'
                 sh 'sh graduate.sh'
             }
         }
