@@ -40,7 +40,7 @@ pipeline {
                 sh 'sh test.sh'
             }
         }
-        if(env.BRANCH_NAME == 'dev'){
+        if($BRANCH_NAME == 'dev'){
           stage('Graduate') {
               steps {
                   sh 'sh graduate.sh'
