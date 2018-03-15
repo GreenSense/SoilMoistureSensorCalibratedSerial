@@ -14,16 +14,6 @@ pipeline {
                 sh 'cp -f /usr/local/jenkins/garden-credentials.sh garden-credentials.sh'
             }
         }
-        stage('Init') {
-            steps {
-                sh 'sh init.sh'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'sh build-all.sh'
-            }
-        }
         stage('Deploy') {
             steps {
                 sh 'sh deploy.sh'
