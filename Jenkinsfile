@@ -7,7 +7,8 @@ pipeline {
         
         stage('Graduate') {
             steps {
-                sh 'git fetch master'
+                sh 'git branch'
+                sh 'git fetch'
                 sh 'git checkout $BRANCH_NAME'
                 sh 'sh graduate.sh'
             }
