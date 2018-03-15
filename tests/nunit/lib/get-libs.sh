@@ -15,6 +15,10 @@ then
     mono nuget.exe update -self
 fi
 
+if [ ! -d "duinocom.core.1.0.4" ]; then
+    mono nuget.exe install duinocom.core -version 1.0.4
+fi
+
 if [ ! -d "NUnit.2.6.4" ]; then
     mono nuget.exe install nunit -version 2.6.4
 fi
