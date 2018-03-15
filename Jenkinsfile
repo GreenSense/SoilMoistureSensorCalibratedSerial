@@ -12,8 +12,8 @@ pipeline {
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
-                sh 'cp /usr/local/jenkins/test.sh test.sh'
-                sh 'sh test.sh'
+                sh 'cp /usr/local/jenkins/set-soilmoisturesensorcalibratedserial-git-credentials.sh set-soilmoisturesensorcalibratedserial-git-credentials.sh'
+                sh 'sh set-soilmoisturesensorcalibratedserial-git-credentials.sh'
             }
         }
         stage('Graduate') {
