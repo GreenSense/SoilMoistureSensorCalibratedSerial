@@ -40,10 +40,12 @@ pipeline {
                 sh 'sh test.sh'
             }
         }
-        stage('Graduate') {
-            steps {
-                sh 'sh graduate.sh'
-            }
+        if(env.BRANCH_NAME == 'dev'){
+          stage('Graduate') {
+              steps {
+                  sh 'sh graduate.sh'
+              }
+          }
         }
         stage('Clean') {
             steps {
