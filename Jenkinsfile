@@ -1,24 +1,17 @@
 pipeline {
     agent any
     triggers {
-        pollSCM 'H/30 * * * *'
+        pollSCM 'H/10 * * * *'
     }
     stages {
-        
-        stage('Checkout') {
+        stage('Init') {
             steps {
-                checkout scm
-
-                sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
-                sh "git fetch --no-tags"
-                sh 'git checkout $BRANCH_NAME'
-                sh 'cp /usr/local/jenkins/set-soilmoisturesensorcalibratedserial-git-credentials.sh set-soilmoisturesensorcalibratedserial-git-credentials.sh'
-                sh 'sh set-soilmoisturesensorcalibratedserial-git-credentials.sh'
+                sh 'sh init.sh'
             }
         }
-        stage('Graduate') {
+        stage('Build') {
             steps {
-                sh 'sh graduate.sh'
+                sh 'sh build-all.sh'
             }
         }
     }
