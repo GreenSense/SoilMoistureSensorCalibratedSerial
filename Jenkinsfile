@@ -1,22 +1,17 @@
 pipeline {
     agent any
     triggers {
-        pollSCM 'H/10 * * * *'
+        pollSCM 'H/3 * * * *'
     }
     stages {
-        stage('Checkout') {
+        stage('Init') {
             steps {
-                checkout scm
-
-                sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
-                sh "git fetch --no-tags"
-                sh 'git checkout $BRANCH_NAME'
-                sh 'cp -f /usr/local/jenkins/garden-credentials.sh garden-credentials.sh'
+                sh 'sh init.sh'
             }
         }
-        stage('Deploy') {
+        stage('Build') {
             steps {
-                sh 'sh deploy.sh'
+                sh 'sh build.sh'
             }
         }
     }
