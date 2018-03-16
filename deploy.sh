@@ -13,6 +13,7 @@ then
 
   sshpass -p $GARDEN_PASSWORD ssh -o StrictHostKeyChecking=no -t $GARDEN_USER@$GARDEN_HOSTNAME "pwd"
 #  sshpass -p $GARDEN_PASSWORD ssh -o StrictHostKeyChecking=no -t $GARDEN_USER@$GARDEN_HOSTNAME "bash -c 'cd /home/$GARDEN_USER/workspace/GreenSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial && sh pull-build-and-upload.sh'"
+
 else
   echo "Can't deploy dev branch. Switch to master."
 fi
