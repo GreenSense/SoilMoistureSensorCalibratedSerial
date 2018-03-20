@@ -96,5 +96,3 @@ With the automated test hardware connected run the test script:
 ```
 sudo sh test.sh
 ```
-
-
