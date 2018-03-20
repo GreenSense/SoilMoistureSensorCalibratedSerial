@@ -42,6 +42,7 @@ pipeline {
         }
         stage('Graduate') {
             steps {
+                sh 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git'
                 sh 'sh graduate.sh'
             }
         }
