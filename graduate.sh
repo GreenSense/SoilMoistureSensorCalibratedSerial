@@ -30,8 +30,6 @@ then
 
   (echo "Error" && exit 1)
 else
-  echo "You must be in the 'dev' branch to graduate to the 'master' branch, but currently in the '$BRANCH' branch."
-
-  echo "Error" && exit 1
+  echo "You must be in the 'dev' branch to graduate to the 'master' branch, but currently in the '$BRANCH' branch. Skipping."
 fi
 date
