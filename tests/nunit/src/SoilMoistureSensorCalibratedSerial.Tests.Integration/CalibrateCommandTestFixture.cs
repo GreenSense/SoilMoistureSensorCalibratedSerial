@@ -92,6 +92,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				soilMoistureMonitor.WriteLine ("X");
 
 				Thread.Sleep(1000);
+				
+				// Set output interval to 1
+				irrigator.WriteLine ("V1");
+
+				Thread.Sleep(1000);
 
 				Console.WriteLine("");
 				Console.WriteLine("Reading the output from the monitor device...");
@@ -115,10 +120,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					// Set the simulated soil moisture
 					soilMoistureSimulator.AnalogWritePercentage (9, percentageIn);
 
-					Thread.Sleep(5000);
-					// Works but slow
-					//Thread.Sleep(8000);
-					//Thread.Sleep(12000);
+					Thread.Sleep(2000);
 
 					Console.WriteLine("");
 					Console.WriteLine("Reading output from the monitor device...");
@@ -134,7 +136,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 					// Get the raw soil moisture value
 					var rawValue = values["R"];
-
 
 					Console.WriteLine("");
 					Console.WriteLine("Checking the values from the monitor device...");
