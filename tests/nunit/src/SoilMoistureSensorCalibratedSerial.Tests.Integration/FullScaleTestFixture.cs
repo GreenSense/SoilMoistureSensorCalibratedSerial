@@ -101,7 +101,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
       
 			soilMoistureSimulator.AnalogWritePercentage (9, percentageValue);
       
-			Thread.Sleep (5000);
+			Thread.Sleep (3000);
       
 			Console.WriteLine ("");
 			Console.WriteLine ("Reading data from soil moisture monitor");
