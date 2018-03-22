@@ -24,7 +24,7 @@ pipeline {
                 sh 'git config --global user.name "CompulsiveCoder CI"'
             }
         }
-        stage ("Skip build?") {
+        stage ('Skip build?') {
             result = sh (script: "git log -1 | grep '.*\\[ci skip\\].*'", returnStatus: true)
             if (result == 0) {
               echo ("This build should be skipped. Aborting.")
