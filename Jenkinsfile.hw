@@ -24,10 +24,11 @@ pipeline {
                 sh 'sh init.sh'
             }
         }
-        stage('Increment Version') {
+        stage('Version') {
             steps {
                 sh 'sh increment-version.sh'
                 sh 'sh inject-version.sh'
+                sh 'sh push-version.sh'
             }
         }
         stage('Build') {
@@ -53,11 +54,6 @@ pipeline {
         stage('Graduate') {
             steps {
                 sh 'sh graduate.sh'
-            }
-        }
-        stage('Commit Version') {
-            steps {
-                sh 'sh push-version.sh'
             }
         }
     }
