@@ -25,90 +25,51 @@ pipeline {
             }
         }
         stage ('Skip build') {
-            result = sh (script: "git log -1 | grep '.*\\[ci skip\\].*'", returnStatus: true)
-            if (result == 0) {
-              echo ("This build should be skipped. Aborting.")
-              env.shouldBuild = "false"
-            }
+            
+           result = sh (script: "git log -1 | grep '.*\\[ci skip\\].*'", returnStatus: true) 
+           if (result == 0) {
+              echo ("'ci skip' spotted in git commit. Aborting.")
+              success ("'ci skip' spotted in git commit. Aborting.")
+           }
         }
         stage('Init') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
             steps {
                 sh 'sh init.sh'
             }
         }
         stage('Version') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
             steps {
                 sh 'sh increment-version.sh'
                 sh 'sh inject-version.sh'
             }
         }
         stage('Build') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
             steps {
                 sh 'sh build-all.sh'
             }
         }
         stage('Upload') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
             steps {
                 sh 'sh upload.sh'
             }
         }
         stage('Upload simulator') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
             steps {
                 sh 'echo "Skipping simulator upload to speed up test." #sh upload-simulator.sh'
             }
         }
         stage('Test') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
             steps {
                 sh 'sh test.sh'
             }
         }
         stage('Push Version') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
             steps {
                 sh 'git checkout src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino'
                 sh 'sh push-version.sh'
             }
         }
         stage('Graduate') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
             steps {
                 sh 'sh graduate.sh'
             }
