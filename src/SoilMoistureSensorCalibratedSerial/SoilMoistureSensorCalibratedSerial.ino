@@ -12,6 +12,8 @@
 #define SERIAL_MODE_CSV 3
 #define SERIAL_MODE_QUERYSTRING 4
 
+String version = "1.0.0.2"
+
 int serialMode = SERIAL_MODE_CSV;
 
 int loopNumber = 0;
