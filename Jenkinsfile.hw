@@ -24,11 +24,6 @@ pipeline {
                 sh 'git config --global user.name "CompulsiveCoder CI"'
             }
         }
-        stage('CheckCiSkip') {
-            steps {
-                sh 'sh check-ci-skip.sh'
-            }
-        }
         stage('Init') {
             steps {
                 sh 'sh init.sh'
