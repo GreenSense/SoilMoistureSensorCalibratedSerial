@@ -197,10 +197,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				var calibrationValue = Convert.ToInt32(cvString);
 
 				Console.WriteLine("Calibration value: " + calibrationValue);
+				Console.WriteLine("Expected raw: " + expectedRaw);
 				Console.WriteLine("");
 
 				// Ensure the calibration value is in the valid range
-				Assert.IsTrue(calibrationValue >= expectedRaw-7 && calibrationValue <= expectedRaw+7, "Calibration value is outside the valid range: " + calibrationValue);
+				Assert.IsTrue(IsWithinRange(calibrationValue, expectedRaw, 10), "Calibration value is outside the valid range: " + calibrationValue);
 
 			} catch (IOException ex) {
 				Console.WriteLine (ex.ToString ());
