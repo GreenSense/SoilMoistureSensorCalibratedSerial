@@ -94,7 +94,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Thread.Sleep(1000);
 				
 				// Set output interval to 1
-				irrigator.WriteLine ("V1");
+				soilMoistureMonitor.WriteLine ("V1");
 
 				Thread.Sleep(1000);
 
