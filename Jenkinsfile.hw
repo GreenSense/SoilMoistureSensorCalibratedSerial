@@ -3,6 +3,10 @@ pipeline {
     triggers {
         pollSCM 'H/5 * * * *'
     }
+    options {
+        disableConcurrentBuilds();
+        skipDefaultCheckout();
+    }
     stages {
         stage('Checkout') {
             steps {
