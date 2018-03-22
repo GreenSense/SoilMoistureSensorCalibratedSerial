@@ -1,7 +1,7 @@
 VERSION=$(cat version.txt)
 BUILD_NUMBER=$(cat buildnumber.txt)
 
-FULL_VERSION="$VERSION.$BUILD_NUMBER"
+FULL_VERSION="$VERSION-$BUILD_NUMBER"
 
 SOURCE_FILE="src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino"
 
