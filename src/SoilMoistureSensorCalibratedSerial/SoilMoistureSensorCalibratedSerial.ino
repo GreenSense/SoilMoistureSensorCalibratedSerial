@@ -137,7 +137,7 @@ void serialPrintData()
       Serial.print(soilMoistureLevelCalibrated);
       Serial.print(";");
       Serial.print("V:");
-      Serial.print(soilMoistureSensorReadingInterval); // Convert to seconds
+      Serial.print(soilMoistureSensorReadingInterval);
       Serial.print(";");
       Serial.print("D:");
       Serial.print(drySoilMoistureCalibrationValue);

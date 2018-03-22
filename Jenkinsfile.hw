@@ -17,6 +17,8 @@ pipeline {
                 sh 'git checkout $BRANCH_NAME'
                 sh 'cp /usr/local/jenkins/set-soilmoisturesensorcalibratedserial-git-credentials.sh set-soilmoisturesensorcalibratedserial-git-credentials.sh'
                 sh 'sh set-soilmoisturesensorcalibratedserial-git-credentials.sh'
+                sh 'git config --global user.email "compulsivecoder@gmail.com"'
+                sh 'git config --global user.name "CompulsiveCoder CI"'
             }
         }
         stage('Init') {
