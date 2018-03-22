@@ -30,7 +30,6 @@ pipeline {
             steps {
                 sh 'sh increment-version.sh'
                 sh 'sh inject-version.sh'
-                sh 'sh push-version.sh'
             }
         }
         stage('Build') {
@@ -58,6 +57,13 @@ pipeline {
                 sh 'sh graduate.sh'
             }
         }
+        stage('Graduate') {
+            steps {
+                sh 'git checkout src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino'
+                sh 'sh push-version.sh'
+            }
+        }
+                
     }
     post {
         always {
