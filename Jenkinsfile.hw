@@ -57,7 +57,7 @@ pipeline {
                 sh 'sh graduate.sh'
             }
         }
-        stage('Graduate') {
+        stage('Push Version') {
             steps {
                 sh 'git checkout src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino'
                 sh 'sh push-version.sh'
