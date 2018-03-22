@@ -12,7 +12,7 @@
 #define SERIAL_MODE_CSV 3
 #define SERIAL_MODE_QUERYSTRING 4
 
-String version = "1.0.0.2"
+#define VERSION "1.0.0.4"
 
 int serialMode = SERIAL_MODE_CSV;
 
@@ -144,6 +144,9 @@ void serialPrintData()
       Serial.print(";");
       Serial.print("W:");
       Serial.print(wetSoilMoistureCalibrationValue);
+      Serial.print(";");
+      Serial.print("Z:");
+      Serial.print(VERSION);
       Serial.print(";;");
       Serial.println();
     }
