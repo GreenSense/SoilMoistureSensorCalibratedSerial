@@ -7,4 +7,6 @@ install:
   - sh init.sh
 
 script:
+  - sh increment-version.sh
+  - sh inject-version.sh
   - sh build-all.sh
