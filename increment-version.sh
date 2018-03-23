@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ "$BRANCH" = "dev" ]
 then
