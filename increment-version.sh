@@ -1,13 +1,20 @@
 #!/bin/sh
 
-echo "Incrementing version"
+BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-CURRENT_VERSION=$(cat buildnumber.txt)
+if [ "$BRANCH" = "dev" ]
+then
+    echo "Incrementing version"
 
-echo "Current: $CURRENT_VERSION"
+    CURRENT_VERSION=$(cat buildnumber.txt)
 
-CURRENT_VERSION=$(($CURRENT_VERSION + 1))
+    echo "Current: $CURRENT_VERSION"
 
-echo "New version: $CURRENT_VERSION"
+    CURRENT_VERSION=$(($CURRENT_VERSION + 1))
 
-echo $CURRENT_VERSION > buildnumber.txt
+    echo "New version: $CURRENT_VERSION"
+
+    echo $CURRENT_VERSION > buildnumber.txt
+else
+    echo "Skipping increment version. Version is only incremented in 'dev' branch not '$BRANCH' branch"
+fi
