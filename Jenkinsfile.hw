@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Init') {
             steps {
-                sh 'sh init.sh'
+                sh 'echo "Skipping" # sh init.sh'
             }
         }
         stage('Version') {
@@ -34,12 +34,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'sh build-all.sh'
+                sh 'echo "Skipping" # sh build-all.sh'
             }
         }
         stage('Upload') {
             steps {
-                sh 'sh upload.sh'
+                sh 'echo "Skipping" # sh upload.sh'
             }
         }
         stage('Upload simulator') {
@@ -49,7 +49,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'sh test.sh'
+                sh 'echo "Skipping" # sh test.sh'
             }
         }
         stage('Clean') {
