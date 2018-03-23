@@ -52,15 +52,19 @@ pipeline {
                 sh 'sh test.sh'
             }
         }
-        stage('Push Version') {
+        stage('Clean') {
             steps {
                 sh 'git checkout src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino'
-                sh 'sh push-version.sh'
             }
         }
         stage('Graduate') {
             steps {
                 sh 'sh graduate.sh'
+            }
+        }
+        stage('Push Version') {
+            steps {
+                sh 'sh push-version.sh'
             }
         }
                 
