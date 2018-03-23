@@ -26,9 +26,8 @@ pipeline {
                 sh 'echo "Skipping" # sh init.sh'
             }
         }
-        stage('Version') {
+        stage('Inject Version') {
             steps {
-                sh 'sh increment-version.sh'
                 sh 'sh inject-version.sh'
             }
         }
@@ -57,14 +56,19 @@ pipeline {
                 sh 'git checkout src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino'
             }
         }
-        stage('Commit Version') {
-            steps {
-                sh 'sh commit-version.sh'
-            }
-        }
         stage('Graduate') {
             steps {
                 sh 'sh graduate.sh'
+            }
+        }
+        stage('Increment Version') {
+            steps {
+                sh 'sh increment-version.sh'
+            }
+        } 
+        stage('Commit Version') {
+            steps {
+                sh 'sh commit-version.sh'
             }
         }
         stage('Push Version') {
