@@ -4,12 +4,10 @@
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-if [ $SKIP_CI == 1 ]
-then
+if [ $SKIP_CI = 1 ]; then
   echo "Skipping graduation [ci skip]"
 else
-  if [ "$BRANCH" = "dev" && !$SKIP_CI ]
-  then
+  if [ "$BRANCH" = "dev" ];  then
     echo "Graduating dev branch to master branch"
   
     # Fetch other branches
