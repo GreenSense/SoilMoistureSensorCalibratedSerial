@@ -4,7 +4,7 @@
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-if [ $SKIP_CI ]
+if [ $SKIP_CI == 1 ]
 then
   echo "Skipping graduation [ci skip]"
 else
