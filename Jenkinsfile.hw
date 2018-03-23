@@ -7,9 +7,6 @@ pipeline {
         disableConcurrentBuilds();
         skipDefaultCheckout();
     }
-    parameters {
-        booleanParam(defaultValue: true, description: 'Execute pipeline?', name: 'shouldBuild')
-    }
     stages {
         stage('Checkout') {
             steps {
