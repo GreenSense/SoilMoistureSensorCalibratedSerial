@@ -7,7 +7,7 @@ if [ $SKIP_CI = 0 ]; then
   BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
   if [ "$BRANCH" = "dev" ];  then
-    git commit buildnumber.txt -m "Updated version [ci skip]" && \
+    git commit buildnumber.txt -m "Updated version [ci skip]"
   else
     echo "Skipping commit version. Only pushed for 'dev' branch not '$BRANCH'"
   fi
