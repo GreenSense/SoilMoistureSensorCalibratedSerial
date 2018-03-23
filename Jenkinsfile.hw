@@ -66,11 +66,6 @@ pipeline {
                 sh 'sh increment-version.sh'
             }
         } 
-        stage('Commit Version') {
-            steps {
-                sh 'sh commit-version.sh'
-            }
-        }
         stage('Push Version') {
             steps {
                 sh 'sh push-version.sh'
