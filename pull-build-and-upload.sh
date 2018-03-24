@@ -4,10 +4,10 @@ echo ""
 echo "Pulling git changes, building, and uploading..."
 echo ""
 
-PORT_NAME=$1
+PORT_NAME="/dev/$1"
 
 if [ ! $PORT_NAME ]; then
-  PORT_NAME="ttyUSB0"
+  PORT_NAME="/dev/ttyUSB0"
 fi
 
 echo "Port: $PORT_NAME"
