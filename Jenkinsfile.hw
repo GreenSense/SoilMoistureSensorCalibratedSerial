@@ -1,7 +1,7 @@
 pipeline {
     agent any
     triggers {
-        pollSCM 'H/5 * * * *'
+        pollSCM 'H/2 * * * *'
     }
     options {
         disableConcurrentBuilds();
@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Init') {
             steps {
-                sh 'echo "Skipping" # sh init.sh'
+                sh 'sh init.sh'
             }
         }
         stage('Inject Version') {
@@ -33,12 +33,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'echo "Skipping" # sh build-all.sh'
+                sh 'sh build-all.sh'
             }
         }
         stage('Upload') {
             steps {
-                sh 'echo "Skipping" # sh upload.sh'
+                sh 'sh upload.sh'
             }
         }
         stage('Upload simulator') {
@@ -48,7 +48,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'echo "Skipping" # sh test.sh'
+                sh 'sh test.sh'
             }
         }
         stage('Clean') {
@@ -78,3 +78,4 @@ pipeline {
         }
     }
 }
+
