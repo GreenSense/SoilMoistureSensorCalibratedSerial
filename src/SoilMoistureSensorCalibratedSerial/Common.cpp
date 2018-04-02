@@ -4,7 +4,7 @@
 #include "Common.h"
 
 long lastSerialOutputTime = 0;
-int serialOutputInterval = 1;
+long serialOutputInterval = 1;
 
 bool isDebugMode = false;
 
@@ -40,3 +40,10 @@ long secondsToMilliseconds(int seconds)
 {
   return seconds * 1000;
 }
+
+void forceSerialOutput()
+{
+    // Reset the last serial output time 
+    lastSerialOutputTime = millis()-secondsToMilliseconds(serialOutputInterval);
+}
+

@@ -2,7 +2,7 @@
 #define COMMON_H_
 
 extern long lastSerialOutputTime; // Milliseconds
-extern int serialOutputInterval; // Seconds
+extern long serialOutputInterval; // Seconds
 
 extern bool isDebugMode;
 
@@ -10,6 +10,8 @@ void EEPROMWriteLong(int address, long value);
 long EEPROMReadLong(int address);
 
 long secondsToMilliseconds(int seconds);
+
+void forceSerialOutput();
 
 #endif
 /* SOILMOISTURESENSOR_H_ */

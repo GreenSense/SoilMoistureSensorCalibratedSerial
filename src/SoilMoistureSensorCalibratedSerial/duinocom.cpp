@@ -1,20 +1,12 @@
 #include "Arduino.h"
 #include "duinocom.h"
 
-const char identifyRequest = 'I';
-const char* identifyResponse = "duinocom";
-
 bool verboseCom = false;
 
 bool isMsgReady = false;
 int msgPosition = 0;
 byte msgBuffer[MAX_MSG_LENGTH];
 int msgLength = 0;
-
-void identify()
-{
-  Serial.println(identifyResponse);
-}
 
 // Check whether a message is available and add it to the 'msgBuffer' buffer
 bool checkMsgReady()
@@ -75,22 +67,6 @@ bool checkMsgReady()
       {
         Serial.print("In:");
         Serial.println(char(b));
-      }
-    }
-
-    // If an id request is received then respond
-    if (isMsgReady)
-    {
-      char firstCharacter = char(msgBuffer[0]);
-      Serial.println(char(firstCharacter));
-
-      if (firstCharacter == identifyRequest)
-      {
-        identify();
-
-        isMsgReady = false;
-
-        clearMsg(msgBuffer);
       }
     }
 
