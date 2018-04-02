@@ -100,6 +100,8 @@ void checkCommand()
         isDebugMode = !isDebugMode;
         break;
     }
+
+    forceSerialOutput();
   }
   delay(1);
 }

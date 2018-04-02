@@ -193,8 +193,8 @@ void setSoilMoistureSensorReadingInterval(char* msg)
 {
     int value = readInt(msg, 1, strlen(msg)-1);
 
-    Serial.println("Value:");
-    Serial.println(value);
+    //Serial.print("Value:");
+    //Serial.println(value);
 
     setSoilMoistureSensorReadingInterval(value);
 }
