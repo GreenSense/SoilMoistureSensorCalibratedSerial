@@ -129,9 +129,9 @@ void serialPrintData()
     if (serialMode == SERIAL_MODE_CSV)
     {
       Serial.print("D;"); // This prefix indicates that the line contains data.
-      Serial.print("T:");
-      Serial.print(numberOfSecondsOnline);
-      Serial.print(";");
+      //Serial.print("T:");
+      //Serial.print(numberOfSecondsOnline);
+      //Serial.print(";");
       Serial.print("R:");
       Serial.print(soilMoistureLevelRaw);
       Serial.print(";");
@@ -154,9 +154,9 @@ void serialPrintData()
     }
     else if (serialMode == SERIAL_MODE_QUERYSTRING)
     {
-      Serial.print("time=");
-      Serial.print(numberOfSecondsOnline);
-      Serial.print("&");
+      //Serial.print("time=");
+      //Serial.print(numberOfSecondsOnline);
+      //Serial.print("&");
       Serial.print("raw=");
       Serial.print(soilMoistureLevelRaw);
       Serial.print("&");
