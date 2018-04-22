@@ -173,14 +173,14 @@ void serialPrintData()
       Serial.print(wetSoilMoistureCalibrationValue);
       Serial.println();
     }
-	else if (serialMode == SERIAL_MODE_CALIBRATED)
-	{
+	  else if (serialMode == SERIAL_MODE_CALIBRATED)
+	  {
       Serial.println(soilMoistureLevelCalibrated);
-	}
-	else if (serialMode == SERIAL_MODE_RAW)
-	{
+	  }
+	  else if (serialMode == SERIAL_MODE_RAW)
+	  {
       Serial.println(soilMoistureLevelRaw);
-	}
+	  }
 
     lastSerialOutputTime = millis();
   }
