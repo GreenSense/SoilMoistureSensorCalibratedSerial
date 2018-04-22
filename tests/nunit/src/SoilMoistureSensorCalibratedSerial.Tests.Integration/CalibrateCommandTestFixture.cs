@@ -27,7 +27,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		{
 			var raw = 220;
 
-			TestCalibrateToCurrentCommand ("dry", "D" + raw, -1, raw);
+			TestCalibrateToCurrentCommand ("dry", "D", -1, raw);
 		}
 
 		[Test]
@@ -45,10 +45,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		{
 			var raw = 880;
 
-			TestCalibrateToCurrentCommand ("wet", "W" + raw, -1, raw);
+			TestCalibrateToCurrentCommand ("wet", "W", -1, raw);
 		}
 
-		public void TestCalibrateToCurrentCommand(string label, string command, int percentageIn, int expectedRaw)
+		public void TestCalibrateToCurrentCommand(string label, string letter, int percentageIn, int rawIn)
 		{
 
 			Console.WriteLine ("");
@@ -56,7 +56,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine ("Starting calibrate " + label + " command test");
 			Console.WriteLine ("");
 			Console.WriteLine ("Percentage in: " + percentageIn);
-			Console.WriteLine ("Expected raw: " + expectedRaw);
+			Console.WriteLine ("Expected raw: " + rawIn);
 
 			SerialClient soilMoistureMonitor = null;
 			ArduinoSerialDevice soilMoistureSimulator = null;
@@ -142,8 +142,14 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					Console.WriteLine("");
 
 					// Ensure the raw value is in the valid range
-					Assert.IsTrue(IsWithinRange(rawValue, expectedRaw, 10), "Raw value is outside the valid range: " + rawValue);
+					Assert.IsTrue(IsWithinRange(rawValue, rawIn, 10), "Raw value is outside the valid range: " + rawValue);
 				}
+
+				var command = letter;
+				
+				// If the simulated percentage isn't set then pass the raw value as part of the command
+				if (percentageIn == -1)
+					command = command + rawIn;
 
 				Console.WriteLine("");
 				Console.WriteLine("Sending '" + command + "' command to monitor device...");
@@ -170,20 +176,20 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 				var newValues = ParseOutputLine(GetLastDataLine(output));
 				
-				Console.WriteLine("Letter: " + command);
+				Console.WriteLine("Letter: " + letter);
 				
-				var valueString = newValues[command];
+				var valueString = newValues[letter];
 				
 				Console.WriteLine("Value string: " + valueString);
 
 				var calibrationValue = Convert.ToInt32(valueString);
 
 				Console.WriteLine("Calibration value: " + calibrationValue);
-				Console.WriteLine("Expected value: " + expectedRaw);
+				Console.WriteLine("Expected value: " + rawIn);
 				Console.WriteLine(""); 
 
 				// Ensure the calibration value is in the valid range
-				Assert.IsTrue(IsWithinRange(calibrationValue, expectedRaw, 13), "Calibration value is outside the valid range: " + calibrationValue);
+				Assert.IsTrue(IsWithinRange(calibrationValue, rawIn, 13), "Calibration value is outside the valid range: " + calibrationValue);
 
 			} catch (Exception ex) {
 				Console.WriteLine (ex.ToString ());
