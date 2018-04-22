@@ -152,7 +152,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				// Send the command
 				soilMoistureMonitor.WriteLine (command);
 
-				Thread.Sleep(1000);
+				Thread.Sleep(3000);
 
 				Console.WriteLine("");
 				Console.WriteLine("Reading the output from the monitor device...");
