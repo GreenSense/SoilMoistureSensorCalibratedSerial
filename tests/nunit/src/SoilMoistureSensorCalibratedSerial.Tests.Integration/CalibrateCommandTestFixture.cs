@@ -170,9 +170,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 				var newValues = ParseOutputLine(GetLastDataLine(output));
 				
-				Console.WriteLine("Label: " + label);
+				Console.WriteLine("Letter: " + command);
 				
-				var valueString = newValues[label];
+				var valueString = newValues[command];
 				
 				Console.WriteLine("Value string: " + valueString);
 
