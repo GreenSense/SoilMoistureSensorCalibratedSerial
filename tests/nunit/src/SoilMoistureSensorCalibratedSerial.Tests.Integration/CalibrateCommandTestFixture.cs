@@ -135,7 +135,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					var values = ParseOutputLine(GetLastDataLine(output));
 
 					// Get the raw soil moisture value
-					var rawValue = values["R"];
+					var rawValue = Convert.ToInt32(values["R"]);
 
 					Console.WriteLine("");
 					Console.WriteLine("Checking the values from the monitor device...");
@@ -170,7 +170,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 				var newValues = ParseOutputLine(GetLastDataLine(output));
 
-				var calibrationValue = newValues[label];
+				var calibrationValue = Convert.ToInt32(newValues[label]);
 
 				Console.WriteLine("Calibration value: " + calibrationValue);
 				Console.WriteLine("Expected value: " + expectedRaw);
