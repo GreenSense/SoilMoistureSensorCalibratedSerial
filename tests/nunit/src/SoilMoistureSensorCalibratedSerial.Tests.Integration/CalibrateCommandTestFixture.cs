@@ -169,8 +169,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine("");
 
 				var newValues = ParseOutputLine(GetLastDataLine(output));
+				
+				var valueString = newValues[label];
+				
+				Console.WriteLine("Value string: " + valueString)
 
-				var calibrationValue = Convert.ToInt32(newValues[label]);
+				var calibrationValue = Convert.ToInt32(valueString);
 
 				Console.WriteLine("Calibration value: " + calibrationValue);
 				Console.WriteLine("Expected value: " + expectedRaw);
