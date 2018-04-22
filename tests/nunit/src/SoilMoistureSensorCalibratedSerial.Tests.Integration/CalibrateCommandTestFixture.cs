@@ -168,36 +168,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine("Checking the output...");
 				Console.WriteLine("");
 
-				// Check the output
-				var expected = "Setting " + label + " soil moisture sensor calibration value:";
-				Assert.IsTrue(output.Contains(expected), "Didn't find expected output");
+				var newValues = ParseOutputLine(GetLastDataLine(output));
 
-				var lastLine = "";
-
-				var lines = output.Split('\n');
-
-				// Extract the line containing the calibration value
-				for (int i = lines.Length-1; i>=0; i--)
-				{
-					var line = lines[i];
-					if (line.StartsWith(expected))
-					{
-						lastLine = line;
-						break;
-					}
-				}
-
-				Console.WriteLine("Last line");
-				Console.WriteLine(lastLine);
-				Console.WriteLine("");
-
-				// Extraction the calibration value
-				int startPosition = lastLine.IndexOf(":")+2;
-				var cvString = lastLine.Substring(startPosition, lastLine.Length-startPosition);
-				var calibrationValue = Convert.ToInt32(cvString);
+				var calibrationValue = newValues[command];
 
 				Console.WriteLine("Calibration value: " + calibrationValue);
-				Console.WriteLine("Expected raw: " + expectedRaw);
+				Console.WriteLine("Expected value: " + expectedRaw);
 				Console.WriteLine("");
 
 				// Ensure the calibration value is in the valid range
