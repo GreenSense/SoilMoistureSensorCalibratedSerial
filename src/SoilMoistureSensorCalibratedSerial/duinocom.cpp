@@ -5,7 +5,7 @@ bool verboseCom = false;
 
 bool isMsgReady = false;
 int msgPosition = 0;
-byte msgBuffer[MAX_MSG_LENGTH];
+char msgBuffer[MAX_MSG_LENGTH];
 int msgLength = 0;
 
 // Check whether a message is available and add it to the 'msgBuffer' buffer
@@ -77,7 +77,7 @@ bool checkMsgReady()
 }
 
 // Get the message from the 'msgBuffer' buffer
-byte* getMsg()
+char* getMsg()
 {
   // Reset the isMsgReady flag until a new message is received
   isMsgReady = false;
@@ -93,7 +93,7 @@ int getMsgLength()
   return msgLength;
 }
 
-void printMsg(byte msg[MAX_MSG_LENGTH])
+void printMsg(char msg[MAX_MSG_LENGTH])
 {
   if (msgLength > 0)
   {
@@ -107,7 +107,7 @@ void printMsg(byte msg[MAX_MSG_LENGTH])
   }
 }
 
-void clearMsg(byte msgBuffer[MAX_MSG_LENGTH])
+void clearMsg(char msgBuffer[MAX_MSG_LENGTH])
 {
   for (int i = 0; i < 10; i++)
   {
@@ -115,12 +115,12 @@ void clearMsg(byte msgBuffer[MAX_MSG_LENGTH])
   }
 }
 
-char getCmdChar(byte msg[MAX_MSG_LENGTH], int characterPosition)
+char getCmdChar(char msg[MAX_MSG_LENGTH], int characterPosition)
 {
   return msg[characterPosition];
 }
 
-int readInt(byte msg[MAX_MSG_LENGTH], int startPosition, int digitCount)
+int readInt(char msg[MAX_MSG_LENGTH], int startPosition, int digitCount)
 {
   char buffer[digitCount];
 
