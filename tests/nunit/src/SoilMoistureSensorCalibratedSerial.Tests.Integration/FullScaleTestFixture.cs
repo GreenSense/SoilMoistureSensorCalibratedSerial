@@ -65,7 +65,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine (output);
 				Console.WriteLine ("");
 
-				int step = 25;
+				int step = 50;
 
 				for (int i = 100; i >= 0; i -= step) {
 					RunCalibrationTest (i, CalibrationIsReversedByDefault, soilMoistureMonitor, soilMoistureSimulator);
@@ -73,7 +73,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					Thread.Sleep (1000);
 				}
         
-				for (int i = 0; i < 100; i += step) {
+				for (int i = 0; i <= 100; i += step) {
 					RunCalibrationTest (i, CalibrationIsReversedByDefault, soilMoistureMonitor, soilMoistureSimulator);
 
 					Thread.Sleep (1000);
