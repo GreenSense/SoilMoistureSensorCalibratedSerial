@@ -8,7 +8,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 	public class BaseTestFixture
 	{
 		public int PwmHigh = 255;
-		public int AnalogHigh = 1023;
+		public int AnalogHigh = 1024;
 		
 		public bool CalibrationIsReversedByDefault = true; // Reversed by default to matches common soil moisture sensors
 		
