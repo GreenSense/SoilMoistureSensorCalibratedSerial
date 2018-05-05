@@ -138,7 +138,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					var rawValue = Convert.ToInt32(values["R"]);
 
 					Console.WriteLine("");
-					Console.WriteLine("Checking the values from the monitor device...");
+					Console.WriteLine("Checking the 'raw' value from the monitor device...");
 					Console.WriteLine("");
 
 					// Ensure the raw value is in the valid range
@@ -171,21 +171,21 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine ("");
 
 				Console.WriteLine("");
-				Console.WriteLine("Checking the output...");
+				Console.WriteLine("Checking the calibration value in the output...");
 				Console.WriteLine("");
 
 				var newValues = ParseOutputLine(GetLastDataLine(output));
 				
-				Console.WriteLine("Letter: " + letter);
+				Console.WriteLine("  Letter: " + letter);
 				
 				var valueString = newValues[letter];
 				
-				Console.WriteLine("Value string: " + valueString);
+				Console.WriteLine("  Value string: " + valueString);
 
 				var calibrationValue = Convert.ToInt32(valueString);
 
-				Console.WriteLine("Calibration value: " + calibrationValue);
-				Console.WriteLine("Expected value: " + rawIn);
+				Console.WriteLine("  Calibration value: " + calibrationValue);
+				Console.WriteLine("  Expected value: " + rawIn);
 				Console.WriteLine(""); 
 
 				// Ensure the calibration value is in the valid range
