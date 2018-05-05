@@ -142,7 +142,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 					Console.WriteLine("");
 
 					// Ensure the raw value is in the valid range
-					Assert.IsTrue(IsWithinRange(rawValue, rawIn, 10), "Raw value is outside the valid range: " + rawValue);
+					Assert.IsTrue(IsWithinRange(rawValue, rawIn, 20), "Raw value is outside the valid range: " + rawValue);
 				}
 
 				var command = letter;
@@ -189,7 +189,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine(""); 
 
 				// Ensure the calibration value is in the valid range
-				Assert.IsTrue(IsWithinRange(calibrationValue, rawIn, 13), "Calibration value is outside the valid range: " + calibrationValue);
+				Assert.IsTrue(IsWithinRange(calibrationValue, rawIn, 20), "Calibration value is outside the valid range: " + calibrationValue);
 
 			} catch (Exception ex) {
 				Console.WriteLine (ex.ToString ());

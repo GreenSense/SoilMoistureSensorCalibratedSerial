@@ -21,10 +21,10 @@ int soilMoistureLevelCalibrated = 0;
 int soilMoistureLevelRaw = 0;
 
 bool reverseSoilMoistureSensor = false;
-//int drySoilMoistureCalibrationValue = 1023;
-int drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1023);
+//int drySoilMoistureCalibrationValue = ANALOG_MAX;
+int drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : ANALOG_MAX);
 //int wetSoilMoistureCalibrationValue = 0;
-int wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1023 : 0);
+int wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? ANALOG_MAX : 0);
 
 #define soilMoistureSensorIsCalibratedFlagAddress 1
 #define drySoilMoistureCalibrationValueAddress 2
@@ -370,7 +370,7 @@ int getDrySoilMoistureCalibrationValue()
   int value = EEPROMReadLong(drySoilMoistureCalibrationValueAddress);
 
   if (value < 0
-      || value > 1023)
+      || value > ANALOG_MAX)
     return drySoilMoistureCalibrationValue;
   else
   {
@@ -391,7 +391,7 @@ int getWetSoilMoistureCalibrationValue()
   int value = EEPROMReadLong(wetSoilMoistureCalibrationValueAddress);
 
   if (value < 0
-      || value > 1023)
+      || value > ANALOG_MAX)
     return wetSoilMoistureCalibrationValue;
   else
   {
@@ -436,8 +436,8 @@ void restoreDefaultCalibrationSettings()
 {
   removeEEPROMIsCalibratedFlag();
 
-  drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : 1023);
-  wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 1023 : 0);
+  drySoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? 0 : ANALOG_MAX);
+  wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? ANALOG_MAX : 0);
 
   setDrySoilMoistureCalibrationValue(drySoilMoistureCalibrationValue);
   setWetSoilMoistureCalibrationValue(wetSoilMoistureCalibrationValue);

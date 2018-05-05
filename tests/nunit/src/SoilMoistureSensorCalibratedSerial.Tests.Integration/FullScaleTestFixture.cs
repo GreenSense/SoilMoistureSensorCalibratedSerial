@@ -47,8 +47,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 				// Reset defaults
 				soilMoistureMonitor.WriteLine ("X");
-
-				Thread.Sleep (1000);
 				
 				// Set output interval to 1
 				soilMoistureMonitor.WriteLine ("V1");
@@ -65,18 +63,14 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				Console.WriteLine (output);
 				Console.WriteLine ("");
 
-				int step = 25;
+				int step = 50;
 
 				for (int i = 100; i >= 0; i -= step) {
 					RunCalibrationTest (i, CalibrationIsReversedByDefault, soilMoistureMonitor, soilMoistureSimulator);
-        
-					Thread.Sleep (1000);
 				}
         
-				for (int i = 0; i < 100; i += step) {
+				for (int i = 0; i <= 100; i += step) {
 					RunCalibrationTest (i, CalibrationIsReversedByDefault, soilMoistureMonitor, soilMoistureSimulator);
-
-					Thread.Sleep (1000);
 				}
 
 			} catch (IOException ex) {

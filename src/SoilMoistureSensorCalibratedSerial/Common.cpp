@@ -3,6 +3,8 @@
 
 #include "Common.h"
 
+const int ANALOG_MAX = 1023;
+
 long lastSerialOutputTime = 0;
 long serialOutputInterval = 1;
 
