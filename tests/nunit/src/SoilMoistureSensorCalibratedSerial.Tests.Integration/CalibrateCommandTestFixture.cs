@@ -91,6 +91,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				// Reset defaults
 				soilMoistureMonitor.WriteLine ("X");
 
+				Thread.Sleep(2000);
+				
 				// Set output interval to 1
 				soilMoistureMonitor.WriteLine ("V1");
 
