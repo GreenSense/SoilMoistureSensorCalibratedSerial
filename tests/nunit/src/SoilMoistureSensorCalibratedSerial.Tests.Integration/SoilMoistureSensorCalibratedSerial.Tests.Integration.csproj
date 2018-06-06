@@ -34,10 +34,10 @@
       <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ArduinoSerialControllerClient">
-      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.0.7\lib\net40\ArduinoSerialControllerClient.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.0.8\lib\net40\ArduinoSerialControllerClient.dll</HintPath>
     </Reference>
     <Reference Include="duinocom.core">
-      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.0.7\lib\net40\duinocom.core.dll</HintPath>
+      <HintPath>..\..\lib\duinocom.core.1.0.6\lib\net40\duinocom.core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +46,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CalibrateCommandTestFixture.cs" />
     <Compile Include="ReadIntervalCommandTestFixture.cs" />
+    <Compile Include="HardwareTestHelper.cs" />
+    <Compile Include="CalibrateCommandTestHelper.cs" />
+    <Compile Include="GreenSenseHardwareTestHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

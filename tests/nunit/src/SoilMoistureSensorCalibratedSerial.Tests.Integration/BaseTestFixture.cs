@@ -28,18 +28,18 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		{
 		}
 
-		public string GetDevicePort()
-		{
-			var devicePort = Environment.GetEnvironmentVariable ("MONITOR_PORT");
-			
-			if (String.IsNullOrEmpty(devicePort))
-				devicePort = "/dev/ttyUSB0";
-			
-			Console.WriteLine ("Device port: " + devicePort);
-			
-			return devicePort;
-		}
+        public string GetDevicePort()
+        {
+            var devicePort = Environment.GetEnvironmentVariable("MONITOR_PORT");
 
+            if (String.IsNullOrEmpty(devicePort))
+                devicePort = "/dev/ttyUSB0";
+
+            Console.WriteLine("Device port: " + devicePort);
+
+            return devicePort;
+		}
+          
 
 		public string GetSimulatorPort()
 		{
