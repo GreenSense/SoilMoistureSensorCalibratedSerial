@@ -60,7 +60,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			WaitForMessageReceived(command);
 
-			var data = WaitForData(1);
+			var data = WaitForData(2);
 
 			AssertDataValueIsWithinRange(data[data.Length-1], Letter, RawSoilMoistureValue, 10);		}
     }
