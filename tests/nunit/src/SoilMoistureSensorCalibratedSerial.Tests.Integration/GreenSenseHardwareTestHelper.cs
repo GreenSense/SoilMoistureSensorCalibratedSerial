@@ -7,6 +7,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
     {
 		public int SoilMoistureSimulatorPin = 9;
 
+		public int RawValueMarginOfError = 15;
+		public int CalibratedValueMarginOfError = 5;
+
         public GreenSenseHardwareTestHelper()
         {
         }

@@ -38,7 +38,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 				var values = WaitForData(1);
 
-				AssertDataValueIsWithinRange(values[values.Length - 1], "R", RawSoilMoistureValue, 10);
+				AssertDataValueIsWithinRange(values[values.Length - 1], "R", RawSoilMoistureValue, RawValueMarginOfError);
 			}
 
 			SendCalibrationCommand();
@@ -60,8 +60,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			WaitForMessageReceived(command);
 
-			var data = WaitForData(2);
+			var data = WaitForData(1);
 
-			AssertDataValueIsWithinRange(data[data.Length-1], Letter, RawSoilMoistureValue, 10);		}
+			AssertDataValueIsWithinRange(data[data.Length-1], Letter, RawSoilMoistureValue, RawValueMarginOfError);
+		}
     }
 }
