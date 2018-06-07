@@ -10,6 +10,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public int RawValueMarginOfError = 15;
 		public int CalibratedValueMarginOfError = 5;
 
+		public bool CalibrationIsReversedByDefault = true;
+
 		public GreenSenseHardwareTestHelper()
 		{
 		}
@@ -18,7 +20,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public void PrepareDeviceForTest()
 		{
 			ResetDeviceSettings();
+
 			SetDeviceReadInterval(1);
+
+			if (CalibrationIsReversedByDefault)
+				ReverseDeviceCalibration();
+
 			ReadFromDeviceAndOutputToConsole();
 		}
 		#endregion
@@ -85,6 +92,18 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			Console.WriteLine("");
 			Console.WriteLine("Setting device read interval to " + numberOfSeconds + " second(s)...");
+			Console.WriteLine("  Sending '" + cmd + "' command to device");
+			Console.WriteLine("");
+
+			SendDeviceCommand(cmd);
+		}
+
+		public void ReverseDeviceCalibration()
+		{
+			var cmd = "R";
+
+			Console.WriteLine("");
+			Console.WriteLine("Reversing device calibration settings...");
 			Console.WriteLine("  Sending '" + cmd + "' command to device");
 			Console.WriteLine("");
 

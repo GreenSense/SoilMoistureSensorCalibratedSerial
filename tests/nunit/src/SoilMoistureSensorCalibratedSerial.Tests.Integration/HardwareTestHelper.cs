@@ -42,9 +42,21 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine(titleText);
 			Console.WriteLine("");
 		}
+
+		public void WriteSubTitleText(string subTitleText)
+		{
+			Console.WriteLine("----------------------------------------");
+			Console.WriteLine(subTitleText);
+			Console.WriteLine("");
+		}
 		#endregion
 
 		#region Enable Device/Simulator Functions
+		public void EnableDevices()
+		{
+			EnableDevices(true);
+		}
+
 		public void EnableDevices(bool enableSimulator)
 		{
 			if (enableSimulator)
@@ -124,7 +136,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#endregion
 
 		#region Write to Device Functions
-        public virtual void WriteToDevice(string text)
+		public virtual void WriteToDevice(string text)
 		{
 			DeviceClient.WriteLine(text);
 		}
