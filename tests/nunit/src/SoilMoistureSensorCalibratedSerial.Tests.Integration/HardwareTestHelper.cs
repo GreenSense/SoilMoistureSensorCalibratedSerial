@@ -23,17 +23,17 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public int SimulatorBaudRate = 0;
 
 		public int DelayAfterConnectingToHardware = 1500;
-        
+
 		public string DataPrefix = "D;";
-        public string DataPostFix = ";;";
+		public string DataPostFix = ";;";
 
 		public int TimeoutWaitingForResponse = 20;
 
 		public int AnalogPinMaxValue = 1023;
 
-        public HardwareTestHelper()
-        {
-        }
+		public HardwareTestHelper()
+		{
+		}
 
 		#region Console Output Functions
 		public void WriteTitleText(string titleText)
@@ -45,51 +45,51 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#endregion
 
 		#region Enable Device/Simulator Functions
-        public void EnableDevices(bool enableSimulator)
+		public void EnableDevices(bool enableSimulator)
 		{
-            if (enableSimulator)
-                EnableSimulator();         
-			
+			if (enableSimulator)
+				EnableSimulator();
+
 			EnableDevice();
-            
+
 			WaitForDevicesToEnable();
 		}
 
 		public void EnableDevice()
 		{
-            if (String.IsNullOrEmpty(DevicePort))
+			if (String.IsNullOrEmpty(DevicePort))
 				throw new Exception("The 'DevicePort' property has not been set.");
-			
+
 			if (DeviceBaudRate == 0)
-                throw new Exception("The 'DeviceBaudRate' property has not been set.");
+				throw new Exception("The 'DeviceBaudRate' property has not been set.");
 
 			Console.WriteLine("Enabling target hardware device...");
 
-            DeviceClient = new SerialClient(DevicePort, DeviceBaudRate);         
+			DeviceClient = new SerialClient(DevicePort, DeviceBaudRate);
 
-            try
-            {
+			try
+			{
 				DeviceClient.Open();
-            }
-            catch (IOException ex)
-            {
+			}
+			catch (IOException ex)
+			{
 				HandleConnectionIOException("target", DevicePort, DeviceBaudRate, ex);
 			}
 
 			DeviceIsEnabled = true;
 
-            Console.WriteLine("");
+			Console.WriteLine("");
 		}
 
-        public void EnableSimulator()
+		public void EnableSimulator()
 		{
-            if (String.IsNullOrEmpty(SimulatorPort))
-                throw new Exception("The 'SimulatorPort' property has not been set.");
+			if (String.IsNullOrEmpty(SimulatorPort))
+				throw new Exception("The 'SimulatorPort' property has not been set.");
 
-            if (SimulatorBaudRate == 0)
-                throw new Exception("The 'SimulatorBaudRate' property has not been set.");
+			if (SimulatorBaudRate == 0)
+				throw new Exception("The 'SimulatorBaudRate' property has not been set.");
 
-            Console.WriteLine("Enabling simulator hardware device...");
+			Console.WriteLine("Enabling simulator hardware device...");
 
 			SimulatorClient = new ArduinoSerialDevice(SimulatorPort, SimulatorBaudRate);
 
@@ -97,14 +97,14 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			{
 				SimulatorClient.Connect();
 			}
-            catch (IOException ex)
+			catch (IOException ex)
 			{
 				HandleConnectionIOException("simulator", SimulatorPort, SimulatorBaudRate, ex);
 			}
 
 			SimulatorIsEnabled = true;
 
-            Console.WriteLine("");
+			Console.WriteLine("");
 		}
 
 		public void WaitForDevicesToEnable()
@@ -112,50 +112,71 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Thread.Sleep(DelayAfterConnectingToHardware);
 		}
 
-        public void HandleConnectionIOException(string deviceLabel, string devicePort, int deviceBaudRate, Exception exception)
-        {
-            if (exception.Message == "No such file or directory")
-                throw new Exception("The " + deviceLabel + " device not found on port: " + devicePort + ". Please ensure it's connected via USB and that the port name is set correctly.", exception);
-            else if (exception.Message == "Inappropriate ioctl for device")
-                throw new Exception("The device serial baud rate appears to be incorrect: " + deviceBaudRate, exception);
-            else
-                throw exception;
-        }
+		public void HandleConnectionIOException(string deviceLabel, string devicePort, int deviceBaudRate, Exception exception)
+		{
+			if (exception.Message == "No such file or directory")
+				throw new Exception("The " + deviceLabel + " device not found on port: " + devicePort + ". Please ensure it's connected via USB and that the port name is set correctly.", exception);
+			else if (exception.Message == "Inappropriate ioctl for device")
+				throw new Exception("The device serial baud rate appears to be incorrect: " + deviceBaudRate, exception);
+			else
+				throw exception;
+		}
+		#endregion
+
+		#region Write to Device Functions
+        public virtual void WriteToDevice(string text)
+		{
+			DeviceClient.WriteLine(text);
+		}
 		#endregion
 
 		#region Read From Device Functions
-        public void ReadFromDeviceAndOutputToConsole()
+		public void ReadFromDeviceAndOutputToConsole()
 		{
 			Console.WriteLine("");
-            Console.WriteLine("Reading the output from the device...");
-            Console.WriteLine("");
+			Console.WriteLine("Reading the output from the device...");
+			Console.WriteLine("");
 
-            // Read the output
+			// Read the output
 			var output = DeviceClient.Read();
 
-            Console.WriteLine(output);
-            Console.WriteLine("");
+			Console.WriteLine(output);
+			Console.WriteLine("");
 
 		}
 		#endregion
 
+		#region Console Write Functions
+		public void ConsoleWriteSerialOutput(string output)
+		{
+			Console.WriteLine("------------------------------");
+			Console.WriteLine(output);
+			Console.WriteLine("------------------------------");
+		}
+		#endregion
+
 		#region Wait for Data Functions
+		public Dictionary<string, string> WaitForData()
+		{
+			var dataString = WaitForDataLine();
+			var dataEntry = ParseDataLine(dataString);
+			return dataEntry;
+		}
+
 		public Dictionary<string, string>[] WaitForData(int numberOfEntries)
 		{
 			Console.WriteLine("");
-            Console.WriteLine("Waiting for " + numberOfEntries + " data entries...");
+			Console.WriteLine("Waiting for " + numberOfEntries + " data entries...");
 
 			var list = new List<Dictionary<string, string>>();
 
 			while (list.Count < numberOfEntries)
 			{
-				var dataString = WaitForDataLine();
-				var dataEntry = ParseDataLine(dataString);
+				var dataEntry = WaitForData();
 				list.Add(dataEntry);
 			}
 
-			Console.WriteLine("Data entries received");
-            Console.WriteLine("");
+			Console.WriteLine("");
 
 			return list.ToArray();
 		}
@@ -163,7 +184,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public string WaitForDataLine()
 		{
 			Console.WriteLine("");
-            Console.WriteLine("Waiting for data line");
+			Console.WriteLine("Waiting for data line");
 
 			var dataLine = String.Empty;
 			var output = String.Empty;
@@ -176,12 +197,13 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				output += DeviceClient.ReadLine();
 
 				var lastLine = GetLastLine(output);
-                
+
 				if (IsValidDataLine(lastLine))
 				{
 					Console.WriteLine("  Found valid data line");
 					Console.WriteLine("    " + lastLine);
-                    
+					Console.WriteLine("");
+
 					containsData = true;
 					dataLine = lastLine;
 				}
@@ -189,9 +211,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				var hasTimedOut = DateTime.Now.Subtract(startTime).TotalSeconds > TimeoutWaitingForResponse;
 				if (hasTimedOut && !containsData)
 				{
-                    Console.WriteLine("------------------------------");
-                    Console.WriteLine(output);
-                    Console.WriteLine("------------------------------");
+					ConsoleWriteSerialOutput(output);
+
 					Assert.Fail("Timed out waiting for data (" + TimeoutWaitingForResponse + " seconds)");
 				}
 			}
@@ -199,24 +220,37 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			return dataLine;
 		}
 
-        public string GetLastLine(string output)
-        {
-            var lines = output.Trim().Split('\r');
+		public string GetLastLine(string output)
+		{
+			var lines = output.Trim().Split('\r');
 
-            var lastLine = lines[lines.Length - 1];
+			var lastLine = lines[lines.Length - 1];
 
-            return lastLine;
-        }
+			return lastLine;
+		}
 		#endregion
 
 		#region Data Value Assert Functions
+		public void AssertDataValueEquals(Dictionary<string, string> dataEntry, string dataKey, int expectedValue)
+		{
+			var value = Convert.ToInt32(dataEntry[dataKey]);
+
+			Assert.AreEqual(expectedValue, value, "Data value for '" + dataKey + "' key is incorrect: " + value);
+
+			Console.WriteLine("Data value for '" + dataKey + "' is correct: " + value);
+			Console.WriteLine("");
+		}
+
 		public void AssertDataValueIsWithinRange(Dictionary<string, string> dataEntry, string dataKey, int expectedValue, int range)
 		{
 			var value = Convert.ToInt32(dataEntry[dataKey]);
 
 			var isWithinRange = IsWithinRange(expectedValue, value, range);
 
-			Assert.IsTrue(isWithinRange, "Data value for '" + dataKey + "' is outside the specified range.");
+			Assert.IsTrue(isWithinRange, "Data value for '" + dataKey + "' key is outside the specified range: " + value);
+
+			Console.WriteLine("Data value for '" + dataKey + "' is within the valid range: " + value);
+			Console.WriteLine("");
 		}
 
 		public bool IsWithinRange(int expectedValue, int actualValue, int allowableMarginOfError)
@@ -246,32 +280,32 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 		#region Data Parsing Functions
 		public bool IsValidDataLine(string outputLine)
-        {
-            return outputLine.Trim().StartsWith(DataPrefix)
-                && outputLine.Trim().EndsWith(DataPostFix);
-        }
+		{
+			return outputLine.Trim().StartsWith(DataPrefix)
+				&& outputLine.Trim().EndsWith(DataPostFix);
+		}
 
-        public Dictionary<string, string> ParseDataLine(string outputLine)
-        {
-            var dictionary = new Dictionary<string, string>();
+		public Dictionary<string, string> ParseDataLine(string outputLine)
+		{
+			var dictionary = new Dictionary<string, string>();
 
-            if (IsValidDataLine(outputLine))
-            {
-                foreach (var pair in outputLine.Split(';'))
-                {
-                    var parts = pair.Split(':');
+			if (IsValidDataLine(outputLine))
+			{
+				foreach (var pair in outputLine.Split(';'))
+				{
+					var parts = pair.Split(':');
 
-                    if (parts.Length == 2)
-                    {
-                        var key = parts[0];
-                        var value = parts[1];
-                        dictionary[key] = value;
-                    }
-                }
-            }
+					if (parts.Length == 2)
+					{
+						var key = parts[0];
+						var value = parts[1];
+						dictionary[key] = value;
+					}
+				}
+			}
 
-            return dictionary;
-        }
+			return dictionary;
+		}
 		#endregion
 
 		#region IDisposable Support

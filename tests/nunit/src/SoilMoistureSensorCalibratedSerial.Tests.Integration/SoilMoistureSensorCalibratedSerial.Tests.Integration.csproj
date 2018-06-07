@@ -49,6 +49,7 @@
     <Compile Include="HardwareTestHelper.cs" />
     <Compile Include="CalibrateCommandTestHelper.cs" />
     <Compile Include="GreenSenseHardwareTestHelper.cs" />
+    <Compile Include="ReadIntervalCommandTestHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

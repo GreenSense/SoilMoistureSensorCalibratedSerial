@@ -4,15 +4,15 @@ using System.Threading;
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
 	public class CalibrateCommandTestHelper : GreenSenseHardwareTestHelper
-    {
+	{
 		public string Label;
 		public string Letter;
 		public int SimulatedSoilMoisturePercentage = -1;
 		public int RawSoilMoistureValue = 0;
-  
-        public CalibrateCommandTestHelper()
-        {
-        }
+
+		public CalibrateCommandTestHelper()
+		{
+		}
 
 		public void TestCalibrateCommand()
 		{
@@ -20,7 +20,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			Console.WriteLine("Simulated soil moisture: " + SimulatedSoilMoisturePercentage + "%");
 
-            if (RawSoilMoistureValue == 0)
+			if (RawSoilMoistureValue == 0)
 				RawSoilMoistureValue = SimulatedSoilMoisturePercentage * AnalogPinMaxValue / 100;
 
 			Console.WriteLine("Raw soil moisture value: " + RawSoilMoistureValue);
@@ -44,25 +44,29 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			SendCalibrationCommand();
 		}
 
-        public void SendCalibrationCommand()
+		public void SendCalibrationCommand()
 		{
 			var command = Letter;
 
-            // If the simulator isn't enabled then the raw value is passed as part of the command to specify it directly
-            if (!SimulatorIsEnabled)
-                command = command + RawSoilMoistureValue;
+			// If the simulator isn't enabled then the raw value is passed as part of the command to specify it directly
+			if (!SimulatorIsEnabled)
+				command = command + RawSoilMoistureValue;
 
-            Console.WriteLine("");
-            Console.WriteLine("Sending '" + command + "' command to monitor device...");
-            Console.WriteLine("");
-            
+			Console.WriteLine("");
+			Console.WriteLine("Sending '" + command + "' command to monitor device...");
+			Console.WriteLine("");
+
 			DeviceClient.WriteLine(command);
 
 			WaitForMessageReceived(command);
 
-			var data = WaitForData(1);
+			var data = WaitForData();
 
-			AssertDataValueIsWithinRange(data[data.Length-1], Letter, RawSoilMoistureValue, RawValueMarginOfError);
+			// If using the soil moisture simulator then the value needs to be within a specified range
+			if (SimulatorIsEnabled)
+				AssertDataValueIsWithinRange(data, Letter, RawSoilMoistureValue, RawValueMarginOfError);
+			else // Otherwise it needs to be exact
+				AssertDataValueEquals(data, Letter, RawSoilMoistureValue);
 		}
-    }
+	}
 }
