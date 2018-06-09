@@ -6,7 +6,6 @@
 #include "Common.h"
 #include "SoilMoistureSensor.h"
 
-
 #define SERIAL_MODE_CALIBRATED 1
 #define SERIAL_MODE_RAW 2
 #define SERIAL_MODE_CSV 3
@@ -15,8 +14,6 @@
 #define VERSION "1-0-0-77"
 
 int serialMode = SERIAL_MODE_CSV;
-
-int loopNumber = 0;
 
 void setup()
 {
@@ -36,17 +33,7 @@ void loop()
 {
   loopNumber++;
 
-  if (isDebugMode)
-  {
-    Serial.println("==============================");
-    Serial.print("===== Start Loop: ");
-    Serial.println(loopNumber);
-    Serial.println("==============================");
-    Serial.print("Time: ");
-    Serial.print(millisecondsToSecondsWithDecimal(millis()));
-    Serial.println(" seconds");
-    Serial.println("");
-  }
+  serialPrintLoopHeader();
 
   checkCommand();
 
@@ -54,15 +41,7 @@ void loop()
 
   serialPrintData();
 
-  if (isDebugMode)
-  {
-    Serial.println("==============================");
-    Serial.print("===== End Loop: ");
-    Serial.println(loopNumber);
-    Serial.println("==============================");
-    Serial.println("");
-    Serial.println("");
-  }
+  serialPrintLoopFooter();
 
   delay(1);
 }

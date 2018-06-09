@@ -8,6 +8,11 @@ extern long serialOutputIntervalInSeconds;
 
 extern bool isDebugMode;
 
+extern int loopNumber;
+
+void serialPrintLoopHeader();
+void serialPrintLoopFooter();
+
 void EEPROMWriteLong(int address, long value);
 long EEPROMReadLong(int address);
 

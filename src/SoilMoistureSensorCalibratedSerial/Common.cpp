@@ -10,6 +10,35 @@ long serialOutputIntervalInSeconds = 1;
 
 bool isDebugMode = false;
 
+int loopNumber = 0;
+
+void serialPrintLoopHeader()
+{
+  if (isDebugMode)
+  {
+    Serial.println("==============================");
+    Serial.print("===== Start Loop: ");
+    Serial.println(loopNumber);
+    Serial.println("==============================");
+    Serial.print("Time: ");
+    Serial.print(millisecondsToSecondsWithDecimal(millis()));
+    Serial.println(" seconds");
+    Serial.println("");
+  }
+}
+
+void serialPrintLoopFooter()
+{
+  if (isDebugMode)
+  {
+    Serial.println("==============================");
+    Serial.print("===== End Loop: ");
+    Serial.println(loopNumber);
+    Serial.println("==============================");
+    Serial.println("");
+  }
+}
+
 void EEPROMWriteLong(int address, long value)
 {
       //Decomposition from a long to 4 bytes by using bitshift.
