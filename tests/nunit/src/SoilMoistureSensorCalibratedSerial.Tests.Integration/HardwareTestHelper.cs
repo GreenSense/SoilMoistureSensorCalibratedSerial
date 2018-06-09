@@ -262,6 +262,77 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		}
 		#endregion
 
+		#region Wait While/Until Simulator Pin Functions
+		public int WaitUntilSimulatorPinIs(string label, int simulatorDigitalPin, bool expectedValue)
+		{
+			Console.WriteLine("Waiting until the " + label + " pin is " + GetOnOffString(expectedValue));
+
+			bool powerPinValue = !expectedValue;
+
+			var startTime = DateTime.Now;
+
+			while (powerPinValue != expectedValue)
+			{
+				Console.Write(".");
+				powerPinValue = SimulatorDigitalRead(simulatorDigitalPin);
+			}
+			Console.WriteLine("");
+
+			var waitTimeInSeconds = DateTime.Now.Subtract(startTime).TotalSeconds;
+
+			Console.WriteLine("  " + waitTimeInSeconds + " seconds");
+			Console.WriteLine("");
+
+			return (int)waitTimeInSeconds;
+		}
+
+		public double WaitWhileSimulatorPinIs(string label, int simulatorDigitalPin, bool expectedValue)
+		{
+			Console.WriteLine("Waiting while " + label + " pin is " + GetOnOffString(expectedValue));
+
+			bool powerPinValue = !expectedValue;
+
+			var startTime = DateTime.MinValue;
+			var finishTime = DateTime.MinValue;
+
+			bool isStarted = false;
+			bool isFinished = false;
+
+			while (!isFinished)
+			{
+				Console.Write(".");
+				powerPinValue = SimulatorDigitalRead(simulatorDigitalPin);
+
+				if (startTime == DateTime.MinValue && powerPinValue == expectedValue)
+				{
+					startTime = DateTime.Now;
+					isStarted = true;
+				}
+
+				if (isStarted && powerPinValue != expectedValue)
+				{
+					finishTime = DateTime.Now;
+					isFinished = true;
+				}
+			}
+			Console.WriteLine("");
+
+			var waitTimeInSeconds = finishTime.Subtract(startTime).TotalSeconds;
+
+			Console.WriteLine("  " + waitTimeInSeconds + " seconds");
+			Console.WriteLine("");
+
+			return waitTimeInSeconds;
+		}
+		#endregion
+
+		#region Simulator Read Pin Functions
+		public bool SimulatorDigitalRead(int pinNumber)
+		{
+			return SimulatorClient.DigitalRead(pinNumber);
+		}
+		#endregion
+
 		#region Data Value Assert Functions
 		public void AssertDataValueEquals(Dictionary<string, string> dataEntry, string dataKey, int expectedValue)
 		{
@@ -306,6 +377,36 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("Is within range: " + isWithinRange);
 
 			return isWithinRange;
+		}
+		#endregion
+
+		#region Simulator Pin Assert Functions
+		public void AssertSimulatorPinForDuration(string label, int simulatorDigitalPin, bool expectedValue, int durationInSeconds)
+		{
+			Console.WriteLine("Checking soil " + label + " pin for specified duration...");
+			Console.WriteLine("  Expected value: " + expectedValue);
+			Console.WriteLine("  Duration: " + durationInSeconds);
+
+			var startTime = DateTime.Now;
+
+			var waitTimeIsFinished = false;
+
+			while (!waitTimeIsFinished)
+			{
+				Console.Write(".");
+				waitTimeIsFinished = DateTime.Now.Subtract(startTime).TotalSeconds > durationInSeconds;
+
+				bool powerPinValue = SimulatorDigitalRead(simulatorDigitalPin);
+
+				if (expectedValue)
+					Assert.AreEqual(true, powerPinValue, "The " + label + " pin is off when it should be on.");
+				else
+					Assert.AreEqual(false, powerPinValue, "The " + label + " pin is on when it should be off.");
+			}
+
+			Console.WriteLine("");
+			Console.WriteLine("The " + label + " pin works as expected.");
+			Console.WriteLine("");
 		}
 		#endregion
 

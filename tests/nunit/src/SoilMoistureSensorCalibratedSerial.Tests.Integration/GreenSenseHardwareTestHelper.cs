@@ -10,7 +10,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 		public int DelayAfterTurningSoilMoistureSensorOn = 3;
 
-		public int RawValueMarginOfError = 8;
+		public int RawValueMarginOfError = 12;
 		public int CalibratedValueMarginOfError = 3;
 
 		public bool CalibrationIsReversedByDefault = true;
@@ -49,6 +49,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			WaitForMessageReceived(command);
 		}
+
 		public void WaitForMessageReceived(string message)
 		{
 			Console.WriteLine("");
@@ -137,10 +138,22 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		}
 		#endregion
 
-		#region Simulator Read Functions
-		public bool SimulatorDigitalRead(int pinNumber)
+		#region Wait for Pin Functions
+		public int WaitUntilSoilMoistureSensorPowerPinIs(bool expectedValue)
 		{
-			return SimulatorClient.DigitalRead(pinNumber);
+			return WaitUntilSimulatorPinIs("soil moisture sensor power", SoilMoistureSimulatorPowerPin, expectedValue);
+		}
+
+		public double WaitWhileSoilMoistureSensorPowerPinIs(bool expectedValue)
+		{
+			return WaitWhileSimulatorPinIs("soil moisture sensor power", SoilMoistureSimulatorPowerPin, expectedValue);
+		}
+		#endregion
+
+		#region Assert Simulator Pin Functions
+		public void AssertSoilMoistureSensorPowerPinForDuration(bool expectedValue, int durationInSeconds)
+		{
+			AssertSimulatorPinForDuration("soil moisture sensor power", SoilMoistureSimulatorPowerPin, expectedValue, durationInSeconds);
 		}
 		#endregion
 	}
