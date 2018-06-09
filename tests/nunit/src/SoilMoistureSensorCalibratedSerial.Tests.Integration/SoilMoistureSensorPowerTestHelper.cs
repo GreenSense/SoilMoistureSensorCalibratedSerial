@@ -74,7 +74,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 		public void CheckSoilMoistureSensorOffDuration()
 		{
-
 			WriteParagraphTitleText("Getting the total off time...");
 
 			var totalOffTime = WaitWhileSoilMoistureSensorPowerPinIs(Off);
@@ -83,12 +82,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			var expectedOffTime = ReadInterval;
 			Assert.IsTrue(IsWithinRange(expectedOffTime, totalOffTime, 0.2), "Total off time is incorrect");
-
 		}
 
 		public double WaitWhileSoilMoistureSensorPowerPinIs(bool expectedValue)
 		{
-			Console.Write("Waiting while soil moisture sensor power pin is " + GetOnOffString(expectedValue));
+			Console.WriteLine("Waiting while soil moisture sensor power pin is " + GetOnOffString(expectedValue));
 
 			bool powerPinValue = !expectedValue;
 
@@ -127,7 +125,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 		public int WaitUntilSoilMoistureSensorPowerPinIs(bool expectedValue)
 		{
-			Console.Write("Waiting until the soil moisture sensor power pin is " + GetOnOffString(expectedValue));
+			Console.WriteLine("Waiting until the soil moisture sensor power pin is " + GetOnOffString(expectedValue));
 
 			bool powerPinValue = !expectedValue;
 
