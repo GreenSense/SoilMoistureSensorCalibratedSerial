@@ -60,13 +60,13 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			WaitForMessageReceived(command);
 
-			var data = WaitForData();
+			var data = WaitForData(3); // Wait for 3 data entries to let the soil moisture simulator stabilise
 
 			// If using the soil moisture simulator then the value needs to be within a specified range
 			if (SimulatorIsEnabled)
-				AssertDataValueIsWithinRange(data, Letter, RawSoilMoistureValue, RawValueMarginOfError);
+				AssertDataValueIsWithinRange(data[data.Length - 1], Letter, RawSoilMoistureValue, RawValueMarginOfError);
 			else // Otherwise it needs to be exact
-				AssertDataValueEquals(data, Letter, RawSoilMoistureValue);
+				AssertDataValueEquals(data[data.Length - 1], Letter, RawSoilMoistureValue);
 		}
 	}
 }
