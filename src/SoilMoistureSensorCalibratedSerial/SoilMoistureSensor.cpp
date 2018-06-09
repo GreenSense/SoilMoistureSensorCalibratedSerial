@@ -218,14 +218,12 @@ void setupSoilMoistureSensorReadingInterval()
     if (isDebugMode)
     	Serial.println("EEPROM read interval value has been set. Loading.");
 
-    soilMoistureSensorReadingIntervalInSeconds = getSoilMoistureSensorReadingInterval(); // Convert to milliseconds
+    soilMoistureSensorReadingIntervalInSeconds = getSoilMoistureSensorReadingInterval();
   }
   else
   {
     if (isDebugMode)
       Serial.println("EEPROM read interval value has not been set. Using defaults.");
-    
-    //setSoilMoistureSensorReadingInterval(soilMoistureSensorReadingIntervalInSeconds); // Convert to seconds
   }
 }
 
