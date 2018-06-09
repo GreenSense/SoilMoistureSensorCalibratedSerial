@@ -28,6 +28,6 @@ if [ ! -d "NUnit.Runners.2.6.4" ]; then
     mono nuget.exe install nunit.runners -version 2.6.4
 fi
 
-if [ ! -d "ArduinoSerialControllerClient.1.0.8" ]; then
-    mono nuget.exe install ArduinoSerialControllerClient -version 1.0.8
+if [ ! -d "ArduinoSerialControllerClient.1.0.9" ]; then
+    mono nuget.exe install ArduinoSerialControllerClient -version 1.0.9
 fi
