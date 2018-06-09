@@ -31,6 +31,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 		public int AnalogPinMaxValue = 1023;
 
+		public bool On = true;
+		public bool Off = false;
+
+		public string FullDeviceOutput;
+
 		public HardwareTestHelper()
 		{
 		}
@@ -49,6 +54,13 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine(subTitleText);
 			Console.WriteLine("");
 		}
+
+		public void WriteParagraphTitleText(string text)
+		{
+			Console.WriteLine("");
+			Console.WriteLine(text);
+			Console.WriteLine("");
+		}
 		#endregion
 
 		#region Enable Device/Simulator Functions
@@ -57,7 +69,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			EnableDevices(true);
 		}
 
-		public void EnableDevices(bool enableSimulator)
+		public virtual void EnableDevices(bool enableSimulator)
 		{
 			if (enableSimulator)
 				EnableSimulator();
@@ -152,9 +164,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			// Read the output
 			var output = DeviceClient.Read();
 
-			Console.WriteLine(output);
-			Console.WriteLine("");
+			FullDeviceOutput += output;
 
+			ConsoleWriteSerialOutput(output);
+			Console.WriteLine("");
 		}
 		#endregion
 
@@ -164,6 +177,13 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("------------------------------");
 			Console.WriteLine(output);
 			Console.WriteLine("------------------------------");
+		}
+		#endregion
+
+		#region Text Helper Functions
+		public string GetOnOffString(bool onOffValue)
+		{
+			return (onOffValue ? "on" : "off");
 		}
 		#endregion
 
@@ -265,12 +285,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("");
 		}
 
-		public bool IsWithinRange(int expectedValue, int actualValue, int allowableMarginOfError)
+		public bool IsWithinRange(double expectedValue, double actualValue, double allowableMarginOfError)
 		{
 			Console.WriteLine("Checking value is within range...");
 			Console.WriteLine("  Expected value: " + expectedValue);
 			Console.WriteLine("  Actual value: " + actualValue);
-			Console.WriteLine("");
 			Console.WriteLine("  Allowable margin of error: " + allowableMarginOfError);
 
 			var minAllowableValue = expectedValue - allowableMarginOfError;
@@ -329,6 +348,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			{
 				if (disposing)
 				{
+					ConsoleWriteSerialOutput(FullDeviceOutput);
+
 					if (DeviceClient != null)
 						DeviceClient.Close();
 

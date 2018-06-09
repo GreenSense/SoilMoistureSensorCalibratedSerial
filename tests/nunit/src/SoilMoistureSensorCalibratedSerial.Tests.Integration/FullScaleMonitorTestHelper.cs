@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
 	public class FullScaleMonitorTestHelper : GreenSenseHardwareTestHelper
@@ -6,13 +7,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public FullScaleMonitorTestHelper()
 		{
 		}
+
 		public void RunFullScaleTest()
 		{
 			WriteTitleText("Starting full scale test");
 
 			EnableDevices();
-
-			PrepareDeviceForTest();
 
 			int step = 25;
 
@@ -36,13 +36,13 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			SimulateSoilMoisture(soilMoisturePercentage);
 
-			var data = WaitForData();
+			var data = WaitForData(3); // Wait for 3 data entries to give the simulator time to stabilise
 
 			Console.WriteLine("");
 			Console.WriteLine("Checking calibrated value");
 			Console.WriteLine("");
 
-			AssertDataValueIsWithinRange(data, "C", soilMoisturePercentage, CalibratedValueMarginOfError);
+			AssertDataValueIsWithinRange(data[data.Length - 1], "C", soilMoisturePercentage, CalibratedValueMarginOfError);
 
 			Console.WriteLine("");
 			Console.WriteLine("Checking raw value");
@@ -50,7 +50,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			var expectedRawValue = soilMoisturePercentage * AnalogPinMaxValue / 100;
 
-			AssertDataValueIsWithinRange(data, "R", expectedRawValue, RawValueMarginOfError);
+			AssertDataValueIsWithinRange(data[data.Length - 1], "R", expectedRawValue, RawValueMarginOfError);
 		}
 	}
 }

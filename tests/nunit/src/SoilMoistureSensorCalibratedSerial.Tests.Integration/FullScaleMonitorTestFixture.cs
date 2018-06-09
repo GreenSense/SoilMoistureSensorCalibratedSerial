@@ -8,22 +8,22 @@ using System.IO;
 
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
-	[TestFixture(Category="Integration")]
+	[TestFixture(Category = "Integration")]
 	public class FullScaleTestFixture : BaseTestFixture
 	{
 		[Test]
 		public void Test_FullScaleTest()
 		{
-      using (var helper = new FullScaleMonitorTestHelper())
-      {
-        helper.DevicePort = GetDevicePort();
-        helper.DeviceBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+			using (var helper = new FullScaleMonitorTestHelper())
+			{
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
-        helper.SimulatorPort = GetSimulatorPort();
-        helper.SimulatorBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
-        helper.RunFullScaleTest();
-      }
+				helper.RunFullScaleTest();
+			}
 		}
 	}
 }

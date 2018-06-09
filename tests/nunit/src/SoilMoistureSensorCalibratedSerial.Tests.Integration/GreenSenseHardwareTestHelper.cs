@@ -6,6 +6,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 	public class GreenSenseHardwareTestHelper : HardwareTestHelper
 	{
 		public int SoilMoistureSimulatorPin = 9;
+		public int SoilMoistureSimulatorPowerPin = 3;
+
+		public int DelayAfterTurningSoilMoistureSensorOn = 3;
 
 		public int RawValueMarginOfError = 15;
 		public int CalibratedValueMarginOfError = 5;
@@ -15,6 +18,15 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public GreenSenseHardwareTestHelper()
 		{
 		}
+
+		#region Enable Devices Functions
+		public override void EnableDevices(bool enableSimulator)
+		{
+			base.EnableDevices(enableSimulator);
+
+			PrepareDeviceForTest();
+		}
+		#endregion
 
 		#region Prepare Device Functions
 		public void PrepareDeviceForTest()
@@ -122,6 +134,13 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("");
 
 			SimulatorClient.AnalogWritePercentage(SoilMoistureSimulatorPin, soilMoisturePercentage);
+		}
+		#endregion
+
+		#region Simulator Read Functions
+		public bool SimulatorDigitalRead(int pinNumber)
+		{
+			return SimulatorClient.DigitalRead(pinNumber);
 		}
 		#endregion
 	}

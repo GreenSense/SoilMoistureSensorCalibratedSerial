@@ -20,10 +20,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.ReadInterval = 5;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
 				helper.TestSetReadIntervalCommand();
 			}

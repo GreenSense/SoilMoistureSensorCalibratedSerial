@@ -15,10 +15,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatedSoilMoisturePercentage = 20;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -34,10 +34,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.RawSoilMoistureValue = 220;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -53,10 +53,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatedSoilMoisturePercentage = 80;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -72,10 +72,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.RawSoilMoistureValue = 880;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = 9600; // TODO: Should this be configurable via environment variables?
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}

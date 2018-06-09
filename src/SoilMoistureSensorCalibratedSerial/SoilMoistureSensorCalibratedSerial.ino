@@ -29,7 +29,7 @@ void setup()
 
   setupSoilMoistureSensor();
 
-  serialOutputInterval = soilMoistureSensorReadingInterval;
+  serialOutputIntervalInSeconds = soilMoistureSensorReadingIntervalInSeconds;
 }
 
 void loop()
@@ -42,6 +42,10 @@ void loop()
     Serial.print("===== Start Loop: ");
     Serial.println(loopNumber);
     Serial.println("==============================");
+    Serial.print("Time: ");
+    Serial.print(millisecondsToSecondsWithDecimal(millis()));
+    Serial.println(" seconds");
+    Serial.println("");
   }
 
   checkCommand();
@@ -117,13 +121,16 @@ void restoreDefaultSettings()
 /* Serial Output */
 void serialPrintData()
 {
-  bool isTimeToPrintData = lastSerialOutputTime + secondsToMilliseconds(serialOutputInterval) < millis()
+  bool isTimeToPrintData = lastSerialOutputTime + secondsToMilliseconds(serialOutputIntervalInSeconds) < millis()
       || lastSerialOutputTime == 0;
 
   bool isReadyToPrintData = isTimeToPrintData && soilMoistureSensorReadingHasBeenTaken;
 
   if (isReadyToPrintData)
   {
+    if (isDebugMode)
+      Serial.println("Ready to serial print data");
+  
 	  long numberOfSecondsOnline = millis()/1000;
 
     if (serialMode == SERIAL_MODE_CSV)
@@ -139,7 +146,7 @@ void serialPrintData()
       Serial.print(soilMoistureLevelCalibrated);
       Serial.print(";");
       Serial.print("V:");
-      Serial.print(soilMoistureSensorReadingInterval);
+      Serial.print(soilMoistureSensorReadingIntervalInSeconds);
       Serial.print(";");
       Serial.print("D:");
       Serial.print(drySoilMoistureCalibrationValue);
@@ -164,7 +171,7 @@ void serialPrintData()
       Serial.print(soilMoistureLevelCalibrated);
       Serial.print("&");
       Serial.print("readInterval=");
-      Serial.print(soilMoistureSensorReadingInterval); // Convert to seconds
+      Serial.print(soilMoistureSensorReadingIntervalInSeconds); // Convert to seconds
       Serial.print("&");
       Serial.print("dry=");
       Serial.print(drySoilMoistureCalibrationValue);
@@ -183,5 +190,26 @@ void serialPrintData()
 	  }
 
     lastSerialOutputTime = millis();
+  }
+  else
+  {
+    if (isDebugMode)
+    {    
+      Serial.println("Not ready to serial print data");
+
+      Serial.print("  Is time to serial print data: ");
+      Serial.println(isTimeToPrintData);
+      if (!isTimeToPrintData)
+      {
+        Serial.print("    Time remaining before printing data: ");
+        Serial.print(millisecondsToSecondsWithDecimal(lastSerialOutputTime + secondsToMilliseconds(serialOutputIntervalInSeconds) - millis()));
+        Serial.println(" seconds");
+      }
+      Serial.print("  Soil moisture sensor reading has been taken: ");
+      Serial.println(soilMoistureSensorReadingHasBeenTaken);
+      Serial.print("  Is ready to print data: ");
+      Serial.println(isReadyToPrintData);
+
+    }
   }
 }
