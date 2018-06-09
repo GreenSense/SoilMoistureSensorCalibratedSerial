@@ -36,7 +36,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			SimulateSoilMoisture(soilMoisturePercentage);
 
-			var data = WaitForData(3); // Wait for 3 data entries to give the simulator time to stabilise
+			var data = WaitForData(4); // Wait for 4 data entries to give the simulator time to stabilise
 
 			Console.WriteLine("");
 			Console.WriteLine("Checking calibrated value");
