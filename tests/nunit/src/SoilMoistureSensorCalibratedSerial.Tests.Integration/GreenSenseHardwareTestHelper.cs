@@ -10,7 +10,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 		public int DelayAfterTurningSoilMoistureSensorOn = 3;
 
-		public int RawValueMarginOfError = 20;
+		public int RawValueMarginOfError = 25;
 		public int CalibratedValueMarginOfError = 5;
 
 		public bool CalibrationIsReversedByDefault = true;
