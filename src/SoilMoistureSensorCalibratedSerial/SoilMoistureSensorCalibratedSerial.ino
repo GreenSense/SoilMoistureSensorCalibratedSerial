@@ -49,6 +49,10 @@ void loop()
 /* Commands */
 void checkCommand()
 {
+  if (isDebugMode)
+  {
+    Serial.println("Checking incoming serial commands");
+  }
 
   if (checkMsgReady())
   {

@@ -10,7 +10,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 		public int DelayAfterTurningSoilMoistureSensorOn = 3;
 
-		public int RawValueMarginOfError = 16;
+		public int RawValueMarginOfError = 18;
 		public int CalibratedValueMarginOfError = 3;
 		public double TimeErrorMargin = 0.2;
 
@@ -30,7 +30,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#endregion
 
 		#region Prepare Device Functions
-		public void PrepareDeviceForTest()
+		public virtual void PrepareDeviceForTest()
+		{
+			PrepareDeviceForTest(true);
+		}
+
+		public virtual void PrepareDeviceForTest(bool consoleWriteDeviceOutput)
 		{
 			ResetDeviceSettings();
 
@@ -39,7 +44,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			if (CalibrationIsReversedByDefault)
 				ReverseDeviceCalibration();
 
-			ReadFromDeviceAndOutputToConsole();
+			if (consoleWriteDeviceOutput)
+				ReadFromDeviceAndOutputToConsole();
 		}
 		#endregion
 
@@ -90,12 +96,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#region Specific Device Command Functions
 		public void ResetDeviceSettings()
 		{
+			var cmd = "X";
+
 			Console.WriteLine("");
 			Console.WriteLine("Resetting device default settings...");
-			Console.WriteLine("  Sending 'X' command to device");
+			Console.WriteLine("  Sending '" + cmd + "' command to device");
 			Console.WriteLine("");
-
-			var cmd = "X";
 
 			SendDeviceCommand(cmd);
 		}

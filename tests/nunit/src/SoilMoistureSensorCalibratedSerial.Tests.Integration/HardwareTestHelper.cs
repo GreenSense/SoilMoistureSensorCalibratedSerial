@@ -59,7 +59,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		{
 			Console.WriteLine("");
 			Console.WriteLine(text);
-			Console.WriteLine("");
 		}
 		#endregion
 
@@ -188,7 +187,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#endregion
 
 		#region Wait for Data Functions
-		public Dictionary<string, string> WaitForData()
+		public Dictionary<string, string> WaitForDataEntry()
 		{
 			var dataString = WaitForDataLine();
 			var dataEntry = ParseDataLine(dataString);
@@ -204,18 +203,16 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			while (list.Count < numberOfEntries)
 			{
-				var dataEntry = WaitForData();
+				var dataEntry = WaitForDataEntry();
 				list.Add(dataEntry);
+				Console.WriteLine("");
 			}
-
-			Console.WriteLine("");
 
 			return list.ToArray();
 		}
 
 		public string WaitForDataLine()
 		{
-			Console.WriteLine("");
 			Console.WriteLine("Waiting for data line");
 
 			var dataLine = String.Empty;
@@ -234,7 +231,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				{
 					Console.WriteLine("  Found valid data line");
 					Console.WriteLine("    " + lastLine);
-					Console.WriteLine("");
 
 					containsData = true;
 					dataLine = lastLine;

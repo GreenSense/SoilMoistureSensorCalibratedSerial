@@ -19,9 +19,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			SetDeviceReadInterval(ReadInterval);
 
-			var data = WaitForData();
+			var dataEntry = WaitForDataEntry();
 
-			AssertDataValueEquals(data, "V", ReadInterval);
+			AssertDataValueEquals(dataEntry, "V", ReadInterval);
 		}
 	}
 }

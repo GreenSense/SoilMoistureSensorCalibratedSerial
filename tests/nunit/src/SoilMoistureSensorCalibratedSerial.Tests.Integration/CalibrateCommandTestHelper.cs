@@ -30,8 +30,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			EnableDevices(simulatorIsNeeded);
 
-			PrepareDeviceForTest();
-
 			if (SimulatorIsEnabled)
 			{
 				SimulateSoilMoisture(SimulatedSoilMoisturePercentage);
@@ -52,13 +50,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			if (!SimulatorIsEnabled)
 				command = command + RawSoilMoistureValue;
 
-			Console.WriteLine("");
-			Console.WriteLine("Sending '" + command + "' command to monitor device...");
-			Console.WriteLine("");
-
-			DeviceClient.WriteLine(command);
-
-			WaitForMessageReceived(command);
+			SendDeviceCommand(command);
 
 			var data = WaitForData(3); // Wait for 3 data entries to let the soil moisture simulator stabilise
 

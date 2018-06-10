@@ -14,7 +14,7 @@ long lastSensorOnTime = 0;
 int delayAfterTurningSoilMoistureSensorOn = 3 * 1000;
 
 bool soilMoistureSensorReadingHasBeenTaken = false;
-long soilMoistureSensorReadingIntervalInSeconds = 5; // Seconds
+long soilMoistureSensorReadingIntervalInSeconds = 5;
 long lastSoilMoistureSensorReadingTime = 0; // Milliseconds
 
 int soilMoistureLevelCalibrated = 0;
@@ -230,9 +230,6 @@ void setupSoilMoistureSensorReadingInterval()
 void setSoilMoistureSensorReadingInterval(char* msg)
 {
     int value = readInt(msg, 1, strlen(msg)-1);
-
-    //Serial.print("Value:");
-    //Serial.println(value);
 
     setSoilMoistureSensorReadingInterval(value);
 }
