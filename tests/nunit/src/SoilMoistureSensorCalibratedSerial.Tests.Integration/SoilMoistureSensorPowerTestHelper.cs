@@ -69,7 +69,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			var expectedOnTime = DelayAfterTurningSoilMoistureSensorOn;
 
-			Assert.IsTrue(IsWithinRange(expectedOnTime, totalOnTime, TimeErrorMargin), "Total on time is incorrect");
+			AssertIsWithinRange("total on time", expectedOnTime, totalOnTime, TimeErrorMargin);
 		}
 
 		public void CheckSoilMoistureSensorOffDuration()
@@ -81,7 +81,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			WriteParagraphTitleText("Checking the total off time is correct...");
 
 			var expectedOffTime = ReadInterval;
-			Assert.IsTrue(IsWithinRange(expectedOffTime, totalOffTime, TimeErrorMargin), "Total off time is incorrect");
+
+			AssertIsWithinRange("total off time", expectedOffTime, totalOffTime, TimeErrorMargin);
 		}
 	}
 }

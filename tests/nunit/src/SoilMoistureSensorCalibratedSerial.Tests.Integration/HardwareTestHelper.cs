@@ -340,15 +340,31 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("");
 		}
 
-		public void AssertDataValueIsWithinRange(Dictionary<string, string> dataEntry, string dataKey, int expectedValue, int range)
+		public void AssertDataValueIsWithinRange(Dictionary<string, string> dataEntry, string dataKey, int expectedValue, int allowableMarginOfError)
 		{
 			var value = Convert.ToInt32(dataEntry[dataKey]);
 
-			var isWithinRange = IsWithinRange(expectedValue, value, range);
+			var isWithinRange = IsWithinRange(expectedValue, value, allowableMarginOfError);
 
-			Assert.IsTrue(isWithinRange, "Data value for '" + dataKey + "' key is outside the specified range: " + value);
+			var minValue = expectedValue - allowableMarginOfError;
+			var maxValue = expectedValue + allowableMarginOfError;
 
-			Console.WriteLine("Data value for '" + dataKey + "' is within the valid range: " + value);
+			Assert.IsTrue(isWithinRange, "Data value for '" + dataKey + "' key is outside the specified range: " + value + " (Expected: " + minValue + " - " + maxValue + ")");
+
+			Console.WriteLine("Data value for '" + dataKey + "' is within the valid range: " + value + " (Expected: " + minValue + " - " + maxValue + ")");
+			Console.WriteLine("");
+		}
+
+		public void AssertIsWithinRange(string label, double expectedValue, double actualValue, double allowableMarginOfError)
+		{
+			var isWithinRange = IsWithinRange(expectedValue, actualValue, allowableMarginOfError);
+
+			var minValue = expectedValue - allowableMarginOfError;
+			var maxValue = expectedValue + allowableMarginOfError;
+
+			Assert.IsTrue(isWithinRange, "The " + label + " value is outside the specified range: " + actualValue + " (Expected: " + minValue + " - " + maxValue + ")");
+
+			Console.WriteLine("The " + label + " value is within the specified range: " + actualValue + " (Expected: " + minValue + " - " + maxValue + ")");
 			Console.WriteLine("");
 		}
 
