@@ -1,205 +1,158 @@
-using System;
 using NUnit.Framework;
-using duinocom;
-using System.Threading;
-using ArduinoSerialControllerClient;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
-	[TestFixture(Category="Integration")]
+	[TestFixture(Category = "Integration")]
 	public class CalibrateCommandTestFixture : BaseTestFixture
 	{
 		[Test]
-		public void Test_CalibrateDryToCurrentValueCommand()
+		public void Test_CalibrateDryToCurrentSoilMoistureValueCommand_20Percent()
 		{
-			var percentage = 20;
+			using (var helper = new CalibrateCommandTestHelper())
+			{
+				helper.Label = "dry";
+				helper.Letter = "D";
+				helper.SimulatedSoilMoisturePercentage = 20;
 
-			var raw = 219;
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
-			TestCalibrateToCurrentCommand ("dry", "D", percentage, raw);
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
+
+				helper.TestCalibrateCommand();
+			}
 		}
 
 		[Test]
-		public void Test_CalibrateDryToSpecifiedValueCommand()
+		public void Test_CalibrateDryToCurrentSoilMoistureValueCommand_30Percent()
 		{
-			var raw = 220;
+			using (var helper = new CalibrateCommandTestHelper())
+			{
+				helper.Label = "dry";
+				helper.Letter = "D";
+				helper.SimulatedSoilMoisturePercentage = 30;
 
-			TestCalibrateToCurrentCommand ("dry", "D", -1, raw);
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
+
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
+
+				helper.TestCalibrateCommand();
+			}
 		}
 
 		[Test]
-		public void Test_CalibrateWetToCurrentValueCommand()
+		public void Test_CalibrateDryToSpecifiedValueCommand_200()
 		{
-			var percentage = 80;
+			using (var helper = new CalibrateCommandTestHelper())
+			{
+				helper.Label = "dry";
+				helper.Letter = "D";
+				helper.RawSoilMoistureValue = 200;
 
-			var raw = 880;
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
-			TestCalibrateToCurrentCommand ("wet", "W", percentage, raw);
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
+
+				helper.TestCalibrateCommand();
+			}
+		}
+		[Test]
+		public void Test_CalibrateDryToSpecifiedValueCommand_220()
+		{
+			using (var helper = new CalibrateCommandTestHelper())
+			{
+				helper.Label = "dry";
+				helper.Letter = "D";
+				helper.RawSoilMoistureValue = 220;
+
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
+
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
+
+				helper.TestCalibrateCommand();
+			}
 		}
 
 		[Test]
-		public void Test_CalibrateWetToSpecifiedValueCommand()
+		public void Test_CalibrateWetToCurrentSoilMoistureValueCommand_80Percent()
 		{
-			var raw = 880;
+			using (var helper = new CalibrateCommandTestHelper())
+			{
+				helper.Label = "wet";
+				helper.Letter = "W";
+				helper.SimulatedSoilMoisturePercentage = 80;
 
-			TestCalibrateToCurrentCommand ("wet", "W", -1, raw);
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
+
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
+
+				helper.TestCalibrateCommand();
+			}
 		}
 
-		public void TestCalibrateToCurrentCommand(string label, string letter, int percentageIn, int rawIn)
+		[Test]
+		public void Test_CalibrateWetToCurrentSoilMoistureValueCommand_90Percent()
 		{
+			using (var helper = new CalibrateCommandTestHelper())
+			{
+				helper.Label = "wet";
+				helper.Letter = "W";
+				helper.SimulatedSoilMoisturePercentage = 90;
 
-			Console.WriteLine ("");
-			Console.WriteLine ("==============================");
-			Console.WriteLine ("Starting calibrate " + label + " command test");
-			Console.WriteLine ("");
-			Console.WriteLine ("Percentage in: " + percentageIn);
-			Console.WriteLine ("Expected raw: " + rawIn);
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
-			SerialClient soilMoistureMonitor = null;
-			ArduinoSerialDevice soilMoistureSimulator = null;
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
-			try {
-				soilMoistureMonitor = new SerialClient (GetDevicePort(), GetSerialBaudRate());
-				soilMoistureSimulator = new ArduinoSerialDevice (GetSimulatorPort(), GetSerialBaudRate());
+				helper.TestCalibrateCommand();
+			}
+		}
 
-				Console.WriteLine("");
-				Console.WriteLine("Connecting to serial devices...");
-				Console.WriteLine("");
+		[Test]
+		public void Test_CalibrateWetToSpecifiedValueCommand_880()
+		{
+			using (var helper = new CalibrateCommandTestHelper())
+			{
+				helper.Label = "wet";
+				helper.Letter = "W";
+				helper.RawSoilMoistureValue = 880;
 
-				soilMoistureMonitor.Open ();
-				soilMoistureSimulator.Connect ();
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
-				Thread.Sleep (1000);
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
-				Console.WriteLine("");
-				Console.WriteLine("Reading the output from the monitor device...");
-				Console.WriteLine("");
+				helper.TestCalibrateCommand();
+			}
+		}
 
-				// Read the output
-				var output = soilMoistureMonitor.Read ();
+		[Test]
+		public void Test_CalibrateWetToSpecifiedValueCommand_900()
+		{
+			using (var helper = new CalibrateCommandTestHelper())
+			{
+				helper.Label = "wet";
+				helper.Letter = "W";
+				helper.RawSoilMoistureValue = 900;
 
-				Console.WriteLine (output);
-				Console.WriteLine ("");
+				helper.DevicePort = GetDevicePort();
+				helper.DeviceBaudRate = GetSerialBaudRate();
 
-				Console.WriteLine("");
-				Console.WriteLine("Sending 'X' command to device to reset to defaults...");
-				Console.WriteLine("");
+				helper.SimulatorPort = GetSimulatorPort();
+				helper.SimulatorBaudRate = GetSerialBaudRate();
 
-				// Reset defaults
-				soilMoistureMonitor.WriteLine ("X");
-
-				Thread.Sleep(2000);
-				
-				// Set output interval to 1
-				soilMoistureMonitor.WriteLine ("V1");
-
-				Thread.Sleep(2000);
-
-				Console.WriteLine("");
-				Console.WriteLine("Reading the output from the monitor device...");
-				Console.WriteLine("");
-
-				// Read the output
-				output = soilMoistureMonitor.Read ();
-
-				Console.WriteLine (output);
-				Console.WriteLine ("");
-
-				Thread.Sleep(1000);
-
-				// If a percentage is specified for the simulator then set the simulated soil moisture value (otherwise skip)
-				if (percentageIn > -1)
-				{
-					Console.WriteLine("");
-					Console.WriteLine("Sending analog percentage to simulator: " + percentageIn);
-					Console.WriteLine("");
-
-					// Set the simulated soil moisture
-					soilMoistureSimulator.AnalogWritePercentage (9, percentageIn);
-
-					Thread.Sleep(2000);
-
-					Console.WriteLine("");
-					Console.WriteLine("Reading output from the monitor device...");
-					Console.WriteLine("");
-					// Read the output
-					output = soilMoistureMonitor.Read ();
-
-					Console.WriteLine (output);
-					Console.WriteLine ("");
-
-					// Parse the values in the data line
-					var values = ParseOutputLine(GetLastDataLine(output));
-
-					// Get the raw soil moisture value
-					var rawValue = Convert.ToInt32(values["R"]);
-
-					Console.WriteLine("");
-					Console.WriteLine("Checking the values from the monitor device...");
-					Console.WriteLine("");
-
-					// Ensure the raw value is in the valid range
-					Assert.IsTrue(IsWithinRange(rawValue, rawIn, 20), "Raw value is outside the valid range: " + rawValue);
-				}
-
-				var command = letter;
-				
-				// If the simulated percentage isn't set then pass the raw value as part of the command
-				if (percentageIn == -1)
-					command = command + rawIn;
-
-				Console.WriteLine("");
-				Console.WriteLine("Sending '" + command + "' command to monitor device...");
-				Console.WriteLine("");
-
-				// Send the command
-				soilMoistureMonitor.WriteLine (command);
-
-				Thread.Sleep(3000);
-
-				Console.WriteLine("");
-				Console.WriteLine("Reading the output from the monitor device...");
-				Console.WriteLine("");
-
-				// Read the output
-				output = soilMoistureMonitor.Read ();
-
-				Console.WriteLine (output);
-				Console.WriteLine ("");
-
-				Console.WriteLine("");
-				Console.WriteLine("Checking the output...");
-				Console.WriteLine("");
-
-				var newValues = ParseOutputLine(GetLastDataLine(output));
-				
-				Console.WriteLine("Letter: " + letter);
-				
-				var valueString = newValues[letter];
-				
-				Console.WriteLine("Value string: " + valueString);
-
-				var calibrationValue = Convert.ToInt32(valueString);
-
-				Console.WriteLine("Calibration value: " + calibrationValue);
-				Console.WriteLine("Expected value: " + rawIn);
-				Console.WriteLine(""); 
-
-				// Ensure the calibration value is in the valid range
-				Assert.IsTrue(IsWithinRange(calibrationValue, rawIn, 20), "Calibration value is outside the valid range: " + calibrationValue);
-
-			} catch (Exception ex) {
-				Console.WriteLine (ex.ToString ());
-				Assert.Fail ();
-			} finally {
-				if (soilMoistureMonitor != null)
-					soilMoistureMonitor.Close ();
-
-				if (soilMoistureSimulator != null)
-					soilMoistureSimulator.Disconnect ();
+				helper.TestCalibrateCommand();
 			}
 		}
 	}
