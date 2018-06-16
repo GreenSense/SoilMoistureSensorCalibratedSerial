@@ -188,9 +188,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#region Console Write Functions
 		public void ConsoleWriteSerialOutput(string output)
 		{
-			Console.WriteLine("------------------------------");
+			Console.WriteLine("---------- Serial Output From Device -----------");
 			Console.WriteLine(output);
-			Console.WriteLine("------------------------------");
+			Console.WriteLine("------------------------------------------------");
 		}
 		#endregion
 
