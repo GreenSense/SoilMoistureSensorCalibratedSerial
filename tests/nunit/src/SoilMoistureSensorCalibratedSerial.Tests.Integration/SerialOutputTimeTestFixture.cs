@@ -18,7 +18,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatorPort = GetSimulatorPort();
 				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
-				helper.TestReadInterval();
+				helper.TestSerialOutputTime();
 			}
 		}
 
@@ -35,7 +35,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatorPort = GetSimulatorPort();
 				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
-				helper.TestReadInterval();
+				helper.TestSerialOutputTime();
 			}
 		}
 
@@ -52,7 +52,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatorPort = GetSimulatorPort();
 				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
-				helper.TestReadInterval();
+				helper.TestSerialOutputTime();
 			}
 		}
 	}
