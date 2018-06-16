@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using duinocom;
 using System.Threading;
@@ -17,10 +17,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			using (var helper = new FullScaleMonitorTestHelper())
 			{
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.RunFullScaleTest();
 			}

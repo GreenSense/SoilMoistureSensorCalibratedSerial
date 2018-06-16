@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
@@ -15,10 +15,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatedSoilMoisturePercentage = 20;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -34,10 +34,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatedSoilMoisturePercentage = 30;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -53,14 +53,15 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.RawSoilMoistureValue = 200;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
 		}
+
 		[Test]
 		public void Test_CalibrateDryToSpecifiedValueCommand_220()
 		{
@@ -71,10 +72,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.RawSoilMoistureValue = 220;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -90,10 +91,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatedSoilMoisturePercentage = 80;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -109,10 +110,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.SimulatedSoilMoisturePercentage = 90;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -128,10 +129,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.RawSoilMoistureValue = 880;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}
@@ -147,10 +148,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.RawSoilMoistureValue = 900;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestCalibrateCommand();
 			}

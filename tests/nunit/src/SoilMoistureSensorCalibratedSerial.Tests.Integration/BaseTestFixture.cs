@@ -46,7 +46,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			return simulatorPort;
 		}
 
-		public int GetSerialBaudRate()
+		public int GetDeviceSerialBaudRate()
+		{
+			return 9600;
+		}
+
+		public int GetSimulatorSerialBaudRate()
 		{
 			return 9600;
 		}
