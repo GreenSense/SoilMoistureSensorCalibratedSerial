@@ -19,7 +19,6 @@ void setup()
 {
   
   Serial.begin(9600);
-  //Serial.begin(115200);
 
   if (isDebugMode)
     Serial.println("Starting soil moisture sensor");
@@ -114,7 +113,7 @@ void serialPrintData()
     if (isDebugMode)
       Serial.println("Ready to serial print data");
   
-	  long numberOfSecondsOnline = millis()/1000;
+    long numberOfSecondsOnline = millis()/1000;
 
     if (serialMode == SERIAL_MODE_CSV)
     {
@@ -163,14 +162,14 @@ void serialPrintData()
       Serial.print(wetSoilMoistureCalibrationValue);
       Serial.println();
     }
-	  else if (serialMode == SERIAL_MODE_CALIBRATED)
-	  {
+    else if (serialMode == SERIAL_MODE_CALIBRATED)
+    {
       Serial.println(soilMoistureLevelCalibrated);
-	  }
-	  else if (serialMode == SERIAL_MODE_RAW)
-	  {
+    }
+    else if (serialMode == SERIAL_MODE_RAW)
+    {
       Serial.println(soilMoistureLevelRaw);
-	  }
+    }
 
     lastSerialOutputTime = millis();
   }

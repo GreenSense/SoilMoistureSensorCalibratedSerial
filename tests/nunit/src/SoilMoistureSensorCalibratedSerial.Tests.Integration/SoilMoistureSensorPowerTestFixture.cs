@@ -14,10 +14,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.ReadInterval = 1;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestSoilMoistureSensorPower();
 			}
@@ -31,10 +31,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.ReadInterval = 3;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestSoilMoistureSensorPower();
 			}
@@ -48,10 +48,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.ReadInterval = 4;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestSoilMoistureSensorPower();
 			}
@@ -64,10 +64,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.ReadInterval = 6;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestSoilMoistureSensorPower();
 			}

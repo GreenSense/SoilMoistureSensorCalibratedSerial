@@ -1,11 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using duinocom;
-using System.Threading;
-using ArduinoSerialControllerClient;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using NUnit.Framework;
 
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
@@ -20,10 +13,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.ReadInterval = 1;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestSetReadIntervalCommand();
 			}
@@ -37,10 +30,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 				helper.ReadInterval = 5;
 
 				helper.DevicePort = GetDevicePort();
-				helper.DeviceBaudRate = GetSerialBaudRate();
+				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
 
 				helper.SimulatorPort = GetSimulatorPort();
-				helper.SimulatorBaudRate = GetSerialBaudRate();
+				helper.SimulatorBaudRate = GetSimulatorSerialBaudRate();
 
 				helper.TestSetReadIntervalCommand();
 			}

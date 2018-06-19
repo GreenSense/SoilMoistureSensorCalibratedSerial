@@ -22,7 +22,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public string SimulatorPort;
 		public int SimulatorBaudRate = 0;
 
-		public int DelayAfterConnectingToHardware = 1500;
+		public int DelayAfterConnectingToHardware = 2000;
 
 		public string DataPrefix = "D;";
 		public string DataPostFix = ";;";
@@ -133,6 +133,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		public void WaitForDevicesToEnable()
 		{
 			Thread.Sleep(DelayAfterConnectingToHardware);
+
+			WaitForText(DataPrefix);
 		}
 
 		public void HandleConnectionIOException(string deviceLabel, string devicePort, int deviceBaudRate, Exception exception)
@@ -154,6 +156,19 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#endregion
 
 		#region Read From Device Functions
+		public string ReadLineFromDevice()
+		{
+			Console.WriteLine("Reading a line of the output from the device...");
+
+			// Read the output
+			var output = DeviceClient.ReadLine();
+
+			FullDeviceOutput += output;
+
+			ConsoleWriteSerialOutput(output);
+			return output;
+		}
+
 		public void ReadFromDeviceAndOutputToConsole()
 		{
 			Console.WriteLine("");
@@ -173,9 +188,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#region Console Write Functions
 		public void ConsoleWriteSerialOutput(string output)
 		{
-			Console.WriteLine("------------------------------");
+			Console.WriteLine("---------- Serial Output From Device -----------");
 			Console.WriteLine(output);
-			Console.WriteLine("------------------------------");
+			Console.WriteLine("------------------------------------------------");
 		}
 		#endregion
 
@@ -211,6 +226,38 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			return list.ToArray();
 		}
 
+		public string WaitForText(string text)
+		{
+			Console.WriteLine("Waiting for text: " + text);
+
+			var output = String.Empty;
+			var containsText = false;
+
+			var startTime = DateTime.Now;
+
+			while (!containsText)
+			{
+				output += ReadLineFromDevice();
+
+				if (output.Contains(text))
+				{
+					Console.WriteLine("  Found text: " + text);
+
+					containsText = true;
+				}
+
+				var hasTimedOut = DateTime.Now.Subtract(startTime).TotalSeconds > TimeoutWaitingForResponse;
+				if (hasTimedOut && !containsText)
+				{
+					ConsoleWriteSerialOutput(output);
+
+					Assert.Fail("Timed out waiting for text (" + TimeoutWaitingForResponse + " seconds)");
+				}
+			}
+
+			return output;
+		}
+
 		public string WaitForDataLine()
 		{
 			Console.WriteLine("Waiting for data line");
@@ -223,7 +270,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			while (!containsData)
 			{
-				output += DeviceClient.ReadLine();
+				output += ReadLineFromDevice();
 
 				var lastLine = GetLastLine(output);
 
@@ -246,6 +293,45 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			}
 
 			return dataLine;
+		}
+
+		public double WaitUntilDataLine()
+		{
+			Console.WriteLine("Waiting for data line");
+
+			var dataLine = String.Empty;
+			var output = String.Empty;
+			var containsData = false;
+
+			var startTime = DateTime.Now;
+			var timeInSeconds = 0.0;
+
+			while (!containsData)
+			{
+				output += ReadLineFromDevice();
+
+				var lastLine = GetLastLine(output);
+
+				if (IsValidDataLine(lastLine))
+				{
+					Console.WriteLine("  Found valid data line");
+					Console.WriteLine("    " + lastLine);
+
+					containsData = true;
+					dataLine = lastLine;
+					timeInSeconds = DateTime.Now.Subtract(startTime).TotalSeconds;
+				}
+
+				var hasTimedOut = DateTime.Now.Subtract(startTime).TotalSeconds > TimeoutWaitingForResponse;
+				if (hasTimedOut && !containsData)
+				{
+					ConsoleWriteSerialOutput(output);
+
+					Assert.Fail("Timed out waiting for data (" + TimeoutWaitingForResponse + " seconds)");
+				}
+			}
+
+			return timeInSeconds;
 		}
 
 		public string GetLastLine(string output)
