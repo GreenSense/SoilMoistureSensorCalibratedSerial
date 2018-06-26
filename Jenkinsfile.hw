@@ -55,6 +55,7 @@ pipeline {
         stage('Clean') {
             when { expression { !shouldSkipBuild() } }
             steps {
+                sh 'sh clean.sh'
                 sh 'git checkout src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino'
             }
         }
@@ -78,9 +79,6 @@ pipeline {
         } 
     }
     post {
-        always {
-            cleanWs()
-        }
         success() {
           emailext (
               subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
@@ -90,6 +88,7 @@ pipeline {
             )
         }
         failure() {
+          sh 'sh rollback.sh'
           emailext (
               subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
