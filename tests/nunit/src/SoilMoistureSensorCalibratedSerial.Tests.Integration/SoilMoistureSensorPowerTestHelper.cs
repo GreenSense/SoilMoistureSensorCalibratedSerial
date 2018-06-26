@@ -80,7 +80,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			WriteParagraphTitleText("Checking the total off time is correct...");
 
-			var expectedOffTime = ReadInterval;
+			var expectedOffTime = ReadInterval - DelayAfterTurningSoilMoistureSensorOn;
 
 			AssertIsWithinRange("total off time", expectedOffTime, totalOffTime, TimeErrorMargin);
 		}

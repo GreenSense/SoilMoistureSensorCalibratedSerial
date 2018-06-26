@@ -55,6 +55,7 @@
     <Compile Include="SoilMoistureSensorPowerTestHelper.cs" />
     <Compile Include="SerialOutputTimeTestFixture.cs" />
     <Compile Include="SerialOutputTimeTestHelper.cs" />
+    <Compile Include="TimeoutHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
