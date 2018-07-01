@@ -6,11 +6,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 	public class ReadIntervalCommandTestFixture : BaseTestFixture
 	{
 		[Test]
-		public void Test_SetReadIntervalCommand_1Second()
+		public void Test_SetReadIntervalCommand_2Seconds()
 		{
 			using (var helper = new ReadIntervalCommandTestHelper())
 			{
-				helper.ReadInterval = 1;
+				helper.ReadInterval = 2;
 
 				helper.DevicePort = GetDevicePort();
 				helper.DeviceBaudRate = GetDeviceSerialBaudRate();
