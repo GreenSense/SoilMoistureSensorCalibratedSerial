@@ -55,6 +55,8 @@ else
     echo "Mono is already installed. Skipping install."
   fi
 fi
+echo "Checking mono version..."
+mono --version
 
 cd tests/nunit && \
   sh prepare.sh
