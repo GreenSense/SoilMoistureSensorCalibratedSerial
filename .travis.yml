@@ -2,6 +2,10 @@ sudo: required
 
 language: python
 
+env:
+  - BUILD_TARGET=sketch
+  - BUILD_TARGET=tests
+
 install:
   - sudo sh prepare.sh
   - sh init.sh
@@ -9,4 +13,4 @@ install:
 script:
   - sh increment-version.sh
   - sh inject-version.sh
-  - sh build-all.sh
+  - sh build-$BUILD_TARGET.sh
