@@ -2,4 +2,4 @@ DIR=$PWD
 
 echo "Initializing SoilMoistureSensorCalibratedSerial project"
 
-sh init-testing.sh
+sh init-tests.sh

@@ -8,7 +8,7 @@ env:
 
 install:
   - sudo sh prepare-$BUILD_TARGET.sh
-  - sh init.sh
+  - sh init-$BUILD_TARGET.sh
 
 script:
   - sh increment-version.sh
