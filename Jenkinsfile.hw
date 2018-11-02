@@ -20,6 +20,12 @@ pipeline {
                 sh 'git config --global user.name "CompulsiveCoder CI"'
             }
         }
+        stage('Prepare') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh prepare.sh'
+            }
+        }
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
