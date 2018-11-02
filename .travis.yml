@@ -7,7 +7,7 @@ env:
   - BUILD_TARGET=tests
 
 install:
-  - sudo sh prepare.sh
+  - sudo sh prepare-$BUILD_TARGET.sh
   - sh init.sh
 
 script:
