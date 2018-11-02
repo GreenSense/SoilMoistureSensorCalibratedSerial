@@ -34,7 +34,7 @@ if ! type "pio" > /dev/null; then
 fi
 
 # mono
-if ! type "msbuild" > /dev/null; then
+if ! type "xbuild" > /dev/null; then
   VERSION_NAME=$(lsb_release -cs)
 
   sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
