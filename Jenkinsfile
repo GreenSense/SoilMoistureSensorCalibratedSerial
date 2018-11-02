@@ -18,12 +18,6 @@ pipeline {
                 sh 'git pull origin $BRANCH_NAME'
             }
         }
-        stage('Prepare') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh prepare.sh'
-            }
-        }
         stage('Init') {
             when { expression { !shouldSkipBuild() } }
             steps {
