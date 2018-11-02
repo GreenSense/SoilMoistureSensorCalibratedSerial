@@ -50,7 +50,7 @@ if [ "$USE_MONO4" = 0 ]; then
 else
   if ! type "xbuild" > /dev/null; then
     echo "Using mono4"
-    sudo apt-get install -y mono-devel mono-complete ca-certificates-mono
+    sudo apt-get install -y tzdata mono-devel mono-complete ca-certificates-mono
   else
     echo "Mono is already installed. Skipping install."
   fi
