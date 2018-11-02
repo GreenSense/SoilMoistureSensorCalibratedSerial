@@ -13,6 +13,11 @@ if ! type "curl" > /dev/null; then
   sudo apt-get install -y curl
 fi
 
+# unzip
+if ! type "unzip" > /dev/null; then
+  sudo apt-get install -y unzip
+fi
+
 # git
 if ! type "git" > /dev/null; then
   sudo apt-get install -y git
