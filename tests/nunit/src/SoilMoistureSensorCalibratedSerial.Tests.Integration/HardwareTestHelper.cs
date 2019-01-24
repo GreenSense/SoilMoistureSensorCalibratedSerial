@@ -37,6 +37,10 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 		public string FullDeviceOutput;
 
+		public int ResetTriggerPin = 4;
+
+		public string IrrigatorStartText = "Starting soil moisture monitor";
+
 		public TimeoutHelper Timeout = new TimeoutHelper();
 
 		public HardwareTestHelper()
@@ -66,22 +70,22 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#endregion
 
 		#region Enable Device/Simulator Functions
-		public void EnableDevices()
+		public void ConnectDevices()
 		{
-			EnableDevices(true);
+			ConnectDevices(true);
 		}
 
-		public virtual void EnableDevices(bool enableSimulator)
+		public virtual void ConnectDevices(bool enableSimulator)
 		{
 			if (enableSimulator)
-				EnableSimulator();
+				ConnectSimulator();
 
-			EnableDevice();
+			ConnectDevice();
 
-			WaitForDevicesToEnable();
+			WaitForDevicesToConnect();
 		}
 
-		public void EnableDevice()
+		public void ConnectDevice()
 		{
 			if (String.IsNullOrEmpty(DevicePort))
 				throw new Exception("The 'DevicePort' property has not been set.");
@@ -107,7 +111,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("");
 		}
 
-		public void EnableSimulator()
+		public void ConnectSimulator()
 		{
 			if (String.IsNullOrEmpty(SimulatorPort))
 				throw new Exception("The 'SimulatorPort' property has not been set.");
@@ -133,7 +137,24 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			Console.WriteLine("");
 		}
 
-		public void WaitForDevicesToEnable()
+		public void DisconnectDevice()
+		{
+			DeviceClient.Close ();
+		}
+
+		public void DisconnectSimulator()
+		{
+			SimulatorClient.Disconnect ();
+		}
+
+		public void DisconnectDevices()
+		{
+			DisconnectDevice ();
+
+			DisconnectSimulator ();
+		}
+
+		public void WaitForDevicesToConnect()
 		{
 			Thread.Sleep(DelayAfterConnectingToHardware);
 
@@ -153,6 +174,30 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		}
 		#endregion
 
+		#region Reset Functions
+		public virtual void ResetDeviceViaPin()
+		{
+			// Close the connection to the device
+			DisconnectDevice();
+
+			// Set the reset trigger pin LOW (false) to begin a reset
+			SimulatorClient.DigitalWrite (ResetTriggerPin, false);
+
+			// Give the pin some time at LOW to ensure reset
+			Thread.Sleep (10);
+
+			// Change the reset trigger pin to an input to go back to normal
+			// TODO: Implement a cleaner way to do this
+			SimulatorClient.DigitalRead (ResetTriggerPin);
+
+			// Re-open the connection to the device
+			ConnectDevice ();
+
+			// Ensure the irrigator restarted
+			WaitForText (IrrigatorStartText);
+		}
+		#endregion
+
 		#region Write to Device Functions
 		public virtual void WriteToDevice(string text)
 		{
@@ -163,6 +208,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		#region Read From Device Functions
 		public string ReadLineFromDevice()
 		{
+			Console.WriteLine("Reading a line of the output from the device...");
+
+			// Read the output
 			var output = DeviceClient.ReadLine();
 
 			FullDeviceOutput += output;

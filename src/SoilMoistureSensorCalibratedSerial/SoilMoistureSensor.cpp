@@ -242,7 +242,7 @@ void setSoilMoistureSensorReadingInterval(long newValue)
 {
   if (isDebugMode)
   {
-    Serial.print("Setting soil moisture sensor reading interval: ");
+    Serial.print("Set sensor reading interval: ");
     Serial.println(newValue);
   }
 

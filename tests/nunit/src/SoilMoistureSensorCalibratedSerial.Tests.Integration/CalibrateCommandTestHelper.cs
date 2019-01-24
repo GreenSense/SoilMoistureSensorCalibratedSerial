@@ -28,7 +28,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			var simulatorIsNeeded = SimulatedSoilMoisturePercentage > -1;
 
-			EnableDevices(simulatorIsNeeded);
+			ConnectDevices(simulatorIsNeeded);
 
 			if (SimulatorIsEnabled)
 			{

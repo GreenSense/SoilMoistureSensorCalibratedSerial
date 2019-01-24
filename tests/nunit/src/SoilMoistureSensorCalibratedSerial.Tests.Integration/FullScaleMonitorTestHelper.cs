@@ -12,7 +12,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		{
 			WriteTitleText("Starting full scale test");
 
-			EnableDevices();
+			ConnectDevices();
 
 			int step = 25;
 

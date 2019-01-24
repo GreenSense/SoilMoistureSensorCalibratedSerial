@@ -17,11 +17,9 @@ int serialMode = SERIAL_MODE_CSV;
 
 void setup()
 {
-  
   Serial.begin(9600);
 
-  if (isDebugMode)
-    Serial.println("Starting soil moisture sensor");
+  Serial.println("Starting soil moisture monitor");
 
   setupSoilMoistureSensor();
 
@@ -72,7 +70,7 @@ void checkCommand()
       case 'W':
         setWetSoilMoistureCalibrationValue(msg);
         break;
-      case 'V':
+      case 'I':
         setSoilMoistureSensorReadingInterval(msg);
         break;
       case 'X':
@@ -127,7 +125,7 @@ void serialPrintData()
       Serial.print("C:");
       Serial.print(soilMoistureLevelCalibrated);
       Serial.print(";");
-      Serial.print("V:");
+      Serial.print("I:");
       Serial.print(soilMoistureSensorReadingIntervalInSeconds);
       Serial.print(";");
       Serial.print("D:");
