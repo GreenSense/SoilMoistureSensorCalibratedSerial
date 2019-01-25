@@ -33,13 +33,13 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-all.sh'
+                sh 'sh build-uno.sh'
             }
         }
         stage('Upload') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh upload.sh'
+                sh 'sh upload-uno.sh'
             }
         }
         stage('Upload simulator') {
