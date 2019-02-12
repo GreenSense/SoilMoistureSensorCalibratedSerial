@@ -13,6 +13,8 @@ extern int loopNumber;
 void serialPrintLoopHeader();
 void serialPrintLoopFooter();
 
+//void setEEPROMFlag(int address);
+
 void EEPROMWriteLong(int address, long value);
 long EEPROMReadLong(int address);
 

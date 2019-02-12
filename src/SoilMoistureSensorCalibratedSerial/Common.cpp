@@ -37,6 +37,7 @@ void serialPrintLoopFooter()
   }
 }
 
+
 void EEPROMWriteLong(int address, long value)
 {
       //Decomposition from a long to 4 bytes by using bitshift.
