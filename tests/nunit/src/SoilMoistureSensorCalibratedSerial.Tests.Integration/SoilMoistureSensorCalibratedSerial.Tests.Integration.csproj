@@ -37,7 +37,10 @@
       <HintPath>..\..\lib\duinocom.core.1.0.6\lib\net40\duinocom.core.dll</HintPath>
     </Reference>
     <Reference Include="ArduinoSerialControllerClient">
-      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.0.9\lib\net40\ArduinoSerialControllerClient.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.1.1.5\lib\net40\ArduinoSerialControllerClient.dll</HintPath>
+    </Reference>
+    <Reference Include="ArduinoSerialControllerClient">
+      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.1.1.5\lib\net40\duinocom.core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
