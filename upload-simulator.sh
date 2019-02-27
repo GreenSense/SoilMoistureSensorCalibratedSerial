@@ -1,8 +1,15 @@
-# May need be run as sudo
+#!/bin/bash
 
-echo ""
-echo "Uploading simulator sketch"
-echo ""
+#. ./common.sh
+
+SIMULATOR_PORT=$1
+
+if [ ! $SIMULATOR_PORT ]; then
+  echo "Specify a port as an argument"
+  exit 1
+fi
+
+echo "Uploading simulator to port $SIMULATOR_PORT"
 
 # Specify a temporary directory name
 SIMULATOR_TMP_DIR="_simulatortmp"
@@ -14,17 +21,13 @@ rm -rf $SIMULATOR_TMP_DIR
 mkdir -p $SIMULATOR_TMP_DIR
 cd $SIMULATOR_TMP_DIR
 
-echo "Preparing to clone ArduinoSerialController"
-echo "Dir:"
-echo "  $PWD"
-
 # Clone the latest version
-git clone https://github.com/CompulsiveCoder/ArduinoSerialController.git
+git clone https://github.com/CompulsiveCoder/ArduinoSerialController.git && \
 
-cd ArduinoSerialController
+cd ArduinoSerialController && \
 
-# Upload to USB1
-sh upload-to-port.sh "/dev/ttyUSB1"
+# Upload
+sh upload-to-port.sh "$SIMULATOR_PORT" && \
 
 # Remove the temporary directory
 rm -rf $SIMULATOR_TMP_DIR

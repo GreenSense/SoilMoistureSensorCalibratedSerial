@@ -13,6 +13,8 @@ pipeline {
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
+                sh 'echo "Soil moisture monitor port: ${MONITOR_PORT}"'
+                sh 'echo "Soil moisture monitor simulator port: ${MONITOR_SIMULATOR_PORT}"'
             }
         }
         stage('Init') {
@@ -30,19 +32,19 @@ pipeline {
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh build-uno.sh'
+                sh 'sh build-tests.sh'
             }
         }
         stage('Upload') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh upload-uno.sh'
+                sh 'sh upload-uno.sh ${MONITOR_PORT}'
             }
         }
         stage('Upload simulator') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'echo "Skipping simulator upload to speed up test." #sh upload-simulator.sh'
+                sh 'sh upload-simulator.sh ${MONITOR_SIMULATOR_PORT}'
             }
         }
         stage('Test') {
