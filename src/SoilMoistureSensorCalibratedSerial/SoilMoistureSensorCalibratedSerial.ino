@@ -12,6 +12,7 @@
 #define SERIAL_MODE_QUERYSTRING 4
 
 #define VERSION "1-0-0-0"
+#define BOARD_TYPE "nano"
 
 int serialMode = SERIAL_MODE_CSV;
 
@@ -20,6 +21,15 @@ void setup()
   Serial.begin(9600);
 
   Serial.println("Starting soil moisture monitor");
+  Serial.println("");
+  Serial.println("Family: GreenSense");
+  Serial.println("Group: irrigator");
+  Serial.println("Project: SoilMoistureSensorCalibratedPump");
+  Serial.print("Board: ");
+  Serial.println(BOARD_TYPE);
+  Serial.print("Version: ");
+  Serial.println(VERSION);
+  Serial.println("");
 
   setupSoilMoistureSensor();
 
