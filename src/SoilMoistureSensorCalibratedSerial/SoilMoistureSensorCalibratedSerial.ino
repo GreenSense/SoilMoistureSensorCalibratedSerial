@@ -23,8 +23,8 @@ void setup()
   Serial.println("Starting soil moisture monitor");
   Serial.println("");
   Serial.println("Family: GreenSense");
-  Serial.println("Group: irrigator");
-  Serial.println("Project: SoilMoistureSensorCalibratedPump");
+  Serial.println("Group: monitor");
+  Serial.println("Project: SoilMoistureSensorCalibratedSerial");
   Serial.print("Board: ");
   Serial.println(BOARD_TYPE);
   Serial.print("Version: ");
