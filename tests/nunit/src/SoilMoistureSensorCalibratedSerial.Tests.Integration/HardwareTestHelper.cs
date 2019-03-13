@@ -351,6 +351,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
             var startTime = DateTime.Now;
             var timeInSeconds = 0.0;
 
+            Timeout.Start ();
+
             while (!containsData) {
                 output += ReadLineFromDevice ();
 
@@ -363,14 +365,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
                     containsData = true;
                     dataLine = lastLine;
                     timeInSeconds = DateTime.Now.Subtract (startTime).TotalSeconds;
-                }
-
-                var hasTimedOut = DateTime.Now.Subtract (startTime).TotalSeconds > TimeoutWaitingForResponse;
-                if (hasTimedOut && !containsData) {
-                    ConsoleWriteSerialOutput (output);
-
-                    Assert.Fail ("Timed out waiting for data (" + TimeoutWaitingForResponse + " seconds)");
-                }
+                } else
+                    Timeout.Check (TimeoutWaitingForResponse, "Timed out waiting for data (" + TimeoutWaitingForResponse + " seconds)");
             }
 
             return timeInSeconds;
@@ -465,6 +461,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public void AssertDataValueEquals (Dictionary<string, string> dataEntry, string dataKey, int expectedValue)
         {
+            Assert.IsTrue (dataEntry.ContainsKey (dataKey), "The key '" + dataKey + "' is not found in the data entry.");
+
             var value = Convert.ToInt32 (dataEntry [dataKey]);
 
             Assert.AreEqual (expectedValue, value, "Data value for '" + dataKey + "' key is incorrect: " + value);
@@ -528,9 +526,26 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         #region Simulator Pin Assert Functions
 
+        public void AssertSimulatorPin (string label, int simulatorDigitalPin, bool expectedValue)
+        {
+            Console.WriteLine ("Checking " + label + " pin...");
+            Console.WriteLine ("  Expected value: " + expectedValue);
+
+            bool powerPinValue = SimulatorDigitalRead (simulatorDigitalPin);
+
+            if (expectedValue)
+                Assert.AreEqual (true, powerPinValue, "The " + label + " pin is off when it should be on.");
+            else
+                Assert.AreEqual (false, powerPinValue, "The " + label + " pin is on when it should be off.");
+
+            Console.WriteLine ("");
+            Console.WriteLine ("The " + label + " pin works as expected.");
+            Console.WriteLine ("");
+        }
+
         public void AssertSimulatorPinForDuration (string label, int simulatorDigitalPin, bool expectedValue, int durationInSeconds)
         {
-            Console.WriteLine ("Checking soil " + label + " pin for specified duration...");
+            Console.WriteLine ("Checking " + label + " pin for specified duration...");
             Console.WriteLine ("  Expected value: " + expectedValue);
             Console.WriteLine ("  Duration: " + durationInSeconds);
 
