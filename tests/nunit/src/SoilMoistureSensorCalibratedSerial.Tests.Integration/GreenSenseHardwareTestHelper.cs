@@ -25,6 +25,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public override void ConnectDevices (bool enableSimulator)
         {
+            Console.WriteLine ("Connecting devices...");
+
             base.ConnectDevices (enableSimulator);
 
             PrepareDeviceForTest ();
@@ -41,6 +43,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public virtual void PrepareDeviceForTest (bool consoleWriteDeviceOutput)
         {
+            Console.WriteLine ("Preparing device for test...");
+
             ResetDeviceSettings ();
 
             SetDeviceReadInterval (1);
@@ -70,8 +74,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
         public void WaitForMessageReceived (string message)
         {
             Console.WriteLine ("");
-            Console.WriteLine ("Waiting for received message");
-            Console.WriteLine ("  Message: " + message);
+            Console.WriteLine ("Waiting for message: " + message);
 
             var output = String.Empty;
             var wasMessageReceived = false;
@@ -85,9 +88,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
                 if (output.Contains (expectedText)) {
                     wasMessageReceived = true;
 
-                    Console.WriteLine ("  Message was received");
+                    //Console.WriteLine ("  Message was received");
 
-                    ConsoleWriteSerialOutput (output);
+                    //ConsoleWriteSerialOutput (output);
                 }
 
                 var hasTimedOut = DateTime.Now.Subtract (startTime).TotalSeconds > TimeoutWaitingForResponse;

@@ -39,13 +39,6 @@ pipeline {
                 sh 'sh build-all.sh'
             }
         }
-        stage('Clean') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh clean.sh'
-                sh 'git checkout src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino'
-            }
-        }
     }
     post {
         success() {

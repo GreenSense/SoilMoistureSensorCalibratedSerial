@@ -51,14 +51,14 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public void WriteTitleText (string titleText)
         {
-            Console.WriteLine ("========================================");
+            Console.WriteLine ("==========");
             Console.WriteLine (titleText);
             Console.WriteLine ("");
         }
 
         public void WriteSubTitleText (string subTitleText)
         {
-            Console.WriteLine ("----------------------------------------");
+            Console.WriteLine ("----------");
             Console.WriteLine (subTitleText);
             Console.WriteLine ("");
         }
@@ -131,7 +131,15 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
             SimulatorIsEnabled = true;
 
+            EnsureSimulatorIsNotResettingDevice ();
+
             Console.WriteLine ("");
+        }
+
+        public void EnsureSimulatorIsNotResettingDevice ()
+        {
+            // Set the reset trigger pin to INPUT_PULLUP mode to avoid resetting the device
+            SimulatorClient.PinMode (ResetTriggerPin, PinMode.INPUT_PULLUP);
         }
 
         public void DisconnectDevice ()
@@ -166,6 +174,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
                 throw new Exception ("The " + deviceLabel + " device not found on port: " + devicePort + ". Please ensure it's connected via USB and that the port name is set correctly.", exception);
             else if (exception.Message == "Inappropriate ioctl for device")
                 throw new Exception ("The device serial baud rate appears to be incorrect: " + deviceBaudRate, exception);
+            else if (exception.Message == "No such device or address")
+                throw new Exception ("The " + deviceLabel + " device not found on port: " + devicePort + ". Please ensure it's connected via USB and that the port name is set correctly.", exception);
             else
                 throw exception;
         }
@@ -210,7 +220,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public string ReadLineFromDevice ()
         {
-            Console.WriteLine ("Reading a line of the output from the device...");
+            //Console.WriteLine ("Reading a line of the output from the device...");
 
             // Read the output
             var output = DeviceClient.ReadLine ();
@@ -223,9 +233,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public void ReadFromDeviceAndOutputToConsole ()
         {
-            Console.WriteLine ("");
-            Console.WriteLine ("Reading the output from the device...");
-            Console.WriteLine ("");
+            //Console.WriteLine ("");
+            //Console.WriteLine ("Reading the output from the device...");
+            //Console.WriteLine ("");
 
             // Read the output
             var output = DeviceClient.Read ();
@@ -236,6 +246,18 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
             Console.WriteLine ("");
         }
 
+        public string ReadLineFromSimulator ()
+        {
+            //Console.WriteLine ("Reading a line of the output from the simulator...");
+
+            // Read the output
+            var output = SimulatorClient.Client.ReadLine ();
+
+            ConsoleWriteSerialOutput (output);
+
+            return output;
+        }
+
         #endregion
 
         #region Console Write Functions
@@ -243,9 +265,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
         public void ConsoleWriteSerialOutput (string output)
         {
             if (!String.IsNullOrEmpty (output)) {
-                Console.WriteLine ("----- Serial Output From Device");
-                Console.WriteLine (output);
-                Console.WriteLine ("-------------------------------");
+                foreach (var line in output.Trim().Split('\r')) {
+                    if (!String.IsNullOrEmpty (line)) {
+                        Console.WriteLine ("> " + line);
+                    }
+                }
             }
         }
 
@@ -298,7 +322,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
                 output += ReadLineFromDevice ();
 
                 if (output.Contains (text)) {
-                    Console.WriteLine ("  Found text: " + text);
+                    //Console.WriteLine ("  Found text: " + text);
 
                     containsText = true;
                 } else
@@ -310,7 +334,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public string WaitForDataLine ()
         {
-            Console.WriteLine ("Waiting for data line");
+            Console.WriteLine ("Waiting for a line of data");
 
             var dataLine = String.Empty;
             var output = String.Empty;
@@ -326,9 +350,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
                 var lastLine = GetLastLine (output);
 
                 if (IsValidDataLine (lastLine)) {
-                    Console.WriteLine ("  Found valid data line");
-                    Console.WriteLine ("    " + lastLine);
-
                     containsData = true;
                     dataLine = lastLine;
                 } else {
@@ -609,7 +630,11 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
         {
             if (!disposedValue) {
                 if (disposing) {
-                    ConsoleWriteSerialOutput (FullDeviceOutput);
+                    if (TestContext.CurrentContext.Result.State == TestState.Error
+                        || TestContext.CurrentContext.Result.State == TestState.Failure) {
+                        Console.WriteLine ("Complete device serial output...");
+                        ConsoleWriteSerialOutput (FullDeviceOutput);
+                    }
 
                     if (DeviceClient != null)
                         DeviceClient.Close ();
@@ -619,9 +644,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
                     Thread.Sleep (DelayAfterDisconnectingFromHardware);
                 }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
 
                 disposedValue = true;
             }

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pio run --environment nanoatmega328
+pio run -s --environment nanoatmega328
