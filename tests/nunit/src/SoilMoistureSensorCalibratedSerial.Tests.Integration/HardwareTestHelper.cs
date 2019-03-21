@@ -22,8 +22,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
         public string SimulatorPort;
         public int SimulatorBaudRate = 0;
 
-        public int DelayAfterConnectingToHardware = 2 * 1000;
-        public int DelayAfterDisconnectingFromHardware = 1 * 1000;
+        public int DelayAfterConnectingToHardware = 1 * 1000;
+        public int DelayAfterDisconnectingFromHardware = 500;
 
         public string DataPrefix = "D;";
         public string DataPostFix = ";;";
@@ -51,14 +51,14 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public void WriteTitleText (string titleText)
         {
-            Console.WriteLine ("==========");
+            Console.WriteLine ("===");
             Console.WriteLine (titleText);
             Console.WriteLine ("");
         }
 
         public void WriteSubTitleText (string subTitleText)
         {
-            Console.WriteLine ("----------");
+            Console.WriteLine ("---");
             Console.WriteLine (subTitleText);
             Console.WriteLine ("");
         }
@@ -216,6 +216,15 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         #endregion
 
+        #region Write to Simulator Functions
+
+        public virtual void WriteToSimulator (string text)
+        {
+            SimulatorClient.Client.WriteLine (text);
+        }
+
+        #endregion
+
         #region Read From Device Functions
 
         public string ReadLineFromDevice ()
@@ -267,7 +276,7 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
             if (!String.IsNullOrEmpty (output)) {
                 foreach (var line in output.Trim().Split('\r')) {
                     if (!String.IsNullOrEmpty (line)) {
-                        Console.WriteLine ("> " + line);
+                        Console.WriteLine ("> " + line.Trim ());
                     }
                 }
             }
@@ -379,9 +388,6 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
                 var lastLine = GetLastLine (output);
 
                 if (IsValidDataLine (lastLine)) {
-                    Console.WriteLine ("  Found valid data line");
-                    Console.WriteLine ("    " + lastLine);
-
                     containsData = true;
                     dataLine = lastLine;
                     timeInSeconds = DateTime.Now.Subtract (startTime).TotalSeconds;
@@ -521,23 +527,18 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
         public bool IsWithinRange (double expectedValue, double actualValue, double allowableMarginOfError)
         {
-            Console.WriteLine ("Checking value is within range...");
-            Console.WriteLine ("  Expected value: " + expectedValue);
-            Console.WriteLine ("  Actual value: " + actualValue);
-            Console.WriteLine ("  Allowable margin of error: " + allowableMarginOfError);
-
             var minAllowableValue = expectedValue - allowableMarginOfError;
             if (minAllowableValue < 0)
                 minAllowableValue = 0;
             var maxAllowableValue = expectedValue + allowableMarginOfError;
 
-            Console.WriteLine ("  Max allowable value: " + maxAllowableValue);
-            Console.WriteLine ("  Min allowable value: " + minAllowableValue);
+            Console.WriteLine ("Checking value '" + actualValue + "' is within range of '" + expectedValue + "'");
+            Console.WriteLine ("  Minimum of '" + minAllowableValue + "' and maximum of '" + maxAllowableValue + "', with '" + allowableMarginOfError + "' as the allowable margin of error");
 
             var isWithinRange = actualValue <= maxAllowableValue &&
                                 actualValue >= minAllowableValue;
 
-            Console.WriteLine ("Is within range: " + isWithinRange);
+            Console.WriteLine ("  Is within range: " + isWithinRange);
 
             return isWithinRange;
         }

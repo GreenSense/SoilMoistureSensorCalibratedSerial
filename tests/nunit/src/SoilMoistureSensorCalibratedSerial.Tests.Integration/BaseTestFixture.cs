@@ -12,13 +12,13 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 		{
 		}
 
-		[SetUp]
-		public void Initialize()
-		{
-			Console.WriteLine("");
-			Console.WriteLine("====================");
-			Console.WriteLine("Preparing test");
-		}
+        [SetUp]
+        public virtual void Initialize ()
+        {
+            Console.WriteLine ("");
+            Console.WriteLine ("=====");
+            Console.WriteLine ("Preparing test");
+        }
 
 		[TearDown]
 		public virtual void Finish()
@@ -38,10 +38,9 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			var failureFile = Path.Combine(failuresDir, fixtureName + ".txt");
 
-			if (TestContext.CurrentContext.Result.State == TestState.Error
-			  || TestContext.CurrentContext.Result.State == TestState.Failure)
-			{
-				Console.WriteLine("Test failed.");
+            if (TestContext.CurrentContext.Result.State == TestState.Error
+                || TestContext.CurrentContext.Result.State == TestState.Failure) {
+                Console.WriteLine ("Test failed!");
 
 				Console.WriteLine(failuresDir);
 				Console.WriteLine(fixtureName);

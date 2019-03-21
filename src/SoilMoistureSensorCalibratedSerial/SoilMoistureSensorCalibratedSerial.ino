@@ -11,8 +11,8 @@
 #define SERIAL_MODE_CSV 3
 #define SERIAL_MODE_QUERYSTRING 4
 
-#define VERSION "1-0-1-131"
-#define BOARD_TYPE "nano"
+#define VERSION "1-0-0-0"
+#define BOARD_TYPE "uno"
 
 int serialMode = SERIAL_MODE_CSV;
 

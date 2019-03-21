@@ -34,9 +34,12 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 			{
 				SimulateSoilMoisture(SimulatedSoilMoisturePercentage);
 
-				var values = WaitForData(4); // Wait for 4 data entries to give the simulator time to stabilise
+		                // Skip the first X entries to give the value time to stabilise
+		                WaitForData (1);
 
-				AssertDataValueIsWithinRange(values[values.Length - 1], "R", RawSoilMoistureValue, RawValueMarginOfError);
+				var dataEntry = WaitForDataEntry ();
+
+		                AssertDataValueIsWithinRange (dataEntry, "R", RawSoilMoistureValue, RawValueMarginOfError);
 			}
 
 			SendCalibrationCommand();
@@ -52,13 +55,16 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
 			SendDeviceCommand(command);
 
-			var data = WaitForData(4); // Wait for 4 data entries to let the soil moisture simulator stabilise
+                // Skip the first X entries to give the value time to stabilise
+            WaitForData (1);
 
-			// If using the soil moisture simulator then the value needs to be within a specified range
-			if (SimulatorIsEnabled)
-				AssertDataValueIsWithinRange(data[data.Length - 1], Letter, RawSoilMoistureValue, RawValueMarginOfError);
-			else // Otherwise it needs to be exact
-				AssertDataValueEquals(data[data.Length - 1], Letter, RawSoilMoistureValue);
-		}
-	}
+            var dataEntry = WaitForDataEntry ();
+
+            // If using the soil moisture simulator then the value needs to be within a specified range
+            if (SimulatorIsEnabled)
+                AssertDataValueIsWithinRange (dataEntry, Letter, RawSoilMoistureValue, RawValueMarginOfError);
+            else // Otherwise it needs to be exact
+                AssertDataValueEquals (dataEntry, Letter, RawSoilMoistureValue);
+        }
+    }
 }
