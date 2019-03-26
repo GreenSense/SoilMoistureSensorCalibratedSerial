@@ -18,8 +18,8 @@ sh inject-version.sh && \
 sh build-uno.sh && \
 sh upload-uno.sh $PORT_NAME && \
 
-# Revert the sketch file to avoid git merge conflicts
-git checkout src/SoilMoistureSensorCalibratedSerial/SoilMoistureSensorCalibratedSerial.ino && \
+# Clean avoid git merge conflicts
+sh clean.sh && \
 
 echo "Pull, build, and upload complete."
 
