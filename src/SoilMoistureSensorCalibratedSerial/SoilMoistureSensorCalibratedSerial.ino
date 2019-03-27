@@ -21,15 +21,8 @@ void setup()
   Serial.begin(9600);
 
   Serial.println("Starting soil moisture monitor");
-  Serial.println("");
-  Serial.println("Family: GreenSense");
-  Serial.println("Group: monitor");
-  Serial.println("Project: SoilMoistureSensorCalibratedSerial");
-  Serial.print("Board: ");
-  Serial.println(BOARD_TYPE);
-  Serial.print("Version: ");
-  Serial.println(VERSION);
-  Serial.println("");
+  
+  serialPrintDeviceInfo();
 
   setupSoilMoistureSensor();
 
@@ -53,6 +46,19 @@ void loop()
   delay(1);
 }
 
+void serialPrintDeviceInfo()
+{
+  Serial.println("");
+  Serial.println("Family: GreenSense");
+  Serial.println("Group: monitor");
+  Serial.println("Project: SoilMoistureSensorCalibratedSerial");
+  Serial.print("Board: ");
+  Serial.println(BOARD_TYPE);
+  Serial.print("Version: ");
+  Serial.println(VERSION);
+  Serial.println("");
+}
+
 /* Commands */
 void checkCommand()
 {
@@ -74,6 +80,9 @@ void checkCommand()
 
     switch (letter)
     {
+      case '#':
+        serialPrintDeviceInfo();
+        break;
       case 'D':
         setDrySoilMoistureCalibrationValue(msg);
         break;
