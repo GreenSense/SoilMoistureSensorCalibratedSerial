@@ -1,6 +1,8 @@
 #ifndef SOILMOISTURESENSOR_H_
 #define SOILMOISTURESENSOR_H_
 
+extern int soilMoistureSensorType;
+
 extern int soilMoistureLevelCalibrated;
 extern int soilMoistureLevelRaw;
 
