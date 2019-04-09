@@ -6,6 +6,8 @@ if [ "$BRANCH" = "dev" ]
 then
   echo "Forcing remote test"
 
+  sh clean.sh
+
   echo " " >> Jenkinsfile.hw
   
   git pull origin dev && \
