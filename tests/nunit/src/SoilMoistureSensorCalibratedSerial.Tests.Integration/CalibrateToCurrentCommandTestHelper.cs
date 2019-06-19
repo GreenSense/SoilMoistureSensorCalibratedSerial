@@ -33,8 +33,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
             if (SimulatorIsEnabled) {
                 SimulateSoilMoisture (SimulatedSoilMoisturePercentage);
 
-                // Skip the first X entries to give the value time to stabilise
-                WaitForData (1);
+                // Skip the first entries to give the value time to stabilise
+                WaitForData (2);
 
                 var dataEntry = WaitForDataEntry ();
 
@@ -54,8 +54,8 @@ namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 
             SendDeviceCommand (command);
 
-            // Skip the first X entries to give the value time to stabilise
-            WaitForData (1);
+            // Skip the first X entries to give the value time to update
+            WaitForData (2);
 
             var dataEntry = WaitForDataEntry ();
 
