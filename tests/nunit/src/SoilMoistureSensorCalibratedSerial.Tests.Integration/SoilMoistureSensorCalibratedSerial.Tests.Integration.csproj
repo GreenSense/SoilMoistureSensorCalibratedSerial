@@ -31,13 +31,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="nunit.framework">
-      <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\lib\NUnit\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ArduinoSerialControllerClient">
-      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.1.1.5\lib\net40\ArduinoSerialControllerClient.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoSerialControllerClient\lib\net40\ArduinoSerialControllerClient.dll</HintPath>
     </Reference>
     <Reference Include="duinocom.core">
-      <HintPath>..\..\lib\ArduinoSerialControllerClient.1.1.1.5\lib\net40\duinocom.core.dll</HintPath>
+      <HintPath>..\..\lib\ArduinoSerialControllerClient\lib\net40\duinocom.core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

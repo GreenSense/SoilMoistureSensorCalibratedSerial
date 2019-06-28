@@ -11,7 +11,7 @@ int msgLength = 0;
 // Check whether a message is available and add it to the 'msgBuffer' buffer
 bool checkMsgReady()
 {
-  if (Serial.available() > 0) {
+  while (Serial.available() > 0 && !isMsgReady) {
     if (verboseCom)
     {
       Serial.println("Reading serial...");
