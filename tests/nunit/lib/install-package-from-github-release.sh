@@ -55,7 +55,7 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
   # Check if the project exists within the GreenSense index
 	[[ $(echo $PWD) =~ "GreenSense/Index" ]] && IS_IN_INDEX=1 || IS_IN_INDEX=0
 	
-	if [ $IS_IN_INDEX ]; then
+	if [ "$IS_IN_INDEX" = "1" ]; then
 	  # Get the path to the GreenSense index lib directory
 	  INDEX_LIB_DIR=$(readlink -f "../../../../../../lib")
 	  
@@ -81,7 +81,7 @@ if [ ! -f "$PACKAGE_FILE_EXT" ]; then
     # Unzip the package
 	  unzip -qq -o "$PACKAGE_FILE_EXT" -d "$PACKAGE_FOLDER/" || exit 1
 	  
-	  if [ $IS_IN_INDEX ]; then
+	  if [ "$IS_IN_INDEX" = "1" ]; then
       # Make the GreenSense index lib directory if necessary
 	    mkdir -p $INDEX_LIB_DIR
 	    
