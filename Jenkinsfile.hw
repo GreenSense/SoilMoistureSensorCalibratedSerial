@@ -14,7 +14,6 @@ pipeline {
                 shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git .' )
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
-                shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
                 sh 'git config --global user.name "CompulsiveCoderCI"'
                 sh 'sh view-version.sh'
