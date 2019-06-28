@@ -1,18 +1,23 @@
 pipeline {
     agent any
     options {
-        disableConcurrentBuilds();
+      skipDefaultCheckout true
     }
     stages {
-        stage('Checkout') {
+        stage('CleanWSStart') {
             steps {
-                checkout scm
-                
-                shHide( 'git remote set-url origin https://${GHTOKEN}@github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git' )
-                sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
-                sh "git fetch --no-tags"
+                deleteDir()
+            }
+        }
+        stage('Setup') {
+            steps {
+                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git .' )
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
+                shHide( 'sh set-wifi-credentials.sh ${WIFI_NAME} ${WIFI_PASSWORD}' )
+                sh 'git config --global user.email "compulsivecoder@gmail.com"'
+                sh 'git config --global user.name "CompulsiveCoderCI"'
+                sh 'sh view-version.sh'
                 sh 'echo "Soil moisture monitor port: ${MONITOR_PORT}"'
                 sh 'echo "Soil moisture monitor simulator port: ${MONITOR_SIMULATOR_PORT}"'
             }
@@ -78,6 +83,11 @@ pipeline {
                 sh 'sh push-version.sh'
             }
         } 
+        stage('CleanWSEnd') {
+            steps {
+                deleteDir()
+            }
+        }
     }
     post {
         success() {
@@ -90,6 +100,7 @@ pipeline {
         }
         failure() {
           sh 'sh rollback.sh'
+          deleteDir()
           emailext (
               subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
