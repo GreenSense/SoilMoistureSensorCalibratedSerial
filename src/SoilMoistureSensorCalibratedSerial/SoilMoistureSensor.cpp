@@ -33,10 +33,10 @@ int wetSoilMoistureCalibrationValue = (reverseSoilMoistureSensor ? ANALOG_MAX : 
 
 #define soilMoistureSensorIsCalibratedFlagAddress 1
 #define drySoilMoistureCalibrationValueAddress 2
-#define wetSoilMoistureCalibrationValueAddress 6
+#define wetSoilMoistureCalibrationValueAddress 7
 
-#define soilMoistureSensorReadIntervalIsSetFlagAddress 10
-#define soilMoistureSensorReadingIntervalAddress 13
+#define soilMoistureSensorReadIntervalIsSetFlagAddress 11
+#define soilMoistureSensorReadingIntervalAddress 12
 
 /* Setup */
 void setupSoilMoistureSensor()
