@@ -49,6 +49,7 @@ void loop()
 void serialPrintDeviceInfo()
 {
   Serial.println("");
+  Serial.println("-- Start Device Info");
   Serial.println("Family: GreenSense");
   Serial.println("Group: monitor");
   Serial.println("Project: SoilMoistureSensorCalibratedSerial");
@@ -56,6 +57,8 @@ void serialPrintDeviceInfo()
   Serial.println(BOARD_TYPE);
   Serial.print("Version: ");
   Serial.println(VERSION);
+  Serial.println("ScriptCode: soil-moisture-monitor");
+  Serial.println("-- End Device Info");
   Serial.println("");
 }
 
