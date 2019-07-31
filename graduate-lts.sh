@@ -8,7 +8,7 @@ sh clean.sh || exit 1
 
 echo ""
 echo "  Fetching from origin..."
-git fetch origin --all || exit 1
+git fetch origin || exit 1
 
 if [ "$BRANCH" = "dev" ];  then
   echo "  Currently in dev branch. Checking out master branch..."
