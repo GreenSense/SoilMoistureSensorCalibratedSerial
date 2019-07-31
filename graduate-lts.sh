@@ -21,7 +21,7 @@ fi
 
 echo ""
 echo "  Merging the lts branch into the master branch..."
-git merge -X ours lts || exit 1
+git merge -X ours origin/lts || exit 1
 
 echo ""
 echo "  Checking out the lts branch..."
@@ -33,7 +33,7 @@ git checkout lts || exit 1
 
 echo ""
 echo "  Merging the master branch into the lts branch..."
-git merge -X theirs master || exit 1
+git merge -X theirs origin/master || exit 1
 
 echo ""
 echo "  Pushing the updated lts branch to origin..."
