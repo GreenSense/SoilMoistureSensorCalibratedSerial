@@ -8,14 +8,8 @@ if [ "$BRANCH" = "dev" ];  then
   echo "  Fetching from origin..."
   git fetch origin || exit 1
 
-  # Pull the master branch into the dev branch
-#  git pull origin master --quiet && \
-
   echo "  Checking out master branch..."
   git checkout master || exit 1
-
-#  # Ensure it's up to date
-#  git pull origin master && \
 
   echo "  Merging dev branch into master branch..."
   git merge -X theirs origin/dev || exit 1

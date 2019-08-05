@@ -15,10 +15,6 @@ if [ "$BRANCH" = "dev" ];  then
   git checkout master || exit 1
 fi
 
-#echo ""
-#echo "Pulling the master branch from origin (to update it locally)..."
-#git pull origin master || exit 1
-
 echo ""
 echo "  Merging the lts branch into the master branch..."
 git merge -X ours origin/lts || exit 1
@@ -26,10 +22,6 @@ git merge -X ours origin/lts || exit 1
 echo ""
 echo "  Checking out the lts branch..."
 git checkout lts || exit 1
-
-#echo ""
-#echo "  Pulling the lts branch from origin (to update it locally)..."
-#git pull origin lts || exit 1
 
 echo ""
 echo "  Merging the master branch into the lts branch..."
