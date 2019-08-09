@@ -8,7 +8,7 @@ extern long serialOutputIntervalInSeconds;
 
 extern bool isDebugMode;
 
-extern int loopNumber;
+extern long loopNumber;
 
 void serialPrintLoopHeader();
 void serialPrintLoopFooter();
