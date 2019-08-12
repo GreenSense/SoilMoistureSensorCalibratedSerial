@@ -88,7 +88,7 @@ void takeSoilMoistureSensorReading()
     if (isDebugMode)
       Serial.println("Sensor reading is due");
 
-  	bool sensorGetsTurnedOff = secondsToMilliseconds(soilMoistureSensorReadingIntervalInSeconds) > delayAfterTurningSoilMoistureSensorOn;
+  	bool sensorGetsTurnedOff = secondsToMilliseconds(soilMoistureSensorReadingIntervalInSeconds) >= delayAfterTurningSoilMoistureSensorOn;
   
   	bool sensorIsOffAndNeedsToBeTurnedOn = !soilMoistureSensorIsOn && sensorGetsTurnedOff;
   

@@ -136,7 +136,7 @@ void serialPrintData()
     if (isDebugMode)
       Serial.println("Ready to serial print data");
   
-    long numberOfSecondsOnline = millis()/1000;
+    //long numberOfSecondsOnline = millis()/1000;
 
     // TODO: Remove if not needed. Should be obsolete.
     //if (serialMode == SERIAL_MODE_CSV)
