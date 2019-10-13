@@ -5,25 +5,25 @@ A sketch for a calibrated arduino soil moisture sensor which outputs data via se
 
 |    | master | dev |
 | ------------- | ------------- | ------------- |
-| Travis CI Build  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial.svg?branch=master)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial)  | [![Build Status](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial.svg?branch=dev)](https://travis-ci.org/GreenSense/SoilMoistureSensorCalibratedSerial)  |
-| Jenkins Hardware Test  | [![Build Status](http://greensense.hopto.org:8080/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/master/badge/icon)](http:/greensense.hopto.org:8080/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/master/)  | [![Build Status](http://greensense.hopto.org:8080/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/dev/badge/icon)](http:/greensense.hopto.org:8080/job/GreenSense/job/SoilMoistureSensorCalibratedSerial/job/dev/)  |
+| Travis CI Build  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial.svg?branch=master)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial)  | [![Build Status](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial.svg?branch=dev)](https://travis-ci.org/GrowSense/SoilMoistureSensorCalibratedSerial)  |
+| Jenkins Hardware Test  | [![Build Status](http://greensense.hopto.org:8080/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/master/badge/icon)](http:/greensense.hopto.org:8080/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/master/)  | [![Build Status](http://greensense.hopto.org:8080/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/dev/badge/icon)](http:/greensense.hopto.org:8080/job/GrowSense/job/SoilMoistureSensorCalibratedSerial/job/dev/)  |
 
 ## Clone the Index
-If you intend to use more than one software component from the GreenSense group it is recommended you clone the entire index.
+If you intend to use more than one software component from the GrowSense group it is recommended you clone the entire index.
 This repository is included as a submodule along with a number of others you may need, or find useful.
 
 You can find it here:
-https://github.com/GreenSense/Index
+https://github.com/GrowSense/Index
 
 To clone the index run:
 
 ```
-git clone --recursive git://github.com/GreenSense/Index.git GreenSense/Index
+git clone --recursive git://github.com/GrowSense/Index.git GrowSense/Index
 ```
 
 Then navigate to the directory:
 ```
-cd GreenSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial
+cd GrowSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial
 ```
 
 ## Clone this Repository Only
@@ -32,17 +32,17 @@ To clone this repository only choose either...
 ### Using the same directory structure as the index (recommended):
 
 ```
-git clone https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git GreenSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial
+git clone https://github.com/GrowSense/SoilMoistureSensorCalibratedSerial.git GrowSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial
 ```
 Then navigate to the directory:
 ```
-cd GreenSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial
+cd GrowSense/Index/sketches/monitor/SoilMoistureSensorCalibratedSerial
 ```
 
 ### Using the current directory:
 
 ```
-git clone https://github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git
+git clone https://github.com/GrowSense/SoilMoistureSensorCalibratedSerial.git
 ```
 
 ## Prepare and Initialize

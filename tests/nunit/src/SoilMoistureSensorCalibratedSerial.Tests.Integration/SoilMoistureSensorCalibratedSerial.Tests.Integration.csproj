@@ -45,7 +45,7 @@
     <Compile Include="FullScaleMonitorTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HardwareTestHelper.cs" />
-    <Compile Include="GreenSenseHardwareTestHelper.cs" />
+    <Compile Include="GrowSenseHardwareTestHelper.cs" />
     <Compile Include="FullScaleMonitorTestHelper.cs" />
     <Compile Include="SoilMoistureSensorPowerTestFixture.cs" />
     <Compile Include="SoilMoistureSensorPowerTestHelper.cs" />

@@ -3,7 +3,7 @@ using System.Threading;
 using NUnit.Framework;
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
-	public class SoilMoistureSensorPowerTestHelper : GreenSenseHardwareTestHelper
+	public class SoilMoistureSensorPowerTestHelper : GrowSenseHardwareTestHelper
 	{
 		public int ReadInterval = 1;
 

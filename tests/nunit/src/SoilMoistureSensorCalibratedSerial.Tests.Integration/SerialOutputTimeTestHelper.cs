@@ -1,7 +1,7 @@
 ﻿using System;
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
-	public class SerialOutputTimeTestHelper : GreenSenseHardwareTestHelper
+	public class SerialOutputTimeTestHelper : GrowSenseHardwareTestHelper
 	{
 		public int ReadInterval = 1;
 
