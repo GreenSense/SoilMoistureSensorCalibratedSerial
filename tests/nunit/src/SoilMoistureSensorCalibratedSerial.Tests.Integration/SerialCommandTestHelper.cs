@@ -2,7 +2,7 @@
 
 namespace SoilMoistureSensorCalibratedSerial.Tests.Integration
 {
-    public class SerialCommandTestHelper : GreenSenseHardwareTestHelper
+    public class SerialCommandTestHelper : GrowSenseHardwareTestHelper
     {
         public string Letter = "";
         public int Value = 0;

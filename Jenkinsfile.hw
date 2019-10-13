@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GreenSense/SoilMoistureSensorCalibratedSerial.git .' )
+                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/GrowSense/SoilMoistureSensorCalibratedSerial.git .' )
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
                 sh 'git config --global user.email "compulsivecoder@gmail.com"'
